@@ -67,9 +67,8 @@ enumDecl
 	;
 
 methodDecl
-	: NEWLINE* rpc? 'static'? 'func' IDENTIFIER '(' parList? ')' (
-		'->' typeHint
-	)? ':' stmtOrSuite
+	: NEWLINE* rpc? 'static'? 'func' NEWLINE* IDENTIFIER '(' parList? ')' (
+		'->' typeHint)? ':' stmtOrSuite
 	;
 parList
 	: parameter (',' NEWLINE* parameter)*
@@ -100,8 +99,8 @@ innerClass
 	;
 
 stmtOrSuite
-	: stmt*
-	| NEWLINE INDENT suite DEDENT
+	: NEWLINE* stmt*
+	| NEWLINE* INDENT suite DEDENT
 	;
 suite
 	: stmt+
@@ -240,8 +239,8 @@ expression
 	| expression NEWLINE? ('<' | '>' | '<=' | '>=' | '==' | '!=') NEWLINE? expression	# comparison
 	| expression 'in' expression									# in
 	| ('!' | 'not') expression										# logicNot
-	| expression ('and' | '&&') expression							# logicAnd
-	| expression ('or' | '||') expression							# logicOr
+	| expression NEWLINE* ('and' | '&&') NEWLINE* expression							# logicAnd
+	| expression NEWLINE* ('or' | '||') NEWLINE* expression							# logicOr
 	| expression 'if' expression 'else' expression					# ternacyExpr
 	| expression 'as' typeHint										# cast
 	;

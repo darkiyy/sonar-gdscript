@@ -129,7 +129,7 @@ fragment HEX
 	: [0-9a-fA-F]
 	;
 FLOAT
-	: DEC? '.' DEC? ([eE] [+-] DEC)?
+	: DEC* '.' DEC* ([eE] [+-] DEC)?
 	| DEC [eE] [+-] DEC
 	;
 

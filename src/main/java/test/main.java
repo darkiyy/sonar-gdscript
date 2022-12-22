@@ -1,8 +1,10 @@
 package test;
 import gdscript_language.*;
+import gdscript_language.listener.LogicListener;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,27 +30,18 @@ public class main {
             CharStream x = CharStreams.fromString(sb.toString());
             GDScriptLexer y = new GDScriptLexer(x);
 
+            ParseTreeWalker cocks = new ParseTreeWalker();
 
 
             CommonTokenStream tokens = new CommonTokenStream(y);
 
 
             GDScriptParser parser = new GDScriptParser(tokens);
-            for(GDScriptParser.TopLevelDeclContext topLvlCont: parser.program().topLevelDecl())
-            {
-                if(topLvlCont.enumDecl() != null && topLvlCont.enumDecl().start.getLine() == topLvlCont.enumDecl().stop.getLine())
-                {
-                    int size = topLvlCont.enumDecl().children.size();
-                    String lastChild = topLvlCont.enumDecl().children.get(size-2).getText();
-                    int line = topLvlCont.enumDecl().start.getLine();
-                    System.out.println(lastChild);
-                    if(lastChild.equals(","))
-                    {
-
-                    }
-                }
+            LogicListener listener = new LogicListener();
+            cocks.walk(listener, parser.program());
+            for (GDScriptParser.LogicAndContext context: listener.getLogicAndContexts()){
+                System.out.println(context.LOGIC_AND());
             }
-
 
         }
         catch(Exception ex)

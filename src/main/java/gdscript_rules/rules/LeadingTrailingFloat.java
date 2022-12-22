@@ -1,7 +1,8 @@
-package gdscript_rules;
+package gdscript_rules.rules;
 
 import gdscript_language.GDScriptLexer;
 import gdscript_language.GDScriptParser;
+import gdscript_rules.FlagLineRule;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;

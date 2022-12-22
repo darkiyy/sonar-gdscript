@@ -10,3 +10,7 @@ sonar-example-plugin.iml
 .classpath
 .project
 .settings/
+
+ANTLR4-GDScript/*.interp
+ANTLR4-GDScript/*.java
+ANTLR4-GDScript/*.tokens

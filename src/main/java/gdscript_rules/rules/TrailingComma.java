@@ -1,7 +1,8 @@
-package gdscript_rules;
+package gdscript_rules.rules;
 
 import gdscript_language.GDScriptLexer;
 import gdscript_language.GDScriptParser;
+import gdscript_rules.FlagLineRule;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -11,9 +12,9 @@ import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
 
-@Rule(key = TrailingCommaSingeLineList.RULE_KEY, name = "Trailing comma in single-line lists", description = "Trailing commas are unnecessary in single-line lists, so don't add them in this case")
-public class TrailingCommaSingeLineList implements FlagLineRule {
-    public static final String RULE_KEY = "TrailingCommaSingeLineList";
+@Rule(key = TrailingComma.RULE_KEY, name = "Trailing comma in lists", description = "Use a trailing comma on the last line in arrays, dictionaries, and enums. This results in easier refactoring and better diffs in version control as the last line doesn't need to be modified when adding new elements.")
+public class TrailingComma implements FlagLineRule {
+    public static final String RULE_KEY = "TrailingComma";
 
     @Override
     public void execute(SensorContext sensorContext, InputFile file, RuleKey ruleKey) {
@@ -26,13 +27,13 @@ public class TrailingCommaSingeLineList implements FlagLineRule {
 
             for(GDScriptParser.TopLevelDeclContext topLvlCont: parser.program().topLevelDecl())
             {
-                if(topLvlCont.enumDecl() != null && topLvlCont.enumDecl().start.getLine() == topLvlCont.enumDecl().stop.getLine())
+                if(topLvlCont.enumDecl() != null && topLvlCont.enumDecl().start.getLine() != topLvlCont.enumDecl().stop.getLine())
                 {
                     int size = topLvlCont.enumDecl().children.size();
                     String lastChild = topLvlCont.enumDecl().children.get(size-2).getText();
-                    int line = topLvlCont.enumDecl().start.getLine();
+                    int line = topLvlCont.enumDecl().stop.getLine();
 
-                    if(lastChild.equals(","))
+                    if(!lastChild.equals(","))
                     {
                         NewIssue newIssue = sensorContext.newIssue();
                         newIssue
