@@ -1,9 +1,6 @@
 package gdscript_rules;
 
-import gdscript_rules.rules.BooleanOperators;
-import gdscript_rules.rules.LeadingTrailingFloat;
-import gdscript_rules.rules.TrailingComma;
-import gdscript_rules.rules.TrailingCommaSingeLineList;
+import gdscript_rules.rules.*;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.rule.CheckFactory;
@@ -19,11 +16,16 @@ public class FlagLineSensor implements Sensor {
     public FlagLineSensor(CheckFactory checkFactory) {
         checks = checkFactory.create(FlagLineRuleDefinition.REPO_KEY);
         checks.addAnnotatedChecks(
-                LeadingTrailingFloat.class,
-                TrailingCommaSingeLineList.class,
-                TrailingComma.class,
-                BooleanOperators.class
-                );
+            LeadingTrailingFloat.class,
+            TrailingCommaSingeLineList.class,
+            TrailingComma.class,
+            BooleanOperators.class,
+            UnnecessaryParentheses.class,
+            HexNumbersSmall.class,
+            UseUnderScoreOnLargeNumbers.class,
+            ConstantUpperCase.class,
+            EnumerationsUppercase.class
+        );
     }
 
     @Override

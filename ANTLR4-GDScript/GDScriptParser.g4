@@ -6,7 +6,7 @@ options {
 }
 
 program
-	: ((inheritance NEWLINE) | className)* topLevelDecl* NEWLINE? EOF
+	: ((inheritance NEWLINE) | className)* topLevelDecl* NEWLINE* EOF
 	;
 
 inheritance
@@ -127,9 +127,9 @@ stmtEnd
 	;
 
 ifStmt
-	: NEWLINE* 'if' NEWLINE* expression NEWLINE* ':' NEWLINE* stmtOrSuite (NEWLINE*
+	: NEWLINE* 'if' NEWLINE* OPEN_PAREN* expression CLOSE_PAREN* NEWLINE* ':' NEWLINE* stmtOrSuite (NEWLINE*
 		'elif' NEWLINE* expression ':' NEWLINE* stmtOrSuite
-	)* (NEWLINE* 'else' NEWLINE* ':' NEWLINE* stmtOrSuite)?
+	)* (NEWLINE* 'else' NEWLINE* ':' NEWLINE* stmtOrSuite)? NEWLINE*
 	;
 whileStmt
 	: NEWLINE* 'while' NEWLINE*  expression NEWLINE* ':' NEWLINE* stmtOrSuite

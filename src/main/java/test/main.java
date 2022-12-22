@@ -1,6 +1,7 @@
 package test;
 import gdscript_language.*;
-import gdscript_language.listener.LogicListener;
+import gdscript_language.listener.*;
+import gdscript_rules.rules.FileParserCreator;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -29,20 +30,17 @@ public class main {
 
             CharStream x = CharStreams.fromString(sb.toString());
             GDScriptLexer y = new GDScriptLexer(x);
-
-            ParseTreeWalker cocks = new ParseTreeWalker();
-
-
+            ParseTreeWalker walker = new ParseTreeWalker();
             CommonTokenStream tokens = new CommonTokenStream(y);
-
-
             GDScriptParser parser = new GDScriptParser(tokens);
-            LogicListener listener = new LogicListener();
-            cocks.walk(listener, parser.program());
-            for (GDScriptParser.LogicAndContext context: listener.getLogicAndContexts()){
-                System.out.println(context.LOGIC_AND());
-            }
 
+            GDScriptEnumListener listener = new GDScriptEnumListener();
+
+            walker.walk(listener, parser.program());
+
+            for (GDScriptParser.EnumDeclContext context: listener.getEnumDecl()){
+                System.out.println(context.IDENTIFIER(0));
+            }
         }
         catch(Exception ex)
         {

@@ -1,5 +1,4 @@
 package gdscript_language;
-import gdscript_rules.rules.BooleanOperators;
 import gdscript_rules.rules.*;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
 
@@ -21,6 +20,22 @@ public class GDScriptQualityProfile implements BuiltInQualityProfilesDefinition{
 
         NewBuiltInActiveRule BooleanOperatorsRule = profile.activateRule(REPO_KEY, BooleanOperators.RULE_KEY);
         BooleanOperatorsRule.overrideSeverity("BLOCKER");
+
+        NewBuiltInActiveRule UnnecessaryParenthesesRule = profile.activateRule(REPO_KEY, UnnecessaryParentheses.RULE_KEY);
+        UnnecessaryParenthesesRule.overrideSeverity("BLOCKER");
+
+        NewBuiltInActiveRule HexNumbersSmallRule = profile.activateRule(REPO_KEY, HexNumbersSmall.RULE_KEY);
+        HexNumbersSmallRule.overrideSeverity("BLOCKER");
+
+        NewBuiltInActiveRule UseUnderScoreOnLargeNumbersRule = profile.activateRule(REPO_KEY, UseUnderScoreOnLargeNumbers.RULE_KEY);
+        UseUnderScoreOnLargeNumbersRule.overrideSeverity("BLOCKER");
+
+        NewBuiltInActiveRule ConstantUpperCaseRule = profile.activateRule(REPO_KEY, ConstantUpperCase.RULE_KEY);
+        ConstantUpperCaseRule.overrideSeverity("BLOCKER");
+
+        NewBuiltInActiveRule EnumerationsUppercaseRule = profile.activateRule(REPO_KEY, EnumerationsUppercase.RULE_KEY);
+        ConstantUpperCaseRule.overrideSeverity("BLOCKER");
+
         profile.done();
     }
 

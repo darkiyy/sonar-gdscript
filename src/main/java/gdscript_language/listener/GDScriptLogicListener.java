@@ -4,7 +4,7 @@ import gdscript_language.GDScriptParser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogicListener extends GDScriptParserBaseListener{
+public class GDScriptLogicListener extends GDScriptParserBaseListener{
 
     private List<GDScriptParser.LogicAndContext> logicAnd = new ArrayList<>();
 

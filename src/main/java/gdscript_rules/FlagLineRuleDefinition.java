@@ -2,10 +2,7 @@ package gdscript_rules;
 
 import gdscript_language.GDScriptLanguage;
 
-import gdscript_rules.rules.BooleanOperators;
-import gdscript_rules.rules.LeadingTrailingFloat;
-import gdscript_rules.rules.TrailingComma;
-import gdscript_rules.rules.TrailingCommaSingeLineList;
+import gdscript_rules.rules.*;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
 
@@ -24,6 +21,11 @@ public final class FlagLineRuleDefinition implements RulesDefinition {
         rulesDefinitionAnnotationLoader.load(repository, TrailingCommaSingeLineList.class);
         rulesDefinitionAnnotationLoader.load(repository, TrailingComma.class);
         rulesDefinitionAnnotationLoader.load(repository, BooleanOperators.class);
+        rulesDefinitionAnnotationLoader.load(repository, UnnecessaryParentheses.class);
+        rulesDefinitionAnnotationLoader.load(repository, HexNumbersSmall.class);
+        rulesDefinitionAnnotationLoader.load(repository, UseUnderScoreOnLargeNumbers.class);
+        rulesDefinitionAnnotationLoader.load(repository, ConstantUpperCase.class);
+        rulesDefinitionAnnotationLoader.load(repository, EnumerationsUppercase.class);
         repository.done();
     }
 
