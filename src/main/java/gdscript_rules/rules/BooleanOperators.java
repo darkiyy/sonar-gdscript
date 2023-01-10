@@ -10,13 +10,7 @@ import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
 
-@Rule(key = BooleanOperators.RULE_KEY, name = "Use the English versions of the boolean operators", description = "Prefer the plain English versions of boolean operators, as they are the most accessible:\n" +
-        "\n" +
-        "    Use and instead of &&.\n" +
-        "\n" +
-        "    Use or instead of ||.\n" +
-        "\n" +
-        "You may also use parentheses around boolean operators to clear any ambiguity. This can make long expressions easier to read.")
+@Rule(key = BooleanOperators.RULE_KEY)
 
 public class BooleanOperators implements FlagLineRule {
     public static final String RULE_KEY = "BooleanOperators";
@@ -35,11 +29,11 @@ public class BooleanOperators implements FlagLineRule {
                 int line = context.start.getLine();
                 NewIssue newIssue = sensorContext.newIssue();
                 newIssue
-                        .forRule(ruleKey)
-                        .at(newIssue.newLocation()
-                                .on(file)
-                                .at(file.selectLine(line)))
-                        .save();
+                .forRule(ruleKey)
+                .at(newIssue.newLocation()
+                    .on(file)
+                    .at(file.selectLine(line)))
+                .save();
             }
         }
 
@@ -48,11 +42,11 @@ public class BooleanOperators implements FlagLineRule {
                 int line = context.start.getLine();
                 NewIssue newIssue = sensorContext.newIssue();
                 newIssue
-                        .forRule(ruleKey)
-                        .at(newIssue.newLocation()
-                                .on(file)
-                                .at(file.selectLine(line)))
-                        .save();
+                    .forRule(ruleKey)
+                    .at(newIssue.newLocation()
+                        .on(file)
+                        .at(file.selectLine(line)))
+                    .save();
             }
 
         }

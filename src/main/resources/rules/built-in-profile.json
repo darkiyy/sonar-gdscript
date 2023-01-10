@@ -1,0 +1,14 @@
+{
+  "name": "GDScript",
+  "ruleKeys": [
+    "BooleanOperators",
+    "ConstantUpperCase",
+    "EnumerationsUppercase",
+    "HexNumbersSmall",
+    "LeadingTrailingFloat",
+    "TrailingComma",
+    "TrailingCommaSingeLineList",
+    "UnnecessaryParentheses",
+    "UseUnderScoreOnLargeNumbers"
+  ]
+}

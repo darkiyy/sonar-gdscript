@@ -1,0 +1,16 @@
+{
+  "title": "Write constants with CONSTANT_CASE",
+  "type": "CODE_SMELL",
+  "description": "Write constants with CONSTANT_CASE, that is to say in all caps with an underscore (_) to separate words",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+
+  ],
+  "defaultSeverity": "Critical",
+  "sqKey": "ConstantUpperCase",
+  "scope": "All"
+}

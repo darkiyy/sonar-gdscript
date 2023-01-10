@@ -1,7 +1,6 @@
 package test;
 import gdscript_language.*;
 import gdscript_language.listener.*;
-import gdscript_rules.rules.FileParserCreator;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -15,7 +14,7 @@ import java.io.InputStreamReader;
 public class main {
     public static void main(String[] args){
         try {
-            File file = new File("/home/gott/Dokumente/test/Test.txt");
+            File file = new File("/home/gott/Dokumente/test/test.txt");
             StringBuilder sb = new StringBuilder();
             if (file.exists()) {
                 FileInputStream fis = new FileInputStream(file);
@@ -34,12 +33,24 @@ public class main {
             CommonTokenStream tokens = new CommonTokenStream(y);
             GDScriptParser parser = new GDScriptParser(tokens);
 
-            GDScriptEnumListener listener = new GDScriptEnumListener();
-
+            GDScriptIfStmtListener listener = new GDScriptIfStmtListener();
             walker.walk(listener, parser.program());
 
-            for (GDScriptParser.EnumDeclContext context: listener.getEnumDecl()){
-                System.out.println(context.IDENTIFIER(0));
+
+            for (GDScriptParser.IfStmtContext context: listener.getLogicAndContexts()){
+                if(context.OPEN_PAREN().size() != 0){
+                    int line = context.start.getLine();
+                }
+            }
+
+            GDScriptWhileStmtListener listener2 = new GDScriptWhileStmtListener();
+            parser.reset();
+            ParseTreeWalker walker2 = new ParseTreeWalker();
+            walker2.walk(listener2, parser.program());
+
+            for (GDScriptParser.WhileStmtContext context: listener2.getWhileContexts()){
+
+                System.out.println("Cock");
             }
         }
         catch(Exception ex)

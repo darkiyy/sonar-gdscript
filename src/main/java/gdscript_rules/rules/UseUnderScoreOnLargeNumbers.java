@@ -1,8 +1,6 @@
 package gdscript_rules.rules;
 
 import gdscript_language.GDScriptParser;
-import gdscript_language.listener.GDScriptAssigmentStmtListener;
-import gdscript_language.listener.GDScriptIfStmtListener;
 import gdscript_language.listener.GDScriptIntegerListener;
 import gdscript_rules.FlagLineRule;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
@@ -11,7 +9,7 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
-@Rule(key = UseUnderScoreOnLargeNumbers.RULE_KEY, name = "Use underscore on large numbers", description = "Take advantage of GDScript's underscores in literals to make large numbers more readable.")
+@Rule(key = UseUnderScoreOnLargeNumbers.RULE_KEY)
 public class UseUnderScoreOnLargeNumbers implements FlagLineRule {
     public static final String RULE_KEY = "UseUnderScoreOnLargeNumbers";
 
@@ -51,6 +49,5 @@ public class UseUnderScoreOnLargeNumbers implements FlagLineRule {
                 }
             }
         }
-
     }
 }

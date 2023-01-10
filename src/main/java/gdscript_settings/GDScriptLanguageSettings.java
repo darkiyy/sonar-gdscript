@@ -8,7 +8,7 @@ import static java.util.Arrays.asList;
 public class GDScriptLanguageSettings {
     public static final String FILE_SUFFIXES_KEY = "sonar.gdscript.file.suffixes";
     public static final String FILE_SUFFIXES_DEFAULT_VALUE = ".gd";
-
+    public static final String RULE_BASE_PATH = "rules";
     private GDScriptLanguageSettings() {
         // only statics
     }

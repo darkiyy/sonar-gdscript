@@ -1,0 +1,16 @@
+{
+  "title": "Whitespace missing around operators",
+  "type": "CODE_SMELL",
+  "description": "Always use one space around operators and after commas. Also, avoid extra spaces in dictionary references and function calls.",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+
+  ],
+  "defaultSeverity": "Critical",
+  "sqKey": "WhiteSpaceAssignment",
+  "scope": "All"
+}

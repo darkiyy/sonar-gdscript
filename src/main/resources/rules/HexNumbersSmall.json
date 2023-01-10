@@ -1,0 +1,16 @@
+{
+  "title": "Write hexadecimal numbers in lowercase",
+  "type": "CODE_SMELL",
+  "description": "Use lowercase for letters in hexadecimal numbers, as their lower height makes the number easier to read",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+
+  ],
+  "defaultSeverity": "Critical",
+  "sqKey": "HexNumbersSmall",
+  "scope": "All"
+}

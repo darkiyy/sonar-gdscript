@@ -8,7 +8,7 @@ import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
 
-@Rule(key = TrailingComma.RULE_KEY, name = "Trailing comma in lists", description = "Use a trailing comma on the last line in arrays, dictionaries, and enums. This results in easier refactoring and better diffs in version control as the last line doesn't need to be modified when adding new elements.")
+@Rule(key = TrailingComma.RULE_KEY)
 public class TrailingComma implements FlagLineRule {
     public static final String RULE_KEY = "TrailingComma";
 

@@ -8,7 +8,7 @@ import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
 
-@Rule(key = TrailingCommaSingeLineList.RULE_KEY, name = "Trailing comma in single-line lists", description = "Trailing commas are unnecessary in single-line lists, so don't add them in this case")
+@Rule(key = TrailingCommaSingeLineList.RULE_KEY)
 public class TrailingCommaSingeLineList implements FlagLineRule {
     public static final String RULE_KEY = "TrailingCommaSingeLineList";
 

@@ -1,0 +1,16 @@
+{
+  "title": "Avoid unnecessary parentheses",
+  "type": "CODE_SMELL",
+  "description": "Avoid parentheses in expressions and conditional statements. Unless necessary for order of operations or wrapping over multiple lines, they only reduce readability.",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+
+  ],
+  "defaultSeverity": "Critical",
+  "sqKey": "UnnecessaryParentheses",
+  "scope": "All"
+}

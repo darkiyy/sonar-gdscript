@@ -1,0 +1,16 @@
+{
+  "title": "Trailing comma in single-line lists",
+  "type": "CODE_SMELL",
+  "description": "Trailing commas are unnecessary in single-line lists, so don't add them in this case",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+
+  ],
+  "defaultSeverity": "Critical",
+  "sqKey": "TrailingCommaSingeLineList",
+  "scope": "All"
+}

@@ -10,7 +10,7 @@ import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
 
-@Rule(key = HexNumbersSmall.RULE_KEY, name = "Write hexadecimal numbers in lowercase", description = "Use lowercase for letters in hexadecimal numbers, as their lower height makes the number easier to read.")
+@Rule(key = HexNumbersSmall.RULE_KEY)
 public class HexNumbersSmall implements FlagLineRule {
     public static final String RULE_KEY = "HexNumbersSmall";
 
@@ -35,7 +35,8 @@ public class HexNumbersSmall implements FlagLineRule {
                     .forRule(ruleKey)
                     .at(newIssue.newLocation()
                             .on(file)
-                            .at(file.selectLine(line)))
+                            .at(file.selectLine(line))
+                        )
                     .save();
             }
         }

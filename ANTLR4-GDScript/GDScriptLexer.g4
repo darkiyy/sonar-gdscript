@@ -129,8 +129,9 @@ fragment HEX
 	: [0-9a-fA-F]
 	;
 FLOAT
-	: DEC* '.' DEC* ([eE] [+-] DEC)?
+	: DEC+ '.' DEC* ([eE] [+-] DEC)?
 	| DEC [eE] [+-] DEC
+	| DEC* '.' DEC+ ([eE] [+-] DEC)?
 	;
 
 DOT: '.';
@@ -146,8 +147,8 @@ MOD_ASSIGN: '%=';
 AND_ASSIGN: '&=';
 OR_ASSIGN: '|=';
 XOR_ASSIGN: '^=';
-OPEN_PAREN: '(' {openBrace();};
-CLOSE_PAREN: ')' {closeBrace();};
+OPEN_PAREN: '(' NEWLINE* {openBrace();};
+CLOSE_PAREN: NEWLINE* ')' {closeBrace();};
 OPEN_BRACE: '{' {openBrace();};
 CLOSE_BRACE: '}' {closeBrace();};
 ARROW: '->';

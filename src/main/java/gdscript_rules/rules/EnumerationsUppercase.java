@@ -9,7 +9,9 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
-@Rule(key = EnumerationsUppercase.RULE_KEY, name = "Use PascalCase für enum names", description = "Use PascalCase for enum names and CONSTANT_CASE for their members, as they are constants:")
+
+@Rule(key = EnumerationsUppercase.RULE_KEY)
+
 public class EnumerationsUppercase implements FlagLineRule {
     public static final String RULE_KEY = "EnumerationsUppercase";
 

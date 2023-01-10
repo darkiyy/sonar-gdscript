@@ -9,7 +9,7 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
-@Rule(key = ConstantUpperCase.RULE_KEY, name = "Write constants with CONSTANT_CASE", description = "Write constants with CONSTANT_CASE, that is to say in all caps with an underscore (_) to separate words")
+@Rule(key = ConstantUpperCase.RULE_KEY)
 public class ConstantUpperCase implements FlagLineRule {
     public static final String RULE_KEY = "ConstantUpperCase";
 

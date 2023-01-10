@@ -1,0 +1,16 @@
+{
+  "title": "void leading or trailing zero in floating-point numbers",
+  "type": "CODE_SMELL",
+  "description": "Don't omit the leading or trailing zero in floating-point numbers. Otherwise, this makes them less readable and harder to distinguish from integers at a glance.",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+
+  ],
+  "defaultSeverity": "Critical",
+  "sqKey": "LeadingTrailingFloat",
+  "scope": "All"
+}

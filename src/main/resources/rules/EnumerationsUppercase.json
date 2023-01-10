@@ -1,0 +1,16 @@
+{
+  "title": "Use PascalCase für enum names",
+  "type": "CODE_SMELL",
+  "description": "Use PascalCase for enum names and CONSTANT_CASE for their members, as they are constants:",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+
+  ],
+  "defaultSeverity": "Critical",
+  "sqKey": "EnumerationsUppercase",
+  "scope": "All"
+}

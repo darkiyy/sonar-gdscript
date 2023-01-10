@@ -8,4 +8,5 @@ import org.sonar.api.rule.RuleKey;
 public interface FlagLineRule {
 
     void execute(SensorContext sensorContext, InputFile file, RuleKey ruleKey);
+
 }

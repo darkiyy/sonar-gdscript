@@ -1,0 +1,16 @@
+{
+  "title": "Use the English versions of the boolean operators",
+  "type": "CODE_SMELL",
+  "description": "Prefer the plain English versions of boolean operators, as they are the most accessible",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+
+  ],
+  "defaultSeverity": "Critical",
+  "sqKey": "BooleanOperators",
+  "scope": "All"
+}

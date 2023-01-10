@@ -1,0 +1,16 @@
+{
+  "title": "Use underscore on large numbers",
+  "type": "CODE_SMELL",
+  "description": "Take advantage of GDScript's underscores in literals to make large numbers more readable.",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+
+  ],
+  "defaultSeverity": "Critical",
+  "sqKey": "UseUnderScoreOnLargeNumbers",
+  "scope": "All"
+}

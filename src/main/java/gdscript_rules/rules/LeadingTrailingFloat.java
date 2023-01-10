@@ -8,13 +8,12 @@ import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
 
-@Rule(key = LeadingTrailingFloat.RULE_KEY, name = "Avoid leading or trailing zero in floating-point numbers", description = "Don't omit the leading or trailing zero in floating-point numbers. Otherwise, this makes them less readable and harder to distinguish from integers at a glance.")
+@Rule(key = LeadingTrailingFloat.RULE_KEY)
 public class LeadingTrailingFloat implements FlagLineRule {
     public static final String RULE_KEY = "LeadingTrailingFloat";
 
     @Override
     public void execute(SensorContext sensorContext, InputFile file, RuleKey ruleKey) {
-
         GDScriptParser parser = FileParserCreator.createParser(file);
         try
         {
@@ -28,7 +27,8 @@ public class LeadingTrailingFloat implements FlagLineRule {
                             .forRule(ruleKey)
                             .at(newIssue.newLocation()
                                     .on(file)
-                                    .at(file.selectLine(classVarDec.start.getLine())))
+                                    .at(file.selectLine(classVarDec.start.getLine()))
+                            )
                             .save();
                 }
 
