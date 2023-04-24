@@ -27,12 +27,12 @@ public class UnnecessaryParentheses implements FlagLineRule {
 
         walker.walk(listener, parser.program());
 
-
+        /*
         for (GDScriptParser.IfStmtContext context: listener.getLogicAndContexts()){
             if(context.OPEN_PAREN().size() != 0){
                 IssuesContainer.createIssue(ruleKey, file, sensorContext, context);
             }
-        }
+        }*/
         parser.reset();
 
         WhileStmtListener whilelistener = new WhileStmtListener();
