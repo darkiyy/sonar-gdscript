@@ -12,6 +12,6 @@ public class GDScriptPlugin implements Plugin{
         context.addExtensions(GDScriptLanguage.class, GDScriptQualityProfile.class);
         context.addExtensions(GDScriptLanguageSettings.getProperties());
 
-        context.addExtensions(FlagLineRuleDefinition.class, FlagLineSensor.class, GDSCriptIssuesLoaderSensor.class);
+        context.addExtensions(FlagLineRuleDefinition.class, FlagLineSensor.class, GDScriptIssuesLoaderSensor.class);
     }
 }

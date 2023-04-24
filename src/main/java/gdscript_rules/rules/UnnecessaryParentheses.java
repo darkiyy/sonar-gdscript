@@ -1,8 +1,8 @@
 package gdscript_rules.rules;
 
 import gdscript_language.GDScriptParser;
-import gdscript_language.listener.GDScriptIfStmtListener;
-import gdscript_language.listener.GDScriptWhileStmtListener;
+import gdscript_language.listener.IfStmtListener;
+import gdscript_language.listener.WhileStmtListener;
 import gdscript_rules.FlagLineRule;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.sonar.api.batch.fs.InputFile;
@@ -21,7 +21,7 @@ public class UnnecessaryParentheses implements FlagLineRule {
 
         GDScriptParser parser = FileParserCreator.createParser(file);
 
-        GDScriptIfStmtListener listener = new GDScriptIfStmtListener();
+        IfStmtListener listener = new IfStmtListener();
         ParseTreeWalker walker = new ParseTreeWalker();
 
         walker.walk(listener, parser.program());
@@ -42,7 +42,7 @@ public class UnnecessaryParentheses implements FlagLineRule {
         }
         parser.reset();
 
-        GDScriptWhileStmtListener whilelistener = new GDScriptWhileStmtListener();
+        WhileStmtListener whilelistener = new WhileStmtListener();
         walker.walk(whilelistener, parser.program());
 
         for (GDScriptParser.WhileStmtContext context: whilelistener.getWhileContexts()){

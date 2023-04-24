@@ -4,7 +4,7 @@ import gdscript_language.GDScriptParser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GDScriptIfStmtListener extends GDScriptParserBaseListener {
+public class IfStmtListener extends GDScriptParserBaseListener {
     private List<GDScriptParser.IfStmtContext> ifStmts = new ArrayList<>();
 
     @Override public void enterIfStmt(GDScriptParser.IfStmtContext ctx) {

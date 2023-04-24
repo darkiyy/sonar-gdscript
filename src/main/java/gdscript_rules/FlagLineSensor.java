@@ -10,8 +10,10 @@ import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import gdscript_language.GDScriptLanguage;
-import org.sonar.api.batch.sensor.measure.NewMeasure;
 import org.sonar.api.measures.CoreMetrics;
+
+import static gdscript_language.listener.MethodDeclListener.getMethodCount;
+import static gdscript_language.listener.NormalStmtListener.getStatementCount;
 
 public class FlagLineSensor implements Sensor {
 
@@ -38,8 +40,10 @@ public class FlagLineSensor implements Sensor {
                 String fileContents = inputFile.contents();
                 int lineCount = StringUtils.countMatches(fileContents, "\n");
 
-                NewMeasure<Integer> fileSize = context.newMeasure();
                 MetricContainer.saveMeasure(context, inputFile, CoreMetrics.NCLOC, lineCount);
+                MetricContainer.saveMeasure(context, inputFile, CoreMetrics.FUNCTIONS, getMethodCount(inputFile));
+                MetricContainer.saveMeasure(context, inputFile, CoreMetrics.COMMENT_LINES, 0); // Todo, using ANTLR4 pretty hard
+                MetricContainer.saveMeasure(context, inputFile, CoreMetrics.STATEMENTS, getStatementCount(inputFile));
             }
             catch(Exception ex)
             {
@@ -50,5 +54,6 @@ public class FlagLineSensor implements Sensor {
         }
 
     }
+
 }
 

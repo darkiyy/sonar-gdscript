@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<p>Use a trailing comma on the last line in arrays, dictionaries, and enums. This results in easier refactoring and better diffs in version control as the last line doesn't need to be modified when adding new elements.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+enum Tiles {
+    TILE_BRICK,
+    TILE_FLOOR,
+    TILE_SPIKE,
+    TILE_TELEPORT
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+enum Tiles {
+    TILE_BRICK,
+    TILE_FLOOR,
+    TILE_SPIKE,
+    TILE_TELEPORT,
+}
+</pre>
 
-</body>
-</html>

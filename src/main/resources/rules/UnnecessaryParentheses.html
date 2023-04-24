@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<p>Avoid parentheses in expressions and conditional statements. Unless necessary for order of operations or wrapping over multiple lines, they only reduce readability.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (is_colliding()):
+    queue_free()
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if is_colliding():
+    queue_free()
+</pre>
 
-</body>
-</html>

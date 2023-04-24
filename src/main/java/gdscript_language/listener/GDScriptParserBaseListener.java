@@ -1,5 +1,5 @@
-package gdscript_language.listener;// Generated from java-escape by ANTLR 4.11.1
-
+// Generated from java-escape by ANTLR 4.11.1
+package gdscript_language.listener;
 import gdscript_language.GDScriptParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;

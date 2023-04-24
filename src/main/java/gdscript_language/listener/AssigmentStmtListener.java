@@ -4,7 +4,7 @@ import gdscript_language.GDScriptParser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GDScriptAssigmentStmtListener extends GDScriptParserBaseListener {
+public class AssigmentStmtListener extends GDScriptParserBaseListener {
     private List<GDScriptParser.AssignmentStmtContext> asStmt = new ArrayList<>();
 
     @Override

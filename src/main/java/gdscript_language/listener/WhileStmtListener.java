@@ -4,7 +4,7 @@ import gdscript_language.GDScriptParser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GDScriptWhileStmtListener extends GDScriptParserBaseListener {
+public class WhileStmtListener extends GDScriptParserBaseListener {
     private List<GDScriptParser.WhileStmtContext> whileStmts = new ArrayList<>();
 
     @Override

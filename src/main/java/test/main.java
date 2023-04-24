@@ -10,6 +10,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Set;
 
 public class main {
     public static void main(String[] args){
@@ -32,25 +34,18 @@ public class main {
             ParseTreeWalker walker = new ParseTreeWalker();
             CommonTokenStream tokens = new CommonTokenStream(y);
             GDScriptParser parser = new GDScriptParser(tokens);
+            NormalStmtListener listener = new NormalStmtListener();
 
-            GDScriptIfStmtListener listener = new GDScriptIfStmtListener();
             walker.walk(listener, parser.program());
-
-
-            for (GDScriptParser.IfStmtContext context: listener.getLogicAndContexts()){
-                if(context.OPEN_PAREN().size() != 0){
-                    int line = context.start.getLine();
+            Set<Integer> lineSet = new HashSet<>();
+            Set<Integer> markedLines = new HashSet<>();
+            for(GDScriptParser.StmtContext context: listener.getStmts()){
+                int stmtLine = context.start.getLine();
+                if(!lineSet.add(stmtLine)){ //Sets do not allow duplicate values
+                    if(markedLines.add(stmtLine)){ //Only mark the line once
+                        System.out.println("Cock");
+                    }
                 }
-            }
-
-            GDScriptWhileStmtListener listener2 = new GDScriptWhileStmtListener();
-            parser.reset();
-            ParseTreeWalker walker2 = new ParseTreeWalker();
-            walker2.walk(listener2, parser.program());
-
-            for (GDScriptParser.WhileStmtContext context: listener2.getWhileContexts()){
-
-                System.out.println("Cock");
             }
         }
         catch(Exception ex)

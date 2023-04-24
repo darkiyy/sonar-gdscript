@@ -1,0 +1,20 @@
+<p>Never combine multiple statements on a single line. No, C programmers, not even with a single line conditional statement.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if position.x > width: position.x = 0
+
+if flag: print("flagged")
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if position.x > width:
+    position.x = 0
+
+if flag:
+    print("flagged")
+</pre>
+
+<p>The only exception to that rule is the ternary operator:</p>
+<pre>
+next_state = "fall" if not is_on_floor() else "idle"
+</pre>

@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<p>Don't omit the leading or trailing zero in floating-point numbers. Otherwise, this makes them less readable and harder to distinguish from integers at a glance.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var float_number = .234
+var other_float_number = 13.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var float_number = 0.234
+var other_float_number = 13.0
+</pre>
 
-</body>
-</html>

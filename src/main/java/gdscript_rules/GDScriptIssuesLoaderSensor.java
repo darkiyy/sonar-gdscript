@@ -18,8 +18,8 @@ import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import gdscript_language.GDScriptLanguage;
-public class GDSCriptIssuesLoaderSensor implements Sensor {
-    private static final Logger LOGGER = Loggers.get(GDSCriptIssuesLoaderSensor.class);
+public class GDScriptIssuesLoaderSensor implements Sensor {
+    private static final Logger LOGGER = Loggers.get(GDScriptIssuesLoaderSensor.class);
 
     protected static final String REPORT_PATH_KEY = "sonar.gdscript.reportPath";
 
@@ -27,7 +27,7 @@ public class GDSCriptIssuesLoaderSensor implements Sensor {
     protected final FileSystem fileSystem;
     protected SensorContext context;
 
-    public GDSCriptIssuesLoaderSensor(final Configuration config, final FileSystem fileSystem)
+    public GDScriptIssuesLoaderSensor(final Configuration config, final FileSystem fileSystem)
     {
         this.config = config;
         this.fileSystem = fileSystem;
@@ -61,7 +61,7 @@ public class GDSCriptIssuesLoaderSensor implements Sensor {
             try {
                 parseAndSaveResults(analysisResultsFile);
             } catch (XMLStreamException e) {
-                throw new IllegalStateException("Unable to parse the provided FooLint file", e);
+                throw new IllegalStateException("Unable to parse the provided GDScript file", e);
             }
         }
     }

@@ -4,7 +4,7 @@ import gdscript_language.GDScriptParser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GDScriptIntegerListener extends GDScriptParserBaseListener {
+public class IntegerListener extends GDScriptParserBaseListener {
 
     private List<GDScriptParser.LiteralContext> numbers = new ArrayList<>();
 

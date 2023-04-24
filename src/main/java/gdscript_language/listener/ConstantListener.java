@@ -4,7 +4,7 @@ import gdscript_language.GDScriptParser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GDScriptConstantListener extends GDScriptParserBaseListener {
+public class ConstantListener extends GDScriptParserBaseListener {
     private List<GDScriptParser.ConstDeclContext> constDecl = new ArrayList<>();
 
     @Override

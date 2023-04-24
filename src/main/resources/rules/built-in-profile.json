@@ -9,6 +9,8 @@
     "TrailingComma",
     "TrailingCommaSingeLineList",
     "UnnecessaryParentheses",
-    "UseUnderScoreOnLargeNumbers"
+    "UseUnderScoreOnLargeNumbers",
+    "LineLength",
+    "MultipleStmtsOneLine"
   ]
 }

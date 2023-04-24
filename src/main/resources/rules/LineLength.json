@@ -1,5 +1,5 @@
 {
-  "title": "Trailing comma in lists",
+  "title": "Too many characters in a single line",
   "type": "CODE_SMELL",
   "description": "Use a trailing comma on the last line in arrays, dictionaries, and enums. This results in easier refactoring and better diffs in version control as the last line doesn't need to be modified when adding new elements.",
   "status": "ready",
@@ -11,6 +11,6 @@
 
   ],
   "defaultSeverity": "Minor",
-  "sqKey": "TrailingComma",
+  "sqKey": "LineLength",
   "scope": "All"
 }

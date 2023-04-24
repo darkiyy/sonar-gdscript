@@ -70,7 +70,7 @@ enumDecl
 	;
 
 methodDecl
-	: NEWLINE* rpc? 'static'? 'func' NEWLINE* IDENTIFIER '(' parList? ')' (
+	: NEWLINE* rpc? 'static'?  NEWLINE* 'func' NEWLINE* IDENTIFIER '(' parList? ')' (
 		NEWLINE* '->' NEWLINE* typeHint)? ':' stmtOrSuite
 	;
 parList
@@ -167,10 +167,10 @@ arrayPattern
 	: '[' (pattern (',' pattern)* '..'?)? ']'
 	;
 dictPattern
-	: '{' keyValuePattern? (',' keyValuePattern)* '..'? '}'
+	: NEWLINE* '{' NEWLINE* keyValuePattern? NEWLINE* (',' NEWLINE* keyValuePattern? NEWLINE*)* '..'? '}'
 	;
 keyValuePattern
-	: STRING (':' pattern)?
+	: STRING NEWLINE* (':' NEWLINE* pattern)*
 	;
 
 flowStmt
@@ -208,7 +208,7 @@ yieldStmt
 	: 'yield' NEWLINE? '(' (expression ',' expression) ')'
 	;
 preloadStmt
-	: 'preload' NEWLINE? '(' CONSTANT ')'
+	: 'preload' NEWLINE? '(' (STRING | CONSTANT) ')'
 	;
 
 exprStmt
@@ -250,6 +250,8 @@ expression
 	| expression NEWLINE* ('or' | '||') NEWLINE* expression							# logicOr
 	| expression 'if' expression 'else' expression					# ternacyExpr
 	| expression 'as' typeHint										# cast
+	| preloadStmt								                    # call
+	| pattern								                        # primary
 	;
 
 literal

@@ -16,7 +16,9 @@ public class RulesList {
                 TrailingComma.class,
                 TrailingCommaSingeLineList.class,
                 UnnecessaryParentheses.class,
-                UseUnderScoreOnLargeNumbers.class
+                UseUnderScoreOnLargeNumbers.class,
+                LineLength.class,
+                MultipleStmtsOneLine.class
         );
     }
 }

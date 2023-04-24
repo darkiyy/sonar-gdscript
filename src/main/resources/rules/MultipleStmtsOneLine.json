@@ -1,7 +1,6 @@
 {
-  "title": "Trailing comma in single-line lists",
+  "title": "Multiple statements in one line",
   "type": "CODE_SMELL",
-  "description": "Trailing commas are unnecessary in single-line lists, so don't add them in this case",
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
@@ -11,6 +10,6 @@
 
   ],
   "defaultSeverity": "Minor",
-  "sqKey": "TrailingCommaSingeLineList",
+  "sqKey": "MultipleStmtsOneLine",
   "scope": "All"
 }

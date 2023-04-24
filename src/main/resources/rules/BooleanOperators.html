@@ -1,17 +1,17 @@
-<p>Functions with excessive parameters are difficult to use, as one needs to figure out what each parameter is.</p>
-<p>In many cases, the procedure can either be split into several smaller ones, or a better data structure can be
-    found.</p>
-<p>This rule verifies that each function has at most the given number of parameters.</p>
+<p>Prefer the plain English versions of boolean operators, as they are the most accessible:</p>
+<ul>
+    <li>Use and instead of &&.</li>
+    <li>Use or instead of ||.</li>
+</ul>
+<p>You may also use parentheses around boolean operators to clear any ambiguity. This can make long expressions easier to read.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
-fn nine_params_sum(p1 : i32, p2 : i32,p3 : i32,p4 : i32,p5 : i32,p6 : i32,p7 : i32,p8 : i32,p9 : i32) -> i32 {/* Non-Compliant - too many parameters */
-    return p1 + p2 + p3 + p4 +p5 + p6 + p7 +  p8  +p9;
-}
+if foo && bar || baz:
+    print("condition is true")
 </pre>
 <h2>Compliant Solution</h2>
 <pre>
-fn single_params_sum(a : &[i32] )-> i32{
-    a.iter().sum()
-}
+if (foo and bar) or baz:
+    print("condition is true"
 </pre>
 

@@ -5,12 +5,12 @@
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
-    "constantCost": "5min"
+    "constantCost": "2min"
   },
   "tags": [
 
   ],
-  "defaultSeverity": "Critical",
+  "defaultSeverity": "Minor",
   "sqKey": "HexNumbersSmall",
   "scope": "All"
 }

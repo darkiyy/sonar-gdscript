@@ -4,7 +4,7 @@ import gdscript_language.GDScriptParser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GDScriptEnumListener extends GDScriptParserBaseListener {
+public class EnumListener extends GDScriptParserBaseListener {
     private List<GDScriptParser.EnumDeclContext> enumDecl = new ArrayList<>();
 
     @Override

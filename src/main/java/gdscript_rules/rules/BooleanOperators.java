@@ -1,7 +1,7 @@
 package gdscript_rules.rules;
 
 import gdscript_language.GDScriptParser;
-import gdscript_language.listener.GDScriptLogicListener;
+import gdscript_language.listener.LogicListener;
 import gdscript_rules.FlagLineRule;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.sonar.api.batch.fs.InputFile;
@@ -19,7 +19,7 @@ public class BooleanOperators implements FlagLineRule {
     public void execute(SensorContext sensorContext, InputFile file, RuleKey ruleKey) {
 
         GDScriptParser parser = FileParserCreator.createParser(file);
-        GDScriptLogicListener listener = new GDScriptLogicListener();
+        LogicListener listener = new LogicListener();
         ParseTreeWalker walker = new ParseTreeWalker();
 
         walker.walk(listener, parser.program());
