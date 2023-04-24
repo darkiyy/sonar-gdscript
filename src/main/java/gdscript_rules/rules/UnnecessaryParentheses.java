@@ -4,6 +4,7 @@ import gdscript_language.GDScriptParser;
 import gdscript_language.listener.IfStmtListener;
 import gdscript_language.listener.WhileStmtListener;
 import gdscript_rules.FlagLineRule;
+import gdscript_rules.IssuesContainer;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
@@ -29,15 +30,7 @@ public class UnnecessaryParentheses implements FlagLineRule {
 
         for (GDScriptParser.IfStmtContext context: listener.getLogicAndContexts()){
             if(context.OPEN_PAREN().size() != 0){
-                int line = context.start.getLine();
-                NewIssue newIssue = sensorContext.newIssue();
-
-                newIssue
-                .forRule(ruleKey)
-                .at(newIssue.newLocation()
-                    .on(file)
-                    .at(file.selectLine(line)))
-                .save();
+                IssuesContainer.createIssue(ruleKey, file, sensorContext, context);
             }
         }
         parser.reset();
@@ -47,14 +40,7 @@ public class UnnecessaryParentheses implements FlagLineRule {
 
         for (GDScriptParser.WhileStmtContext context: whilelistener.getWhileContexts()){
             if(context.expression().children.get(0).getText().equals("(")){ //Only if there are unnecessary Parenthesess the first child will be a (
-                int line = context.start.getLine();
-                NewIssue newIssue = sensorContext.newIssue();
-                newIssue
-                    .forRule(ruleKey)
-                    .at(newIssue.newLocation()
-                        .on(file)
-                        .at(file.selectLine(line)))
-                    .save();
+                IssuesContainer.createIssue(ruleKey, file, sensorContext, context);
             }
         }
     }

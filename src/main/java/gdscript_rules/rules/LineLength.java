@@ -1,6 +1,7 @@
 package gdscript_rules.rules;
 
 import gdscript_rules.FlagLineRule;
+import gdscript_rules.IssuesContainer;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.issue.NewIssue;
@@ -24,14 +25,8 @@ public class LineLength implements FlagLineRule {
 
             if(maximumLineLength < lineLength)
             {
-                NewIssue newIssue = sensorContext.newIssue();
-                newIssue
-                        .forRule(ruleKey)
-                        .at(newIssue.newLocation()
-                                .on(file)
-                                .at(file.selectLine(i))
-                        )
-                        .save();
+                int errorLine = i;
+                IssuesContainer.createIssue(ruleKey, file, sensorContext, errorLine);
             }
         }
 

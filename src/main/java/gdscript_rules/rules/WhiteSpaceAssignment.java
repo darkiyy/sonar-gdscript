@@ -14,7 +14,7 @@ public class WhiteSpaceAssignment implements FlagLineRule {
 
     @Override
     public void execute(SensorContext sensorContext, InputFile file, RuleKey ruleKey) {
-
+        // Todo: Create Rule
         GDScriptParser parser = FileParserCreator.createParser(file);
         AssigmentStmtListener listener = new AssigmentStmtListener();
 

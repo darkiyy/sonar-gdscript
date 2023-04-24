@@ -3,6 +3,7 @@ package gdscript_rules.rules;
 import gdscript_language.GDScriptParser;
 import gdscript_language.listener.NormalStmtListener;
 import gdscript_rules.FlagLineRule;
+import gdscript_rules.IssuesContainer;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
@@ -32,20 +33,9 @@ public class MultipleStmtsOneLine implements FlagLineRule {
             int stmtLine = context.start.getLine();
             if(!lineSet.add(stmtLine)){ //Sets do not allow duplicate values
                 if(markedLines.add(stmtLine)){ //Only mark the line once
-                    NewIssue newIssue = sensorContext.newIssue();
-                    newIssue
-                            .forRule(ruleKey)
-                            .at(newIssue.newLocation()
-                                    .on(file)
-                                    .at(file.selectLine(stmtLine))
-                            )
-                            .save();
+                    IssuesContainer.createIssue(ruleKey, file, sensorContext, stmtLine);
                 }
             }
         }
-    }
-
-    public void findDuplicates(List<Integer> lines){
-
     }
 }

@@ -3,6 +3,7 @@ package gdscript_rules.rules;
 import gdscript_language.GDScriptParser;
 import gdscript_language.listener.IntegerListener;
 import gdscript_rules.FlagLineRule;
+import gdscript_rules.IssuesContainer;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
@@ -28,16 +29,7 @@ public class HexNumbersSmall implements FlagLineRule {
             number = context.INTEGER().getText();
             if(!number.equals(number.toLowerCase()))
             {
-                int line = context.start.getLine();
-
-                NewIssue newIssue = sensorContext.newIssue();
-                newIssue
-                    .forRule(ruleKey)
-                    .at(newIssue.newLocation()
-                            .on(file)
-                            .at(file.selectLine(line))
-                        )
-                    .save();
+                IssuesContainer.createIssue(ruleKey, file, sensorContext, context);
             }
         }
 

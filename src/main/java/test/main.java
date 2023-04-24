@@ -16,7 +16,7 @@ import java.util.Set;
 public class main {
     public static void main(String[] args){
         try {
-            File file = new File("/home/gott/Dokumente/test/test.txt");
+            File file = new File("fileToTestPath");
             StringBuilder sb = new StringBuilder();
             if (file.exists()) {
                 FileInputStream fis = new FileInputStream(file);
@@ -43,7 +43,7 @@ public class main {
                 int stmtLine = context.start.getLine();
                 if(!lineSet.add(stmtLine)){ //Sets do not allow duplicate values
                     if(markedLines.add(stmtLine)){ //Only mark the line once
-                        System.out.println("Cock");
+                        System.out.println("asd");
                     }
                 }
             }

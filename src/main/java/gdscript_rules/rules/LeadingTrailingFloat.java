@@ -2,6 +2,7 @@ package gdscript_rules.rules;
 
 import gdscript_language.GDScriptParser;
 import gdscript_rules.FlagLineRule;
+import gdscript_rules.IssuesContainer;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.issue.NewIssue;
@@ -18,18 +19,11 @@ public class LeadingTrailingFloat implements FlagLineRule {
         try
         {
             for (GDScriptParser.TopLevelDeclContext topLvl : parser.program().topLevelDecl()) {
-                GDScriptParser.ClassVarDeclContext classVarDec = topLvl.classVarDecl();
-                String varText = classVarDec.expression().getText();
+                GDScriptParser.ClassVarDeclContext context = topLvl.classVarDecl();
+                String varText = context.expression().getText();
 
                 if (varText.indexOf('.') == 0 || varText.indexOf('.') == (varText.length() - 1)) {
-                    NewIssue newIssue = sensorContext.newIssue();
-                    newIssue
-                            .forRule(ruleKey)
-                            .at(newIssue.newLocation()
-                                    .on(file)
-                                    .at(file.selectLine(classVarDec.start.getLine()))
-                            )
-                            .save();
+                    IssuesContainer.createIssue(ruleKey, file, sensorContext, context);
                 }
 
             }

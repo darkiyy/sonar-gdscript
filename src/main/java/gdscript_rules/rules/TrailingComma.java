@@ -2,6 +2,7 @@ package gdscript_rules.rules;
 
 import gdscript_language.GDScriptParser;
 import gdscript_rules.FlagLineRule;
+import gdscript_rules.IssuesContainer;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.issue.NewIssue;
@@ -23,17 +24,11 @@ public class TrailingComma implements FlagLineRule {
             {
                 int size = topLvlCont.enumDecl().children.size();
                 String lastChild = topLvlCont.enumDecl().children.get(size-2).getText();
-                int line = topLvlCont.enumDecl().stop.getLine();
+                int errorLine = topLvlCont.enumDecl().stop.getLine();
 
                 if(!lastChild.equals(","))
                 {
-                    NewIssue newIssue = sensorContext.newIssue();
-                    newIssue
-                            .forRule(ruleKey)
-                            .at(newIssue.newLocation()
-                                    .on(file)
-                                    .at(file.selectLine(line)))
-                            .save();
+                    IssuesContainer.createIssue(ruleKey, file, sensorContext, errorLine);
                 }
             }
         }
