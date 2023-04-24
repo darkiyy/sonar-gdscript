@@ -1,4 +1,4 @@
-﻿
+
 GDScript SonarQube Plugin
 ==========
 
@@ -8,6 +8,11 @@ Tested with Godot 3.
 The plugin isn't nearly finished. It is terrible in many ways.
 
 Godot 4 has added things for GDScript, when these are used, there might be issues with the interpreter.
+
+**Make sure on disable the scanning of the addon folder** 
+To disable scanning, the addon folder go to:
+Administration - Configuration Analysis Scope
+And add \**/addons/** to the exclusion. You also can do this for a single project, if you dont want that to happen for every project.
 
 Rules
 -----
@@ -42,6 +47,11 @@ Necessary information:
 </ol>
 The Issue will be most likely because of a misinterpretation of the code, or my incompetence.
 
+### Installing the Plugin
+
+To install the plugin, move the .jar file into the *extensions/plugin* folder.
+When using docker, you might have to create a path to the extensions folder.
+
 Todo
 ---------
 
@@ -57,7 +67,10 @@ SSLR is the Sonar Source Language Recognizer, basically a interpreter like ANTLR
 ### Rules:
 Currently, the "Multiple statements in one line" rule has to be fixed. There are way too many false-positives and false-negatives. So you might want to disable it in the quality profile.
 
-
+Edit the severity of each rule accordantly, currently each rule is a *Code Smell* with the severity *Minor*.
+You may change the severity, if you create your own quality profile.
+If you want to change the type of the rule, you have to edit the code of the plugin/the type inside the json file from the rule.
+Also if you want to change the approximation on how long it takes to fix a code smell/bug, you also have to edit the json of the rule. Check the "Adding Rules" segment on where to find the json file.
 
 Some rules from the [Godot Styleguide](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html)  are not implemented yet. They have to be added.
 
