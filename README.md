@@ -65,7 +65,7 @@ Todo
 SSLR is the Sonar Source Language Recognizer, basically a interpreter like ANTLR4 but created by Sonar. It might be easier creating rules using it instead of ANTLR4. 
 
 ### Rules:
-Currently, the "Multiple statements in one line" rule has to be fixed. There are way too many false-positives and false-negatives. So you might want to disable it in the quality profile.
+Currently, the "Multiple statements in one line" rule has to be fixed. There are way too many false-positives and false-negatives. So you might want to disable it in the quality profile. Currently the await keyword is considered a statement.
 
 Edit the severity of each rule accordantly, currently each rule is a *Code Smell* with the severity *Minor*.
 You may change the severity, if you create your own quality profile.
