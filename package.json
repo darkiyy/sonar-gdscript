@@ -1,5 +1,5 @@
 {
-  "name": "sonar-custom-plugin-example",
+  "name": "GdScript-Plugin",
   "license": "LGPL-3.0",
   "version": "7.0.0",
   "devDependencies": {
