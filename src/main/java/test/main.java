@@ -20,7 +20,7 @@ import java.util.Set;
 public class main {
     public static void main(String[] args){
         try {
-            File file = new File("fileToTestPath");
+            File file = new File("/home/gott/Dokumente/test/test.txt");
             StringBuilder sb = new StringBuilder();
             if (file.exists()) {
                 FileInputStream fis = new FileInputStream(file);
@@ -39,30 +39,24 @@ public class main {
             CommonTokenStream tokens = new CommonTokenStream(y);
 
             GDScriptParser parser = new GDScriptParser(tokens);
-            ParseTree tree = parser.program();
-            NormalStmtListener listener = new NormalStmtListener();
-            walker.walk(listener, parser.program());
-            viewAntlr4Tree(parser, tree);
-            System.out.println(tree.toStringTree(parser));
 
-            Set<Integer> lineSet = new HashSet<>();
-            Set<Integer> markedLines = new HashSet<>();
-            for(GDScriptParser.StmtContext context: listener.getStmts()){
-                int stmtLine = context.start.getLine();
-                if(!lineSet.add(stmtLine)){ //Sets do not allow duplicate values
-                    if(markedLines.add(stmtLine)){ //Only mark the line once
-                        System.out.println("asd");
-                    }
-                }
-            }
+            NormalStmtListener listener = new NormalStmtListener();
+            parser.addParseListener(listener);
+
+            walker.walk(listener, parser.program());
+            System.out.println(listener.getStmts().size());
+
+            viewAntlr4Tree(parser);
         }
         catch(Exception ex)
         {
 
         }
     }
-    private static void viewAntlr4Tree(GDScriptParser parser, ParseTree tree)
+    private static void viewAntlr4Tree(GDScriptParser parser)
     {
+        parser.reset();
+        ParseTree tree = parser.program();
         JFrame frame = new JFrame("Antlr AST");
         JPanel panel = new JPanel();
         TreeViewer viewer = new TreeViewer(
@@ -71,7 +65,7 @@ public class main {
                 )
                 ,tree
         );
-        viewer.setScale(1.2); // Scale a little
+        viewer.setScale(0.8); // Scale a little
         panel.add(viewer);
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

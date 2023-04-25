@@ -12,7 +12,8 @@ public class NormalStmtListener extends GDScriptParserBaseListener {
     private static List<GDScriptParser.StmtContext> stmts = new ArrayList<>();
 
     @Override public void enterStmt(GDScriptParser.StmtContext ctx) {
-        stmts.add(ctx);
+        if(!ctx.getText().isEmpty()) // Add statement if the String is NOT empty
+            stmts.add(ctx);
     }
 
 

@@ -10,9 +10,7 @@ public class LogicListener extends GDScriptParserBaseListener{
 
     private List<GDScriptParser.LogicOrContext> logicOr = new ArrayList<>();
 
-    @Override public void enterLogicAnd(GDScriptParser.LogicAndContext ctx) {
-        logicAnd.add(ctx);
-    }
+    @Override public void enterLogicAnd(GDScriptParser.LogicAndContext ctx) { logicAnd.add(ctx); }
 
     @Override public void enterLogicOr(GDScriptParser.LogicOrContext ctx) {
         logicOr.add(ctx);

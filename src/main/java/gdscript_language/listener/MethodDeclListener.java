@@ -3,20 +3,25 @@ package gdscript_language.listener;
 import gdscript_language.GDScriptParser;
 import gdscript_rules.rules.FileParserCreator;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import org.sonar.api.batch.fs.InputFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MethodDeclListener extends GDScriptParserBaseListener {
-    private static List<GDScriptParser.MethodDeclContext> methDecl = new ArrayList<>();
+    private static List<TerminalNode> methDecl = new ArrayList<>();
 
     @Override
     public void enterMethodDecl(GDScriptParser.MethodDeclContext ctx) {
-        methDecl.add(ctx);
+        if(ctx.IDENTIFIER() != null)
+        {
+            TerminalNode methodIdentifier = ctx.IDENTIFIER();
+            methDecl.add(methodIdentifier);
+        }
     }
 
-    public List<GDScriptParser.MethodDeclContext> getMethodDecl() {
+    public List<TerminalNode> getMethodDeclIdentifier() {
         return methDecl;
     }
 
@@ -28,9 +33,9 @@ public class MethodDeclListener extends GDScriptParserBaseListener {
 
         walker.walk(listener, parser.program());
 
-        int x = methDecl.size();
+        int methDeclCount = methDecl.size();
         methDecl.clear();
-        return x;
+        return methDeclCount;
     }
 
 }

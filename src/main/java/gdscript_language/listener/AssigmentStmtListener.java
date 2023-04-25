@@ -9,6 +9,7 @@ public class AssigmentStmtListener extends GDScriptParserBaseListener {
 
     @Override
     public void enterAssignmentStmt(GDScriptParser.AssignmentStmtContext ctx) {
+
         asStmt.add(ctx);
     }
     public List<GDScriptParser.AssignmentStmtContext> getAsStmt() {

@@ -6,13 +6,14 @@ import java.util.List;
 
 public class IfStmtListener extends GDScriptParserBaseListener {
     private List<GDScriptParser.IfStmtContext> ifStmts = new ArrayList<>();
+    private List<GDScriptParser.ExportContext> ifStmtExpression = new ArrayList<>();
 
     @Override public void enterIfStmt(GDScriptParser.IfStmtContext ctx) {
-        ifStmts.add(ctx);
+        if(ctx.IF() != null)
+            ifStmts.add(ctx);
     }
 
-
-    public List<GDScriptParser.IfStmtContext> getLogicAndContexts() {
+    public List<GDScriptParser.IfStmtContext> getIfStmts() {
         return ifStmts;
     }
 
