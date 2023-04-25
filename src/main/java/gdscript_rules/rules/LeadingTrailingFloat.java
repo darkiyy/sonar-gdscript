@@ -1,13 +1,16 @@
 package gdscript_rules.rules;
 
 import gdscript_language.GDScriptParser;
+import gdscript_language.listener.LiteralListener;
 import gdscript_rules.FlagLineRule;
 import gdscript_rules.IssuesContainer;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
-import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
+
+import java.util.List;
 
 @Rule(key = LeadingTrailingFloat.RULE_KEY)
 public class LeadingTrailingFloat implements FlagLineRule {
@@ -16,22 +19,21 @@ public class LeadingTrailingFloat implements FlagLineRule {
     @Override
     public void execute(SensorContext sensorContext, InputFile file, RuleKey ruleKey) {
         GDScriptParser parser = FileParserCreator.createParser(file);
-        try
-        {
-            for (GDScriptParser.TopLevelDeclContext topLvl : parser.program().topLevelDecl()) {
-                GDScriptParser.ClassVarDeclContext context = topLvl.classVarDecl();
-                String varText = context.expression().getText();
+        LiteralListener listener = new LiteralListener();
+        parser.addParseListener(listener);
+        ParseTreeWalker walker = new ParseTreeWalker();
+        walker.walk(listener, parser.program());
 
-                if (varText.indexOf('.') == 0 || varText.indexOf('.') == (varText.length() - 1)) {
-                    IssuesContainer.createIssue(ruleKey, file, sensorContext, context);
-                }
+        List<GDScriptParser.LiteralContext> numbers = listener.getFloatNumbers();
 
+        for (GDScriptParser.LiteralContext floatNumber: numbers) {
+            boolean startsWithPoint = floatNumber.getText().startsWith(".");
+            boolean endsWithPoint = floatNumber.getText().endsWith(".");
+            if(startsWithPoint || endsWithPoint)
+            {
+                int line = floatNumber.start.getLine();
+                IssuesContainer.createIssue(ruleKey, file, sensorContext, line);
             }
-        }
-        catch(NullPointerException ex)
-        {
-            //TODO: Do not let this exception happen
-            //Continue to Run
         }
 
 

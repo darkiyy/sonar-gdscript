@@ -1,15 +1,13 @@
 package test;
 import gdscript_language.*;
 import gdscript_language.listener.*;
-import gdscript_rules.IssuesContainer;
-import gdscript_rules.rules.FileParserCreator;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.antlr.v4.runtime.tree.TerminalNode;
+
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -17,12 +15,46 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
 
 public class main {
     public static void main(String[] args){
+
+        GDScriptParser parser = createParser();
+        testCode(parser);
+        viewAntlr4Tree(parser);
+    }
+
+    private static void testCode(GDScriptParser parser){
+        ParseTreeWalker walker = new ParseTreeWalker();
+        LiteralListener listener = new LiteralListener();
+        parser.addParseListener(listener);
+
+        walker.walk(listener, parser.program());
+
+        int maxNumbers = 6;
+
+        for (GDScriptParser.LiteralContext context: listener.getNumbers()){
+            String number = context.INTEGER().getText();
+
+            int numberLength = number.length();
+            int hexNumberadd = 0;
+
+            if(number.matches(".*[a-zA-Z].*"))
+                hexNumberadd += 4;
+
+            if(numberLength > (maxNumbers + hexNumberadd)) //Numbers lower than 1000000 generally don't need separators.
+            {
+                if(!number.contains("_")) //IF there is no _ in the long number
+                {
+                    System.out.println("ToLongNoUnderscore");
+                }
+            }
+        }
+    }
+
+    private static GDScriptParser createParser(){
+         GDScriptParser parser;
         try {
             File file = new File("/home/gott/Dokumente/test/test.txt");
             StringBuilder sb = new StringBuilder();
@@ -39,39 +71,18 @@ public class main {
 
             CharStream x = CharStreams.fromString(sb.toString());
             GDScriptLexer y = new GDScriptLexer(x);
-            ParseTreeWalker walker = new ParseTreeWalker();
+
             CommonTokenStream tokens = new CommonTokenStream(y);
-
-            GDScriptParser parser = new GDScriptParser(tokens);
-
-            EnumListener listener = new EnumListener();
-            parser.addParseListener(listener);
-
-            walker.walk(listener, parser.program());
-            for(GDScriptParser.EnumDeclContext enums: listener.getEnumDecl())
-            {
-                List<TerminalNode> listEntries = enums.enumList().IDENTIFIER();
-
-                for (TerminalNode identifier: listEntries) {
-                    String entry = identifier.getText();
-                    String entryUpper = entry.toUpperCase();
-
-                    if(!entry.equals(entryUpper)) // IF entry is not in Uppercase
-                    {
-                        System.out.println("Cock");
-                    }
-                }
-            }
-
-            viewAntlr4Tree(parser);
-        }
-        catch(Exception ex)
-        {
+            parser = new GDScriptParser(tokens);
 
         }
+        catch(Exception ex) {
+            parser = null;
+        }
+        return parser;
     }
-    private static void viewAntlr4Tree(GDScriptParser parser)
-    {
+
+    private static void viewAntlr4Tree(GDScriptParser parser) {
         parser.reset();
         ParseTree tree = parser.program();
         JFrame frame = new JFrame("Antlr AST");
