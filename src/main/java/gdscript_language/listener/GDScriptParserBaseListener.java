@@ -1,5 +1,5 @@
-// Generated from java-escape by ANTLR 4.11.1
-package gdscript_language.listener;
+package gdscript_language.listener;// Generated from GDScriptParser.g4 by ANTLR 4.12.0
+
 import gdscript_language.GDScriptParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -156,6 +156,18 @@ public class GDScriptParserBaseListener implements GDScriptParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitEnumDecl(GDScriptParser.EnumDeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEnumList(GDScriptParser.EnumListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEnumList(GDScriptParser.EnumListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

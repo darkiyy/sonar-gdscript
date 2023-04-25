@@ -1,5 +1,4 @@
-// Generated from java-escape by ANTLR 4.11.1
-package gdscript_language.listener;
+package gdscript_language.listener;// Generated from GDScriptParser.g4 by ANTLR 4.12.0
 import gdscript_language.GDScriptParser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -128,6 +127,16 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitEnumDecl(GDScriptParser.EnumDeclContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#enumList}.
+	 * @param ctx the parse tree
+	 */
+	void enterEnumList(GDScriptParser.EnumListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#enumList}.
+	 * @param ctx the parse tree
+	 */
+	void exitEnumList(GDScriptParser.EnumListContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GDScriptParser#methodDecl}.
 	 * @param ctx the parse tree

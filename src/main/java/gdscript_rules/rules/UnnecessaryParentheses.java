@@ -28,20 +28,21 @@ public class UnnecessaryParentheses implements FlagLineRule {
         walker.walk(listener, parser.program());
 
 
-        for (GDScriptParser.IfStmtContext context: listener.getLogicAndContexts()){
-            if(context.OPEN_PAREN().size() != 0){
+        for (GDScriptParser.ExpressionContext context: listener.getIfExpressions()){
+            String expression = context.getText();
+            if(expression.startsWith("(") && expression.endsWith(")"))
                 IssuesContainer.createIssue(ruleKey, file, sensorContext, context);
-            }
         }
+
         parser.reset();
 
         WhileStmtListener whilelistener = new WhileStmtListener();
         walker.walk(whilelistener, parser.program());
 
-        for (GDScriptParser.WhileStmtContext context: whilelistener.getWhileContexts()){
-            if(context.expression().children.get(0).getText().equals("(")){ //Only if there are unnecessary Parenthesess the first child will be a (
+        for (GDScriptParser.ExpressionContext context: whilelistener.getWhileStmtsExpression()){
+            String expression = context.getText();
+            if(expression.startsWith("(") && expression.endsWith(")"))
                 IssuesContainer.createIssue(ruleKey, file, sensorContext, context);
-            }
         }
     }
 }

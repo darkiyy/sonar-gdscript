@@ -5,11 +5,14 @@ import gdscript_language.listener.EnumListener;
 import gdscript_rules.FlagLineRule;
 import gdscript_rules.IssuesContainer;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
+
+import java.util.List;
 
 @Rule(key = EnumerationsUppercase.RULE_KEY)
 
@@ -26,15 +29,17 @@ public class EnumerationsUppercase implements FlagLineRule {
 
         walker.walk(listener, parser.program());
 
-        for (GDScriptParser.EnumDeclContext context: listener.getEnumDecl()){
-            for(int i = 1; i < context.IDENTIFIER().size(); i++){
+        for(GDScriptParser.EnumDeclContext enums: listener.getEnumDecl())
+        {
+            List<TerminalNode> listEntries = enums.enumList().IDENTIFIER();
 
-                String enumIdent = context.IDENTIFIER(i).getText();
+            for (TerminalNode identifier: listEntries) {
+                String entry = identifier.getText();
+                String entryUpper = entry.toUpperCase();
 
-                if(enumIdent.equals(enumIdent.toLowerCase()))
+                if(!entry.equals(entryUpper)) // IF entry is not in Uppercase
                 {
-                    IssuesContainer.createIssue(ruleKey, file, sensorContext, context);
-                    break; // Break the loop, so that the error is only shown once
+                    IssuesContainer.createIssue(ruleKey, file, sensorContext, enums);
                 }
             }
         }
