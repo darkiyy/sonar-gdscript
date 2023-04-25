@@ -64,7 +64,7 @@ Also if you want to change the approximation on how long it takes to fix a code 
 Many rules from the [Godot Styleguide](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html)  are not implemented yet. They have to be added.
 
 ### Coverage:
-Code coverage from the [gdUnit](https://mikeschulze.github.io/gdUnit3/) should be possible, but I have to look into it.
+Currently I have no clue if this is possible. [gdUnit](https://mikeschulze.github.io/gdUnit3/) provides (as far as I know) no report about the code coverage.
 
 ### Metrics:
 <ul>  
