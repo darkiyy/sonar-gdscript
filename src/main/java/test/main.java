@@ -1,12 +1,15 @@
 package test;
 import gdscript_language.*;
 import gdscript_language.listener.*;
+import gdscript_rules.IssuesContainer;
+import gdscript_rules.rules.FileParserCreator;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -15,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class main {
@@ -40,11 +44,24 @@ public class main {
 
             GDScriptParser parser = new GDScriptParser(tokens);
 
-            NormalStmtListener listener = new NormalStmtListener();
+            EnumListener listener = new EnumListener();
             parser.addParseListener(listener);
 
             walker.walk(listener, parser.program());
-            System.out.println(listener.getStmts().size());
+            for(GDScriptParser.EnumDeclContext enums: listener.getEnumDecl())
+            {
+                List<TerminalNode> listEntries = enums.enumList().IDENTIFIER();
+
+                for (TerminalNode identifier: listEntries) {
+                    String entry = identifier.getText();
+                    String entryUpper = entry.toUpperCase();
+
+                    if(!entry.equals(entryUpper)) // IF entry is not in Uppercase
+                    {
+                        System.out.println("Cock");
+                    }
+                }
+            }
 
             viewAntlr4Tree(parser);
         }

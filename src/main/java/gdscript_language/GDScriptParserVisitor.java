@@ -82,6 +82,12 @@ public interface GDScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEnumDecl(GDScriptParser.EnumDeclContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#enumList}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEnumList(GDScriptParser.EnumListContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link GDScriptParser#methodDecl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -128,6 +128,16 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 */
 	void exitEnumDecl(GDScriptParser.EnumDeclContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#enumList}.
+	 * @param ctx the parse tree
+	 */
+	void enterEnumList(GDScriptParser.EnumListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#enumList}.
+	 * @param ctx the parse tree
+	 */
+	void exitEnumList(GDScriptParser.EnumListContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GDScriptParser#methodDecl}.
 	 * @param ctx the parse tree
 	 */

@@ -161,6 +161,18 @@ public class GDScriptParserBaseListener implements GDScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterEnumList(GDScriptParser.EnumListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEnumList(GDScriptParser.EnumListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMethodDecl(GDScriptParser.MethodDeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
