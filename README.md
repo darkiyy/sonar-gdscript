@@ -1,4 +1,4 @@
-
+﻿
 GDScript SonarQube Plugin
 ==========
 
@@ -19,7 +19,7 @@ Rules
 Currently, there are 11 rules implemented:
 <ol>  
 <li>Avoid unnecessary parentheses</li>  
-<li>Multiple statements in one line (BETA, doesn't work well)</li>  
+<li>Multiple statements in one line (BETA)</li>  
 <li>Too many characters in one line</li>  
 <li>Trailing comma in lists</li>
 <li>Trailing comma in single-line lists</li>
@@ -32,20 +32,20 @@ Currently, there are 11 rules implemented:
 </ol>
 
 I will add/repair rules if requested.
+Be aware, I only tested the rules on my own code, so there **WILL** be issues.
 
 Plugin
 --------
 
-The Interpreter of this plugin is currently using ANTLR4, the interpreted is based on the [grammars-v4](https://github.com/antlr/grammars-v4) repository. It did not work well for me, so I edited it every time I found some kind of issue.
-Because the interpreter is not perfect in any means, there might be files which will not be scanned at all.
+The Interpreter of this plugin is currently using ANTLR4, the interpreted is based on the [grammars-v4](https://github.com/antlr/grammars-v4) repository. The Parser and Lexer have been edited to suit the purpose of this plugin. But it was a very good start point, so thanks ❤
+
 
 If you find some issues, like false-positives or false-negatives, you may report them here.
 Necessary information:
  <ol>  
 <li>What rule is being detected wrong</li>  
-<li>The code or a screenshot of the code</li>  
+<li>The code or a screenshot of the code, you may change the variable names, they are usually not relevant</li>  
 </ol>
-The Issue will be most likely because of a misinterpretation of the code, or my incompetence.
 
 ### Installing the Plugin
 
@@ -55,33 +55,25 @@ When using docker, you might have to create a path to the extensions folder.
 Todo
 ---------
 
-### SSLR:
-<ul>  
-<li>Creating the Interpreter</li>  
-<li>Rewriting all the rules</li>  
-<li>Creating a SSLR-Toolkit</li>  
-<li>Creating a XPath rule template</li>  
-</ul>
-SSLR is the Sonar Source Language Recognizer, basically a interpreter like ANTLR4 but created by Sonar. It might be easier creating rules using it instead of ANTLR4. 
-
 ### Rules:
-Currently, the "Multiple statements in one line" rule has to be fixed. There are way too many false-positives and false-negatives. So you might want to disable it in the quality profile. Currently the await keyword is considered a statement.
-
 Edit the severity of each rule accordantly, currently each rule is a *Code Smell* with the severity *Minor*.
 You may change the severity, if you create your own quality profile.
 If you want to change the type of the rule, you have to edit the code of the plugin/the type inside the json file from the rule.
 Also if you want to change the approximation on how long it takes to fix a code smell/bug, you also have to edit the json of the rule. Check the "Adding Rules" segment on where to find the json file.
 
-Some rules from the [Godot Styleguide](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html)  are not implemented yet. They have to be added.
+Many rules from the [Godot Styleguide](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html)  are not implemented yet. They have to be added.
 
 ### Coverage:
 Code coverage from the [gdUnit](https://mikeschulze.github.io/gdUnit3/) should be possible, but I have to look into it.
 
 ### Metrics:
 <ul>  
-<li>No comments line of codes</li>  
+<li>No comments line of codes, probably the lexer/parser has to be edited, so comments get recognized</li>  
 <li>Code duplication (no clue on how to get this running)</li> 
 </ul>
+
+### Unit tests:
+Well, I have to look into that
 
 Adding rules
 ---
@@ -115,6 +107,4 @@ Currently, there is no XPath rule template, sry.
 
 Random
 ---
-This is/was my first project using ANTLR4, Maven and the SonarSource API. The plugin is not good in any way, it is actually pretty terrible. But I still hope someone can work with it.
-
-I might just be an idiot, but I found almost no useful information for creating a SonarQube plugin or working with SSLR.
+This is/was my first project using ANTLR4, Maven and the SonarSource API.
