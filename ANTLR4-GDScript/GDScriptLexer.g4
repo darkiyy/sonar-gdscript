@@ -129,9 +129,8 @@ fragment HEX
 	: [0-9a-fA-F]
 	;
 FLOAT
-	: DEC+ '.' DEC* ([eE] [+-] DEC)?
-	| DEC [eE] [+-] DEC
-	| DEC* '.' DEC+ ([eE] [+-] DEC)?
+	: DEC* '.' DEC+ ([eE] [+-] DEC+)?
+	| DEC [eE] [+-]? DEC+
 	;
 
 DOT: '.';
@@ -178,6 +177,7 @@ DIV: '/';
 MOD: '%';
 NOT_OP: '~';
 DOLLAR: '$';
+AT: '@';
 
 SKIP_
 	: (SPACE | COMMENT | LINE_JOINING) -> skip
