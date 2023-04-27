@@ -18,7 +18,10 @@ public class RulesList {
                 UnnecessaryParentheses.class,
                 UseUnderScoreOnLargeNumbers.class,
                 LineLength.class,
-                MultipleStmtsOneLine.class
+                MultipleStmtsOneLine.class,
+                MethodNameSnakeCase.class,
+                ClassNamePascalCase.class,
+                FileNameSnakeCase.class
         );
     }
 }

@@ -11,6 +11,9 @@
     "UnnecessaryParentheses",
     "UseUnderScoreOnLargeNumbers",
     "LineLength",
-    "MultipleStmtsOneLine"
+    "MultipleStmtsOneLine",
+    "MethodSnakeCase",
+    "ClassNamePascalCase",
+    "FileNameSnakeCase"
   ]
 }

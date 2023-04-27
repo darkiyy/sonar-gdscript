@@ -1,5 +1,5 @@
 {
-  "title": "Use PascalCase für enum names",
+  "title": "Use CONSTANT_CASE für enum names",
   "type": "CODE_SMELL",
   "description": "Use PascalCase for enum names and CONSTANT_CASE for their members, as they are constants:",
   "status": "ready",

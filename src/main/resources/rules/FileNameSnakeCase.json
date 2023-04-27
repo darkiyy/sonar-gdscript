@@ -1,0 +1,16 @@
+{
+  "title": "Use snake_case to name files",
+  "type": "CODE_SMELL",
+  "description": "Ensure that filenames are using snake_case",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+
+  ],
+  "defaultSeverity": "Minor",
+  "sqKey": "FileNameSnakeCase",
+  "scope": "All"
+}

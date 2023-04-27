@@ -1,6 +1,7 @@
 package test;
 import gdscript_language.*;
 import gdscript_language.listener.*;
+import gdscript_rules.IssuesContainer;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -27,28 +28,23 @@ public class main {
 
     private static void testCode(GDScriptParser parser){
         ParseTreeWalker walker = new ParseTreeWalker();
-        LiteralListener listener = new LiteralListener();
+        ClassNameListener listener = new ClassNameListener();
         parser.addParseListener(listener);
 
         walker.walk(listener, parser.program());
 
-        int maxNumbers = 6;
 
-        for (GDScriptParser.LiteralContext context: listener.getNumbers()){
-            String number = context.INTEGER().getText();
+        GDScriptParser.ClassNameContext classContext = listener.getClassName();
 
-            int numberLength = number.length();
-            int hexNumberadd = 0;
+        if(classContext != null)
+        {
+            String className = classContext.IDENTIFIER().getText();
 
-            if(number.matches(".*[a-zA-Z].*"))
-                hexNumberadd += 4;
-
-            if(numberLength > (maxNumbers + hexNumberadd)) //Numbers lower than 1000000 generally don't need separators.
+            if(!className.startsWith("\""))
             {
-                if(!number.contains("_")) //IF there is no _ in the long number
-                {
-                    System.out.println("ToLongNoUnderscore");
-                }
+                Character firstChar = className.charAt(0);
+                if(Character.isLowerCase(firstChar))
+                    System.out.println(className);
             }
         }
     }
