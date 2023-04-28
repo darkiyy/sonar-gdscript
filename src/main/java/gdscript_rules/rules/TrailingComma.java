@@ -30,7 +30,12 @@ public class TrailingComma implements FlagLineRule {
             int listEntries = enums.enumList().IDENTIFIER().size();
             int commaCount = enums.enumList().COMMA().size();
 
-            if(listEntries != commaCount)
+            int listStart = enums.enumList().start.getLine();
+            int listEnd = enums.enumList().stop.getLine();
+
+            boolean onOneLine = listStart == listEnd;
+
+            if(listEntries != commaCount && !onOneLine) // If all entries are on the same line, there is no comma needed
             {
                 int errorLine = enums.enumList().stop.getLine();
                 IssuesContainer.createIssue(ruleKey, file, sensorContext, errorLine);

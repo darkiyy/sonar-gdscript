@@ -1,7 +1,6 @@
 package test;
 import gdscript_language.*;
 import gdscript_language.listener.*;
-import gdscript_rules.IssuesContainer;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
