@@ -16,6 +16,19 @@ ONREADY: 'onready';
 VAR: 'var';
 SETGET: 'setget';
 EXPORT: 'export';
+EXPORT_NODE_PATH: 'export_node_path';
+EXPORT_RANGE: 'export_range';
+EXPORT_MULTILINE: 'export_multiline';
+EXPORT_EXP_EASING: 'export_exp_easing';
+EXPORT_COLOR_NO_ALPHA: 'export_color_no_alpha';
+EXPORT_FLAGS: 'export_flags';
+EXPORT_FLAGS_2D_PHYSICS: 'export_flags_2d_physics';
+EXPORT_FLAGS_2D_RENDER: 'export_flags_2d_render';
+EXPORT_FLAGS_2D_NAVIGATION: 'export_flags_2d_navigation';
+EXPORT_FLAGS_3D_PHYSICS: 'export_flags_3d_physics';
+EXPORT_FLAGS_3D_RENDER: 'export_flags_3d_render';
+EXPORT_FLAGS_3D_NAVIGATION: 'export_flags_3d_navigation';
+EXPORT_ENUM: 'export_enum';
 CONST: 'const';
 SIGNAL: 'signal';
 ENUM: 'enum';
@@ -53,7 +66,10 @@ FALSE: 'false';
 NULL: 'null';
 SELF: 'self';
 TOOL: 'tool';
-
+AWAIT: 'await';
+RPC: AT 'rpc';
+ICON: AT 'icon';
+WARNING_IGNORE: AT 'warning_ignore';
 NEWLINE
 	: (
 		{atStartOfInput()}? SPACE
@@ -108,13 +124,28 @@ CONSTANT // TODO: really?
 	;
 
 STRING
-	: '"' STRING_CONTENT* '"'
-	| '\'' STRING_CONTENT* '\''
+	: '"' (ESC | ~["\\])* '"'
+	| '\'' (ESC | ~['\\])* '\''
 	;
-fragment STRING_CONTENT
-	: ~[\\\r\n'"]
-	| '\\' [abfnrtv'"\\]
-	| '\\u' HEX HEX HEX HEX
+
+fragment ESC
+	: '\\' [nrt'"\\]
+	;
+
+STRINGNAME
+	: '&' STRING
+	;
+
+MULTI_LINE_STRING
+  : '"""' MULTI_LINE_STRING_CONTENT? '"""'
+  ;
+
+fragment MULTI_LINE_STRING_CONTENT
+  : (~'"' | '""' | ~'"' MULTI_LINE_STRING_CONTENT)*
+  ;
+
+NODEPATH
+	: '^' STRING
 	;
 
 INTEGER
@@ -122,6 +153,7 @@ INTEGER
 	| DEC+
 	| '0' [bB] [01]+
 	;
+
 fragment DEC
 	: [0-9]
 	;
@@ -130,7 +162,7 @@ fragment HEX
 	;
 FLOAT
 	: DEC* '.' DEC+ ([eE] [+-] DEC+)?
-	| DEC [eE] [+-]? DEC+
+	| DEC [eE] [+-]? DEC*
 	;
 
 DOT: '.';

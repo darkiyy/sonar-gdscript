@@ -35,7 +35,7 @@ public class GDScriptIssuesLoaderSensor implements Sensor {
 
     @Override
     public void describe(final SensorDescriptor descriptor) {
-        descriptor.name("FooLint Issues Loader Sensor");
+        descriptor.name("GDScript Issues Loader Sensor");
         descriptor.onlyOnLanguage(GDScriptLanguage.KEY);
     }
 

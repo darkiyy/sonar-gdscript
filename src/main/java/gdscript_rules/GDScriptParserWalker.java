@@ -3,13 +3,13 @@ package gdscript_rules;
 import gdscript_language.GDScriptLexer;
 import gdscript_language.GDScriptParser;
 import gdscript_language.listener.*;
-import gdscript_rules.rules.FileParserCreator;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,7 +20,7 @@ public class GDScriptParserWalker {
     private InputFile parsedFile;
     private ParseTreeWalker walker;
     private ProxyParseTreeListener proxy;
-
+    private static final Logger LOGGER = Loggers.get(GDScriptParserWalker.class);
     private GDScriptParserWalker() {
     }
 
@@ -32,6 +32,7 @@ public class GDScriptParserWalker {
 
         if (checkToBeParsed(file))
         {
+            LOGGER.info("Parsing File: " + file.filename());
             proxy = createProxyListener();
             GDScriptParser parser = createParser(file);
             walker = new ParseTreeWalker();

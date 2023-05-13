@@ -18,43 +18,58 @@ public class GDScriptParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		INDENT=1, DEDENT=2, EXTENDS=3, CLASS_NAME=4, ONREADY=5, VAR=6, SETGET=7, 
-		EXPORT=8, CONST=9, SIGNAL=10, ENUM=11, STATIC=12, FUNC=13, REMOTE=14, 
-		MASTER=15, PUPPET=16, REMOTESYNC=17, MASTERSYNC=18, PUPPETSYNC=19, CLASS=20, 
-		BREAKPOINT=21, PASS=22, IF=23, ELIF=24, WHILE=25, FOR=26, IN=27, MATCH=28, 
-		CONTINUE=29, BREAK=30, RETURN=31, ASSERT=32, YIELD=33, PRELOAD=34, AS=35, 
-		ELSE=36, OR=37, AND=38, NOT=39, IS=40, TRUE=41, FALSE=42, NULL=43, SELF=44, 
-		TOOL=45, NEWLINE=46, IDENTIFIER=47, BUILTINTYPE=48, CONSTANT=49, STRING=50, 
-		INTEGER=51, FLOAT=52, DOT=53, COMMA=54, COLON=55, ASSIGN=56, COLON_ASSIGN=57, 
-		ADD_ASSIGN=58, MINUS_ASSIGN=59, MUL_ASSIGN=60, DIV_ASSIGN=61, MOD_ASSIGN=62, 
-		AND_ASSIGN=63, OR_ASSIGN=64, XOR_ASSIGN=65, OPEN_PAREN=66, CLOSE_PAREN=67, 
-		OPEN_BRACE=68, CLOSE_BRACE=69, ARROW=70, UNDERSCORE=71, OPEN_BRACK=72, 
-		CLOSE_BRACK=73, DOTDOT=74, SEMI_COLON=75, LOGIC_OR=76, LOGIC_AND=77, LOGIC_NOT=78, 
-		LESS_THAN=79, GREATER_THAN=80, EQUALS=81, GT_EQ=82, LT_EQ=83, NOT_EQ=84, 
-		OR_OP=85, XOR=86, AND_OP=87, LEFT_SHIFT=88, RIGHT_SHIFT=89, ADD=90, MINUS=91, 
-		STAR=92, DIV=93, MOD=94, NOT_OP=95, DOLLAR=96, AT=97, SKIP_=98;
+		EXPORT=8, EXPORT_NODE_PATH=9, EXPORT_RANGE=10, EXPORT_MULTILINE=11, EXPORT_EXP_EASING=12, 
+		EXPORT_COLOR_NO_ALPHA=13, EXPORT_FLAGS=14, EXPORT_FLAGS_2D_PHYSICS=15, 
+		EXPORT_FLAGS_2D_RENDER=16, EXPORT_FLAGS_2D_NAVIGATION=17, EXPORT_FLAGS_3D_PHYSICS=18, 
+		EXPORT_FLAGS_3D_RENDER=19, EXPORT_FLAGS_3D_NAVIGATION=20, EXPORT_ENUM=21, 
+		CONST=22, SIGNAL=23, ENUM=24, STATIC=25, FUNC=26, REMOTE=27, MASTER=28, 
+		PUPPET=29, REMOTESYNC=30, MASTERSYNC=31, PUPPETSYNC=32, CLASS=33, BREAKPOINT=34, 
+		PASS=35, IF=36, ELIF=37, WHILE=38, FOR=39, IN=40, MATCH=41, CONTINUE=42, 
+		BREAK=43, RETURN=44, ASSERT=45, YIELD=46, PRELOAD=47, AS=48, ELSE=49, 
+		OR=50, AND=51, NOT=52, IS=53, TRUE=54, FALSE=55, NULL=56, SELF=57, TOOL=58, 
+		AWAIT=59, RPC=60, ICON=61, WARNING_IGNORE=62, NEWLINE=63, IDENTIFIER=64, 
+		BUILTINTYPE=65, CONSTANT=66, STRING=67, STRINGNAME=68, MULTI_LINE_STRING=69, 
+		NODEPATH=70, INTEGER=71, FLOAT=72, DOT=73, COMMA=74, COLON=75, ASSIGN=76, 
+		COLON_ASSIGN=77, ADD_ASSIGN=78, MINUS_ASSIGN=79, MUL_ASSIGN=80, DIV_ASSIGN=81, 
+		MOD_ASSIGN=82, AND_ASSIGN=83, OR_ASSIGN=84, XOR_ASSIGN=85, OPEN_PAREN=86, 
+		CLOSE_PAREN=87, OPEN_BRACE=88, CLOSE_BRACE=89, ARROW=90, UNDERSCORE=91, 
+		OPEN_BRACK=92, CLOSE_BRACK=93, DOTDOT=94, SEMI_COLON=95, LOGIC_OR=96, 
+		LOGIC_AND=97, LOGIC_NOT=98, LESS_THAN=99, GREATER_THAN=100, EQUALS=101, 
+		GT_EQ=102, LT_EQ=103, NOT_EQ=104, OR_OP=105, XOR=106, AND_OP=107, LEFT_SHIFT=108, 
+		RIGHT_SHIFT=109, ADD=110, MINUS=111, STAR=112, DIV=113, MOD=114, NOT_OP=115, 
+		DOLLAR=116, AT=117, SKIP_=118;
 	public static final int
-		RULE_program = 0, RULE_inheritance = 1, RULE_className = 2, RULE_topLevelDecl = 3, 
-		RULE_classVarDecl = 4, RULE_setget = 5, RULE_export = 6, RULE_typeHint = 7, 
-		RULE_constDecl = 8, RULE_signalDecl = 9, RULE_signalParList = 10, RULE_enumDecl = 11, 
-		RULE_enumList = 12, RULE_methodDecl = 13, RULE_parList = 14, RULE_parameter = 15, 
-		RULE_rpc = 16, RULE_constructorDecl = 17, RULE_argList = 18, RULE_innerClass = 19, 
-		RULE_stmtOrSuite = 20, RULE_suite = 21, RULE_stmt = 22, RULE_stmtEnd = 23, 
-		RULE_ifStmt = 24, RULE_whileStmt = 25, RULE_forStmt = 26, RULE_matchStmt = 27, 
-		RULE_matchBlock = 28, RULE_patternList = 29, RULE_pattern = 30, RULE_bindingPattern = 31, 
-		RULE_arrayPattern = 32, RULE_dictPattern = 33, RULE_keyValuePattern = 34, 
-		RULE_flowStmt = 35, RULE_assignmentStmt = 36, RULE_varDeclStmt = 37, RULE_assertStmt = 38, 
-		RULE_yieldStmt = 39, RULE_preloadStmt = 40, RULE_exprStmt = 41, RULE_expression = 42, 
-		RULE_literal = 43, RULE_keyValue = 44;
+		RULE_program = 0, RULE_iconToolDecl = 1, RULE_iconDecl = 2, RULE_fileDeclaration = 3, 
+		RULE_inheritance = 4, RULE_className = 5, RULE_topLevelDecl = 6, RULE_classVarDecl = 7, 
+		RULE_setget = 8, RULE_onready = 9, RULE_exportStmts = 10, RULE_export = 11, 
+		RULE_export_node_path = 12, RULE_export_range = 13, RULE_export_multiline = 14, 
+		RULE_export_exp_easing = 15, RULE_export_color_no_alpha = 16, RULE_export_flags = 17, 
+		RULE_export_flags_2d = 18, RULE_export_flags_3d = 19, RULE_export_enum = 20, 
+		RULE_typeHint = 21, RULE_constDecl = 22, RULE_signalDecl = 23, RULE_signalParList = 24, 
+		RULE_enumDecl = 25, RULE_enumList = 26, RULE_methodDecl = 27, RULE_parList = 28, 
+		RULE_parameter = 29, RULE_rpc = 30, RULE_constructorDecl = 31, RULE_argList = 32, 
+		RULE_innerClass = 33, RULE_stmtOrSuite = 34, RULE_suite = 35, RULE_stmt = 36, 
+		RULE_stmtEnd = 37, RULE_awaitStmt = 38, RULE_ifStmt = 39, RULE_whileStmt = 40, 
+		RULE_forStmt = 41, RULE_matchStmt = 42, RULE_matchBlock = 43, RULE_patternList = 44, 
+		RULE_pattern = 45, RULE_bindingPattern = 46, RULE_arrayPattern = 47, RULE_dictPattern = 48, 
+		RULE_keyValuePattern = 49, RULE_flowStmt = 50, RULE_assignmentStmt = 51, 
+		RULE_varDeclStmt = 52, RULE_assertStmt = 53, RULE_yieldStmt = 54, RULE_preloadStmt = 55, 
+		RULE_exprStmt = 56, RULE_expression = 57, RULE_literal = 58, RULE_number = 59, 
+		RULE_keyValue = 60;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"program", "inheritance", "className", "topLevelDecl", "classVarDecl", 
-			"setget", "export", "typeHint", "constDecl", "signalDecl", "signalParList", 
+			"program", "iconToolDecl", "iconDecl", "fileDeclaration", "inheritance", 
+			"className", "topLevelDecl", "classVarDecl", "setget", "onready", "exportStmts", 
+			"export", "export_node_path", "export_range", "export_multiline", "export_exp_easing", 
+			"export_color_no_alpha", "export_flags", "export_flags_2d", "export_flags_3d", 
+			"export_enum", "typeHint", "constDecl", "signalDecl", "signalParList", 
 			"enumDecl", "enumList", "methodDecl", "parList", "parameter", "rpc", 
 			"constructorDecl", "argList", "innerClass", "stmtOrSuite", "suite", "stmt", 
-			"stmtEnd", "ifStmt", "whileStmt", "forStmt", "matchStmt", "matchBlock", 
-			"patternList", "pattern", "bindingPattern", "arrayPattern", "dictPattern", 
-			"keyValuePattern", "flowStmt", "assignmentStmt", "varDeclStmt", "assertStmt", 
-			"yieldStmt", "preloadStmt", "exprStmt", "expression", "literal", "keyValue"
+			"stmtEnd", "awaitStmt", "ifStmt", "whileStmt", "forStmt", "matchStmt", 
+			"matchBlock", "patternList", "pattern", "bindingPattern", "arrayPattern", 
+			"dictPattern", "keyValuePattern", "flowStmt", "assignmentStmt", "varDeclStmt", 
+			"assertStmt", "yieldStmt", "preloadStmt", "exprStmt", "expression", "literal", 
+			"number", "keyValue"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -62,37 +77,46 @@ public class GDScriptParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, null, null, "'extends'", "'class_name'", "'onready'", "'var'", 
-			"'setget'", "'export'", "'const'", "'signal'", "'enum'", "'static'", 
-			"'func'", "'remote'", "'master'", "'puppet'", "'remotesync'", "'mastersync'", 
-			"'puppetsync'", "'class'", "'breakpoint'", "'pass'", "'if'", "'elif'", 
-			"'while'", "'for'", "'in'", "'match'", "'continue'", "'break'", "'return'", 
-			"'assert'", "'yield'", "'preload'", "'as'", "'else'", "'or'", "'and'", 
-			"'not'", "'is'", "'true'", "'false'", "'null'", "'self'", "'tool'", null, 
-			null, null, null, null, null, null, "'.'", "','", "':'", "'='", "':='", 
-			"'+='", "'-='", "'*='", "'/='", "'%='", "'&='", "'|='", "'^='", "'('", 
-			"')'", "'{'", "'}'", "'->'", "'_'", "'['", "']'", "'..'", "';'", "'||'", 
-			"'&&'", "'!'", "'<'", "'>'", "'=='", "'>='", "'<='", "'!='", "'|'", "'^'", 
-			"'&'", "'<<'", "'>>'", "'+'", "'-'", "'*'", "'/'", "'%'", "'~'", "'$'", 
-			"'@'"
+			"'setget'", "'export'", "'export_node_path'", "'export_range'", "'export_multiline'", 
+			"'export_exp_easing'", "'export_color_no_alpha'", "'export_flags'", "'export_flags_2d_physics'", 
+			"'export_flags_2d_render'", "'export_flags_2d_navigation'", "'export_flags_3d_physics'", 
+			"'export_flags_3d_render'", "'export_flags_3d_navigation'", "'export_enum'", 
+			"'const'", "'signal'", "'enum'", "'static'", "'func'", "'remote'", "'master'", 
+			"'puppet'", "'remotesync'", "'mastersync'", "'puppetsync'", "'class'", 
+			"'breakpoint'", "'pass'", "'if'", "'elif'", "'while'", "'for'", "'in'", 
+			"'match'", "'continue'", "'break'", "'return'", "'assert'", "'yield'", 
+			"'preload'", "'as'", "'else'", "'or'", "'and'", "'not'", "'is'", "'true'", 
+			"'false'", "'null'", "'self'", "'tool'", "'await'", null, null, null, 
+			null, null, null, null, null, null, null, null, null, null, "'.'", "','", 
+			"':'", "'='", "':='", "'+='", "'-='", "'*='", "'/='", "'%='", "'&='", 
+			"'|='", "'^='", "'('", "')'", "'{'", "'}'", "'->'", "'_'", "'['", "']'", 
+			"'..'", "';'", "'||'", "'&&'", "'!'", "'<'", "'>'", "'=='", "'>='", "'<='", 
+			"'!='", "'|'", "'^'", "'&'", "'<<'", "'>>'", "'+'", "'-'", "'*'", "'/'", 
+			"'%'", "'~'", "'$'", "'@'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, "INDENT", "DEDENT", "EXTENDS", "CLASS_NAME", "ONREADY", "VAR", 
-			"SETGET", "EXPORT", "CONST", "SIGNAL", "ENUM", "STATIC", "FUNC", "REMOTE", 
-			"MASTER", "PUPPET", "REMOTESYNC", "MASTERSYNC", "PUPPETSYNC", "CLASS", 
-			"BREAKPOINT", "PASS", "IF", "ELIF", "WHILE", "FOR", "IN", "MATCH", "CONTINUE", 
-			"BREAK", "RETURN", "ASSERT", "YIELD", "PRELOAD", "AS", "ELSE", "OR", 
-			"AND", "NOT", "IS", "TRUE", "FALSE", "NULL", "SELF", "TOOL", "NEWLINE", 
-			"IDENTIFIER", "BUILTINTYPE", "CONSTANT", "STRING", "INTEGER", "FLOAT", 
-			"DOT", "COMMA", "COLON", "ASSIGN", "COLON_ASSIGN", "ADD_ASSIGN", "MINUS_ASSIGN", 
-			"MUL_ASSIGN", "DIV_ASSIGN", "MOD_ASSIGN", "AND_ASSIGN", "OR_ASSIGN", 
-			"XOR_ASSIGN", "OPEN_PAREN", "CLOSE_PAREN", "OPEN_BRACE", "CLOSE_BRACE", 
-			"ARROW", "UNDERSCORE", "OPEN_BRACK", "CLOSE_BRACK", "DOTDOT", "SEMI_COLON", 
-			"LOGIC_OR", "LOGIC_AND", "LOGIC_NOT", "LESS_THAN", "GREATER_THAN", "EQUALS", 
-			"GT_EQ", "LT_EQ", "NOT_EQ", "OR_OP", "XOR", "AND_OP", "LEFT_SHIFT", "RIGHT_SHIFT", 
-			"ADD", "MINUS", "STAR", "DIV", "MOD", "NOT_OP", "DOLLAR", "AT", "SKIP_"
+			"SETGET", "EXPORT", "EXPORT_NODE_PATH", "EXPORT_RANGE", "EXPORT_MULTILINE", 
+			"EXPORT_EXP_EASING", "EXPORT_COLOR_NO_ALPHA", "EXPORT_FLAGS", "EXPORT_FLAGS_2D_PHYSICS", 
+			"EXPORT_FLAGS_2D_RENDER", "EXPORT_FLAGS_2D_NAVIGATION", "EXPORT_FLAGS_3D_PHYSICS", 
+			"EXPORT_FLAGS_3D_RENDER", "EXPORT_FLAGS_3D_NAVIGATION", "EXPORT_ENUM", 
+			"CONST", "SIGNAL", "ENUM", "STATIC", "FUNC", "REMOTE", "MASTER", "PUPPET", 
+			"REMOTESYNC", "MASTERSYNC", "PUPPETSYNC", "CLASS", "BREAKPOINT", "PASS", 
+			"IF", "ELIF", "WHILE", "FOR", "IN", "MATCH", "CONTINUE", "BREAK", "RETURN", 
+			"ASSERT", "YIELD", "PRELOAD", "AS", "ELSE", "OR", "AND", "NOT", "IS", 
+			"TRUE", "FALSE", "NULL", "SELF", "TOOL", "AWAIT", "RPC", "ICON", "WARNING_IGNORE", 
+			"NEWLINE", "IDENTIFIER", "BUILTINTYPE", "CONSTANT", "STRING", "STRINGNAME", 
+			"MULTI_LINE_STRING", "NODEPATH", "INTEGER", "FLOAT", "DOT", "COMMA", 
+			"COLON", "ASSIGN", "COLON_ASSIGN", "ADD_ASSIGN", "MINUS_ASSIGN", "MUL_ASSIGN", 
+			"DIV_ASSIGN", "MOD_ASSIGN", "AND_ASSIGN", "OR_ASSIGN", "XOR_ASSIGN", 
+			"OPEN_PAREN", "CLOSE_PAREN", "OPEN_BRACE", "CLOSE_BRACE", "ARROW", "UNDERSCORE", 
+			"OPEN_BRACK", "CLOSE_BRACK", "DOTDOT", "SEMI_COLON", "LOGIC_OR", "LOGIC_AND", 
+			"LOGIC_NOT", "LESS_THAN", "GREATER_THAN", "EQUALS", "GT_EQ", "LT_EQ", 
+			"NOT_EQ", "OR_OP", "XOR", "AND_OP", "LEFT_SHIFT", "RIGHT_SHIFT", "ADD", 
+			"MINUS", "STAR", "DIV", "MOD", "NOT_OP", "DOLLAR", "AT", "SKIP_"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -149,23 +173,21 @@ public class GDScriptParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class ProgramContext extends ParserRuleContext {
 		public TerminalNode EOF() { return getToken(GDScriptParser.EOF, 0); }
-		public TerminalNode AT() { return getToken(GDScriptParser.AT, 0); }
-		public TerminalNode TOOL() { return getToken(GDScriptParser.TOOL, 0); }
-		public List<TerminalNode> NEWLINE() { return getTokens(GDScriptParser.NEWLINE); }
-		public TerminalNode NEWLINE(int i) {
-			return getToken(GDScriptParser.NEWLINE, i);
+		public IconToolDeclContext iconToolDecl() {
+			return getRuleContext(IconToolDeclContext.class,0);
 		}
-		public InheritanceContext inheritance() {
-			return getRuleContext(InheritanceContext.class,0);
-		}
-		public ClassNameContext className() {
-			return getRuleContext(ClassNameContext.class,0);
+		public FileDeclarationContext fileDeclaration() {
+			return getRuleContext(FileDeclarationContext.class,0);
 		}
 		public List<TopLevelDeclContext> topLevelDecl() {
 			return getRuleContexts(TopLevelDeclContext.class);
 		}
 		public TopLevelDeclContext topLevelDecl(int i) {
 			return getRuleContext(TopLevelDeclContext.class,i);
+		}
+		public List<TerminalNode> NEWLINE() { return getTokens(GDScriptParser.NEWLINE); }
+		public TerminalNode NEWLINE(int i) {
+			return getToken(GDScriptParser.NEWLINE, i);
 		}
 		public ProgramContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -191,74 +213,340 @@ public class GDScriptParser extends Parser {
 		enterRule(_localctx, 0, RULE_program);
 		int _la;
 		try {
+			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(93);
+			setState(123);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
 			case 1:
 				{
-				setState(90);
-				match(AT);
-				setState(91);
-				match(TOOL);
-				setState(92);
-				match(NEWLINE);
+				setState(122);
+				iconToolDecl();
 				}
 				break;
 			}
-			setState(98);
+			setState(126);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==EXTENDS) {
+			if (_la==EXTENDS || _la==CLASS_NAME) {
 				{
-				setState(95);
-				inheritance();
-				setState(96);
-				match(NEWLINE);
+				setState(125);
+				fileDeclaration();
 				}
 			}
 
-			setState(101);
+			setState(131);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==CLASS_NAME) {
-				{
-				setState(100);
-				className();
+			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(128);
+					topLevelDecl();
+					}
+					} 
 				}
-			}
-
-			setState(106);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 35184374185824L) != 0) || _la==AT) {
-				{
-				{
-				setState(103);
-				topLevelDecl();
-				}
-				}
-				setState(108);
+				setState(133);
 				_errHandler.sync(this);
-				_la = _input.LA(1);
+				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			}
-			setState(112);
+			setState(137);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==NEWLINE) {
 				{
 				{
-				setState(109);
+				setState(134);
 				match(NEWLINE);
 				}
 				}
-				setState(114);
+				setState(139);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(115);
+			setState(140);
 			match(EOF);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class IconToolDeclContext extends ParserRuleContext {
+		public IconDeclContext iconDecl() {
+			return getRuleContext(IconDeclContext.class,0);
+		}
+		public TerminalNode AT() { return getToken(GDScriptParser.AT, 0); }
+		public TerminalNode TOOL() { return getToken(GDScriptParser.TOOL, 0); }
+		public List<TerminalNode> NEWLINE() { return getTokens(GDScriptParser.NEWLINE); }
+		public TerminalNode NEWLINE(int i) {
+			return getToken(GDScriptParser.NEWLINE, i);
+		}
+		public IconToolDeclContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_iconToolDecl; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterIconToolDecl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitIconToolDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitIconToolDecl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final IconToolDeclContext iconToolDecl() throws RecognitionException {
+		IconToolDeclContext _localctx = new IconToolDeclContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_iconToolDecl);
+		int _la;
+		try {
+			int _alt;
+			setState(164);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(150);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if (_la==AT) {
+					{
+					setState(142);
+					match(AT);
+					setState(143);
+					match(TOOL);
+					setState(147);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+					while (_la==NEWLINE) {
+						{
+						{
+						setState(144);
+						match(NEWLINE);
+						}
+						}
+						setState(149);
+						_errHandler.sync(this);
+						_la = _input.LA(1);
+					}
+					}
+				}
+
+				setState(152);
+				iconDecl();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(154);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if (_la==ICON) {
+					{
+					setState(153);
+					iconDecl();
+					}
+				}
+
+				{
+				setState(156);
+				match(AT);
+				setState(157);
+				match(TOOL);
+				setState(161);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
+				while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+					if ( _alt==1 ) {
+						{
+						{
+						setState(158);
+						match(NEWLINE);
+						}
+						} 
+					}
+					setState(163);
+					_errHandler.sync(this);
+					_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
+				}
+				}
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class IconDeclContext extends ParserRuleContext {
+		public TerminalNode ICON() { return getToken(GDScriptParser.ICON, 0); }
+		public TerminalNode OPEN_PAREN() { return getToken(GDScriptParser.OPEN_PAREN, 0); }
+		public TerminalNode STRING() { return getToken(GDScriptParser.STRING, 0); }
+		public TerminalNode CLOSE_PAREN() { return getToken(GDScriptParser.CLOSE_PAREN, 0); }
+		public List<TerminalNode> NEWLINE() { return getTokens(GDScriptParser.NEWLINE); }
+		public TerminalNode NEWLINE(int i) {
+			return getToken(GDScriptParser.NEWLINE, i);
+		}
+		public IconDeclContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_iconDecl; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterIconDecl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitIconDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitIconDecl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final IconDeclContext iconDecl() throws RecognitionException {
+		IconDeclContext _localctx = new IconDeclContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_iconDecl);
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(166);
+			match(ICON);
+			setState(167);
+			match(OPEN_PAREN);
+			setState(168);
+			match(STRING);
+			setState(169);
+			match(CLOSE_PAREN);
+			setState(173);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,9,_ctx);
+			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(170);
+					match(NEWLINE);
+					}
+					} 
+				}
+				setState(175);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,9,_ctx);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class FileDeclarationContext extends ParserRuleContext {
+		public ClassNameContext className() {
+			return getRuleContext(ClassNameContext.class,0);
+		}
+		public InheritanceContext inheritance() {
+			return getRuleContext(InheritanceContext.class,0);
+		}
+		public FileDeclarationContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_fileDeclaration; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterFileDeclaration(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitFileDeclaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitFileDeclaration(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final FileDeclarationContext fileDeclaration() throws RecognitionException {
+		FileDeclarationContext _localctx = new FileDeclarationContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_fileDeclaration);
+		int _la;
+		try {
+			setState(184);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case CLASS_NAME:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(176);
+				className();
+				setState(178);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if (_la==EXTENDS) {
+					{
+					setState(177);
+					inheritance();
+					}
+				}
+
+				}
+				break;
+			case EXTENDS:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(180);
+				inheritance();
+				setState(182);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if (_la==CLASS_NAME) {
+					{
+					setState(181);
+					className();
+					}
+				}
+
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -284,6 +572,10 @@ public class GDScriptParser extends Parser {
 		public TerminalNode DOT(int i) {
 			return getToken(GDScriptParser.DOT, i);
 		}
+		public List<TerminalNode> NEWLINE() { return getTokens(GDScriptParser.NEWLINE); }
+		public TerminalNode NEWLINE(int i) {
+			return getToken(GDScriptParser.NEWLINE, i);
+		}
 		public InheritanceContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -305,14 +597,15 @@ public class GDScriptParser extends Parser {
 
 	public final InheritanceContext inheritance() throws RecognitionException {
 		InheritanceContext _localctx = new InheritanceContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_inheritance);
+		enterRule(_localctx, 8, RULE_inheritance);
 		int _la;
 		try {
+			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(117);
+			setState(186);
 			match(EXTENDS);
-			setState(118);
+			setState(187);
 			_la = _input.LA(1);
 			if ( !(_la==IDENTIFIER || _la==STRING) ) {
 			_errHandler.recoverInline(this);
@@ -322,21 +615,39 @@ public class GDScriptParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(123);
+			setState(192);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==DOT) {
-				{
-				{
-				setState(119);
-				match(DOT);
-				setState(120);
-				match(IDENTIFIER);
+			_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
+			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(188);
+					match(DOT);
+					setState(189);
+					match(IDENTIFIER);
+					}
+					} 
 				}
-				}
-				setState(125);
+				setState(194);
 				_errHandler.sync(this);
-				_la = _input.LA(1);
+				_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
+			}
+			setState(198);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
+			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(195);
+					match(NEWLINE);
+					}
+					} 
+				}
+				setState(200);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
 			}
 			}
 		}
@@ -355,9 +666,12 @@ public class GDScriptParser extends Parser {
 	public static class ClassNameContext extends ParserRuleContext {
 		public TerminalNode CLASS_NAME() { return getToken(GDScriptParser.CLASS_NAME, 0); }
 		public TerminalNode IDENTIFIER() { return getToken(GDScriptParser.IDENTIFIER, 0); }
-		public TerminalNode NEWLINE() { return getToken(GDScriptParser.NEWLINE, 0); }
 		public TerminalNode COMMA() { return getToken(GDScriptParser.COMMA, 0); }
 		public TerminalNode STRING() { return getToken(GDScriptParser.STRING, 0); }
+		public List<TerminalNode> NEWLINE() { return getTokens(GDScriptParser.NEWLINE); }
+		public TerminalNode NEWLINE(int i) {
+			return getToken(GDScriptParser.NEWLINE, i);
+		}
 		public ClassNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -379,29 +693,44 @@ public class GDScriptParser extends Parser {
 
 	public final ClassNameContext className() throws RecognitionException {
 		ClassNameContext _localctx = new ClassNameContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_className);
+		enterRule(_localctx, 10, RULE_className);
 		int _la;
 		try {
+			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(126);
+			setState(201);
 			match(CLASS_NAME);
-			setState(127);
+			setState(202);
 			match(IDENTIFIER);
-			setState(130);
+			setState(205);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(128);
+				setState(203);
 				match(COMMA);
-				setState(129);
+				setState(204);
 				match(STRING);
 				}
 			}
 
-			setState(132);
-			match(NEWLINE);
+			setState(210);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,16,_ctx);
+			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(207);
+					match(NEWLINE);
+					}
+					} 
+				}
+				setState(212);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,16,_ctx);
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -439,6 +768,9 @@ public class GDScriptParser extends Parser {
 			return getRuleContext(InnerClassContext.class,0);
 		}
 		public TerminalNode TOOL() { return getToken(GDScriptParser.TOOL, 0); }
+		public StmtContext stmt() {
+			return getRuleContext(StmtContext.class,0);
+		}
 		public TopLevelDeclContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -460,65 +792,72 @@ public class GDScriptParser extends Parser {
 
 	public final TopLevelDeclContext topLevelDecl() throws RecognitionException {
 		TopLevelDeclContext _localctx = new TopLevelDeclContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_topLevelDecl);
+		enterRule(_localctx, 12, RULE_topLevelDecl);
 		try {
-			setState(142);
+			setState(222);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,17,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(134);
+				setState(213);
 				classVarDecl();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(135);
+				setState(214);
 				constDecl();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(136);
+				setState(215);
 				signalDecl();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(137);
+				setState(216);
 				enumDecl();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(138);
+				setState(217);
 				methodDecl();
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(139);
+				setState(218);
 				constructorDecl();
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(140);
+				setState(219);
 				innerClass();
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(141);
+				setState(220);
 				match(TOOL);
+				}
+				break;
+			case 9:
+				enterOuterAlt(_localctx, 9);
+				{
+				setState(221);
+				stmt();
 				}
 				break;
 			}
@@ -539,10 +878,11 @@ public class GDScriptParser extends Parser {
 		public TerminalNode VAR() { return getToken(GDScriptParser.VAR, 0); }
 		public TerminalNode IDENTIFIER() { return getToken(GDScriptParser.IDENTIFIER, 0); }
 		public TerminalNode NEWLINE() { return getToken(GDScriptParser.NEWLINE, 0); }
-		public TerminalNode AT() { return getToken(GDScriptParser.AT, 0); }
-		public TerminalNode ONREADY() { return getToken(GDScriptParser.ONREADY, 0); }
-		public ExportContext export() {
-			return getRuleContext(ExportContext.class,0);
+		public OnreadyContext onready() {
+			return getRuleContext(OnreadyContext.class,0);
+		}
+		public ExportStmtsContext exportStmts() {
+			return getRuleContext(ExportStmtsContext.class,0);
 		}
 		public SetgetContext setget() {
 			return getRuleContext(SetgetContext.class,0);
@@ -552,10 +892,13 @@ public class GDScriptParser extends Parser {
 			return getRuleContext(TypeHintContext.class,0);
 		}
 		public TerminalNode ASSIGN() { return getToken(GDScriptParser.ASSIGN, 0); }
+		public TerminalNode COLON_ASSIGN() { return getToken(GDScriptParser.COLON_ASSIGN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public TerminalNode COLON_ASSIGN() { return getToken(GDScriptParser.COLON_ASSIGN, 0); }
+		public StmtContext stmt() {
+			return getRuleContext(StmtContext.class,0);
+		}
 		public ClassVarDeclContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -577,71 +920,75 @@ public class GDScriptParser extends Parser {
 
 	public final ClassVarDeclContext classVarDecl() throws RecognitionException {
 		ClassVarDeclContext _localctx = new ClassVarDeclContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_classVarDecl);
+		enterRule(_localctx, 14, RULE_classVarDecl);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(145);
+			setState(225);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,18,_ctx) ) {
 			case 1:
 				{
-				setState(144);
-				match(AT);
+				setState(224);
+				onready();
 				}
 				break;
 			}
-			setState(148);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==ONREADY) {
-				{
-				setState(147);
-				match(ONREADY);
-				}
-			}
-
-			setState(151);
+			setState(228);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==EXPORT || _la==AT) {
 				{
-				setState(150);
-				export();
+				setState(227);
+				exportStmts();
 				}
 			}
 
-			setState(153);
+			setState(230);
 			match(VAR);
-			setState(154);
+			setState(231);
 			match(IDENTIFIER);
-			setState(167);
+			setState(250);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,25,_ctx) ) {
 			case 1:
 				{
-				setState(157);
+				setState(234);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==COLON) {
 					{
-					setState(155);
+					setState(232);
 					match(COLON);
-					setState(156);
+					setState(233);
 					typeHint();
 					}
 				}
 
-				setState(161);
+				setState(241);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==ASSIGN) {
 					{
-					setState(159);
+					setState(236);
 					match(ASSIGN);
-					setState(160);
-					expression(0);
+					setState(239);
+					_errHandler.sync(this);
+					switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
+					case 1:
+						{
+						setState(237);
+						expression(0);
+						}
+						break;
+					case 2:
+						{
+						setState(238);
+						stmt();
+						}
+						break;
+					}
 					}
 				}
 
@@ -649,32 +996,46 @@ public class GDScriptParser extends Parser {
 				break;
 			case 2:
 				{
-				setState(165);
+				setState(248);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==COLON_ASSIGN) {
 					{
-					setState(163);
+					setState(243);
 					match(COLON_ASSIGN);
-					setState(164);
-					expression(0);
+					setState(246);
+					_errHandler.sync(this);
+					switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
+					case 1:
+						{
+						setState(244);
+						expression(0);
+						}
+						break;
+					case 2:
+						{
+						setState(245);
+						stmt();
+						}
+						break;
+					}
 					}
 				}
 
 				}
 				break;
 			}
-			setState(170);
+			setState(253);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==SETGET) {
 				{
-				setState(169);
+				setState(252);
 				setget();
 				}
 			}
 
-			setState(172);
+			setState(255);
 			match(NEWLINE);
 			}
 		}
@@ -718,35 +1079,230 @@ public class GDScriptParser extends Parser {
 
 	public final SetgetContext setget() throws RecognitionException {
 		SetgetContext _localctx = new SetgetContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_setget);
+		enterRule(_localctx, 16, RULE_setget);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(174);
+			setState(257);
 			match(SETGET);
-			setState(176);
+			setState(259);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==IDENTIFIER) {
 				{
-				setState(175);
+				setState(258);
 				match(IDENTIFIER);
 				}
 			}
 
-			setState(180);
+			setState(263);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(178);
+				setState(261);
 				match(COMMA);
-				setState(179);
+				setState(262);
 				match(IDENTIFIER);
 				}
 			}
 
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class OnreadyContext extends ParserRuleContext {
+		public TerminalNode AT() { return getToken(GDScriptParser.AT, 0); }
+		public TerminalNode ONREADY() { return getToken(GDScriptParser.ONREADY, 0); }
+		public TerminalNode NEWLINE() { return getToken(GDScriptParser.NEWLINE, 0); }
+		public OnreadyContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_onready; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterOnready(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitOnready(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitOnready(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final OnreadyContext onready() throws RecognitionException {
+		OnreadyContext _localctx = new OnreadyContext(_ctx, getState());
+		enterRule(_localctx, 18, RULE_onready);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(266);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,29,_ctx) ) {
+			case 1:
+				{
+				setState(265);
+				match(AT);
+				}
+				break;
+			}
+			setState(269);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==ONREADY) {
+				{
+				setState(268);
+				match(ONREADY);
+				}
+			}
+
+			setState(272);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==NEWLINE) {
+				{
+				setState(271);
+				match(NEWLINE);
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class ExportStmtsContext extends ParserRuleContext {
+		public ExportContext export() {
+			return getRuleContext(ExportContext.class,0);
+		}
+		public Export_node_pathContext export_node_path() {
+			return getRuleContext(Export_node_pathContext.class,0);
+		}
+		public Export_rangeContext export_range() {
+			return getRuleContext(Export_rangeContext.class,0);
+		}
+		public Export_multilineContext export_multiline() {
+			return getRuleContext(Export_multilineContext.class,0);
+		}
+		public Export_color_no_alphaContext export_color_no_alpha() {
+			return getRuleContext(Export_color_no_alphaContext.class,0);
+		}
+		public Export_flagsContext export_flags() {
+			return getRuleContext(Export_flagsContext.class,0);
+		}
+		public Export_flags_2dContext export_flags_2d() {
+			return getRuleContext(Export_flags_2dContext.class,0);
+		}
+		public Export_flags_3dContext export_flags_3d() {
+			return getRuleContext(Export_flags_3dContext.class,0);
+		}
+		public ExportStmtsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_exportStmts; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterExportStmts(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitExportStmts(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitExportStmts(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ExportStmtsContext exportStmts() throws RecognitionException {
+		ExportStmtsContext _localctx = new ExportStmtsContext(_ctx, getState());
+		enterRule(_localctx, 20, RULE_exportStmts);
+		try {
+			setState(282);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,32,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(274);
+				export();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(275);
+				export_node_path();
+				}
+				break;
+			case 3:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(276);
+				export_range();
+				}
+				break;
+			case 4:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(277);
+				export_multiline();
+				}
+				break;
+			case 5:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(278);
+				export_color_no_alpha();
+				}
+				break;
+			case 6:
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(279);
+				export_flags();
+				}
+				break;
+			case 7:
+				enterOuterAlt(_localctx, 7);
+				{
+				setState(280);
+				export_flags_2d();
+				}
+				break;
+			case 8:
+				enterOuterAlt(_localctx, 8);
+				{
+				setState(281);
+				export_flags_3d();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -766,6 +1322,7 @@ public class GDScriptParser extends Parser {
 		public TerminalNode AT() { return getToken(GDScriptParser.AT, 0); }
 		public TerminalNode OPEN_PAREN() { return getToken(GDScriptParser.OPEN_PAREN, 0); }
 		public TerminalNode CLOSE_PAREN() { return getToken(GDScriptParser.CLOSE_PAREN, 0); }
+		public TerminalNode NEWLINE() { return getToken(GDScriptParser.NEWLINE, 0); }
 		public TerminalNode BUILTINTYPE() { return getToken(GDScriptParser.BUILTINTYPE, 0); }
 		public TerminalNode IDENTIFIER() { return getToken(GDScriptParser.IDENTIFIER, 0); }
 		public List<TerminalNode> COMMA() { return getTokens(GDScriptParser.COMMA); }
@@ -799,56 +1356,56 @@ public class GDScriptParser extends Parser {
 
 	public final ExportContext export() throws RecognitionException {
 		ExportContext _localctx = new ExportContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_export);
+		enterRule(_localctx, 22, RULE_export);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(183);
+			setState(285);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==AT) {
 				{
-				setState(182);
+				setState(284);
 				match(AT);
 				}
 			}
 
-			setState(185);
+			setState(287);
 			match(EXPORT);
-			setState(199);
+			setState(301);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==OPEN_PAREN) {
 				{
-				setState(186);
+				setState(288);
 				match(OPEN_PAREN);
-				setState(196);
+				setState(298);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case BUILTINTYPE:
 					{
-					setState(187);
+					setState(289);
 					match(BUILTINTYPE);
 					}
 					break;
 				case IDENTIFIER:
 					{
-					setState(188);
+					setState(290);
 					match(IDENTIFIER);
-					setState(193);
+					setState(295);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					while (_la==COMMA) {
 						{
 						{
-						setState(189);
+						setState(291);
 						match(COMMA);
-						setState(190);
+						setState(292);
 						literal();
 						}
 						}
-						setState(195);
+						setState(297);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 					}
@@ -859,11 +1416,609 @@ public class GDScriptParser extends Parser {
 				default:
 					break;
 				}
-				setState(198);
+				setState(300);
 				match(CLOSE_PAREN);
 				}
 			}
 
+			setState(304);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==NEWLINE) {
+				{
+				setState(303);
+				match(NEWLINE);
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Export_node_pathContext extends ParserRuleContext {
+		public TerminalNode AT() { return getToken(GDScriptParser.AT, 0); }
+		public TerminalNode EXPORT_NODE_PATH() { return getToken(GDScriptParser.EXPORT_NODE_PATH, 0); }
+		public TerminalNode OPEN_PAREN() { return getToken(GDScriptParser.OPEN_PAREN, 0); }
+		public ArgListContext argList() {
+			return getRuleContext(ArgListContext.class,0);
+		}
+		public TerminalNode CLOSE_PAREN() { return getToken(GDScriptParser.CLOSE_PAREN, 0); }
+		public TerminalNode NEWLINE() { return getToken(GDScriptParser.NEWLINE, 0); }
+		public Export_node_pathContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_export_node_path; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterExport_node_path(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitExport_node_path(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitExport_node_path(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Export_node_pathContext export_node_path() throws RecognitionException {
+		Export_node_pathContext _localctx = new Export_node_pathContext(_ctx, getState());
+		enterRule(_localctx, 24, RULE_export_node_path);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(306);
+			match(AT);
+			setState(307);
+			match(EXPORT_NODE_PATH);
+			setState(308);
+			match(OPEN_PAREN);
+			setState(309);
+			argList();
+			setState(310);
+			match(CLOSE_PAREN);
+			setState(312);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==NEWLINE) {
+				{
+				setState(311);
+				match(NEWLINE);
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Export_rangeContext extends ParserRuleContext {
+		public TerminalNode AT() { return getToken(GDScriptParser.AT, 0); }
+		public TerminalNode EXPORT_RANGE() { return getToken(GDScriptParser.EXPORT_RANGE, 0); }
+		public TerminalNode OPEN_PAREN() { return getToken(GDScriptParser.OPEN_PAREN, 0); }
+		public ArgListContext argList() {
+			return getRuleContext(ArgListContext.class,0);
+		}
+		public TerminalNode CLOSE_PAREN() { return getToken(GDScriptParser.CLOSE_PAREN, 0); }
+		public TerminalNode NEWLINE() { return getToken(GDScriptParser.NEWLINE, 0); }
+		public Export_rangeContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_export_range; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterExport_range(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitExport_range(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitExport_range(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Export_rangeContext export_range() throws RecognitionException {
+		Export_rangeContext _localctx = new Export_rangeContext(_ctx, getState());
+		enterRule(_localctx, 26, RULE_export_range);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(314);
+			match(AT);
+			setState(315);
+			match(EXPORT_RANGE);
+			setState(316);
+			match(OPEN_PAREN);
+			setState(317);
+			argList();
+			setState(318);
+			match(CLOSE_PAREN);
+			setState(320);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==NEWLINE) {
+				{
+				setState(319);
+				match(NEWLINE);
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Export_multilineContext extends ParserRuleContext {
+		public TerminalNode AT() { return getToken(GDScriptParser.AT, 0); }
+		public TerminalNode EXPORT_MULTILINE() { return getToken(GDScriptParser.EXPORT_MULTILINE, 0); }
+		public TerminalNode NEWLINE() { return getToken(GDScriptParser.NEWLINE, 0); }
+		public Export_multilineContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_export_multiline; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterExport_multiline(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitExport_multiline(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitExport_multiline(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Export_multilineContext export_multiline() throws RecognitionException {
+		Export_multilineContext _localctx = new Export_multilineContext(_ctx, getState());
+		enterRule(_localctx, 28, RULE_export_multiline);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(322);
+			match(AT);
+			setState(323);
+			match(EXPORT_MULTILINE);
+			setState(325);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==NEWLINE) {
+				{
+				setState(324);
+				match(NEWLINE);
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Export_exp_easingContext extends ParserRuleContext {
+		public TerminalNode AT() { return getToken(GDScriptParser.AT, 0); }
+		public TerminalNode EXPORT_EXP_EASING() { return getToken(GDScriptParser.EXPORT_EXP_EASING, 0); }
+		public TerminalNode NEWLINE() { return getToken(GDScriptParser.NEWLINE, 0); }
+		public Export_exp_easingContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_export_exp_easing; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterExport_exp_easing(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitExport_exp_easing(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitExport_exp_easing(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Export_exp_easingContext export_exp_easing() throws RecognitionException {
+		Export_exp_easingContext _localctx = new Export_exp_easingContext(_ctx, getState());
+		enterRule(_localctx, 30, RULE_export_exp_easing);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(327);
+			match(AT);
+			setState(328);
+			match(EXPORT_EXP_EASING);
+			setState(330);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==NEWLINE) {
+				{
+				setState(329);
+				match(NEWLINE);
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Export_color_no_alphaContext extends ParserRuleContext {
+		public TerminalNode AT() { return getToken(GDScriptParser.AT, 0); }
+		public TerminalNode EXPORT_COLOR_NO_ALPHA() { return getToken(GDScriptParser.EXPORT_COLOR_NO_ALPHA, 0); }
+		public TerminalNode NEWLINE() { return getToken(GDScriptParser.NEWLINE, 0); }
+		public Export_color_no_alphaContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_export_color_no_alpha; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterExport_color_no_alpha(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitExport_color_no_alpha(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitExport_color_no_alpha(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Export_color_no_alphaContext export_color_no_alpha() throws RecognitionException {
+		Export_color_no_alphaContext _localctx = new Export_color_no_alphaContext(_ctx, getState());
+		enterRule(_localctx, 32, RULE_export_color_no_alpha);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(332);
+			match(AT);
+			setState(333);
+			match(EXPORT_COLOR_NO_ALPHA);
+			setState(335);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==NEWLINE) {
+				{
+				setState(334);
+				match(NEWLINE);
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Export_flagsContext extends ParserRuleContext {
+		public TerminalNode AT() { return getToken(GDScriptParser.AT, 0); }
+		public TerminalNode EXPORT_FLAGS() { return getToken(GDScriptParser.EXPORT_FLAGS, 0); }
+		public TerminalNode OPEN_PAREN() { return getToken(GDScriptParser.OPEN_PAREN, 0); }
+		public ArgListContext argList() {
+			return getRuleContext(ArgListContext.class,0);
+		}
+		public TerminalNode CLOSE_PAREN() { return getToken(GDScriptParser.CLOSE_PAREN, 0); }
+		public TerminalNode NEWLINE() { return getToken(GDScriptParser.NEWLINE, 0); }
+		public Export_flagsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_export_flags; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterExport_flags(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitExport_flags(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitExport_flags(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Export_flagsContext export_flags() throws RecognitionException {
+		Export_flagsContext _localctx = new Export_flagsContext(_ctx, getState());
+		enterRule(_localctx, 34, RULE_export_flags);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(337);
+			match(AT);
+			setState(338);
+			match(EXPORT_FLAGS);
+			setState(339);
+			match(OPEN_PAREN);
+			setState(340);
+			argList();
+			setState(341);
+			match(CLOSE_PAREN);
+			setState(343);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==NEWLINE) {
+				{
+				setState(342);
+				match(NEWLINE);
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Export_flags_2dContext extends ParserRuleContext {
+		public TerminalNode AT() { return getToken(GDScriptParser.AT, 0); }
+		public TerminalNode EXPORT_FLAGS_2D_PHYSICS() { return getToken(GDScriptParser.EXPORT_FLAGS_2D_PHYSICS, 0); }
+		public TerminalNode EXPORT_FLAGS_2D_RENDER() { return getToken(GDScriptParser.EXPORT_FLAGS_2D_RENDER, 0); }
+		public TerminalNode EXPORT_FLAGS_2D_NAVIGATION() { return getToken(GDScriptParser.EXPORT_FLAGS_2D_NAVIGATION, 0); }
+		public List<TerminalNode> NEWLINE() { return getTokens(GDScriptParser.NEWLINE); }
+		public TerminalNode NEWLINE(int i) {
+			return getToken(GDScriptParser.NEWLINE, i);
+		}
+		public Export_flags_2dContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_export_flags_2d; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterExport_flags_2d(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitExport_flags_2d(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitExport_flags_2d(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Export_flags_2dContext export_flags_2d() throws RecognitionException {
+		Export_flags_2dContext _localctx = new Export_flags_2dContext(_ctx, getState());
+		enterRule(_localctx, 36, RULE_export_flags_2d);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(345);
+			match(AT);
+			setState(346);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 229376L) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			setState(350);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==NEWLINE) {
+				{
+				{
+				setState(347);
+				match(NEWLINE);
+				}
+				}
+				setState(352);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Export_flags_3dContext extends ParserRuleContext {
+		public TerminalNode AT() { return getToken(GDScriptParser.AT, 0); }
+		public TerminalNode EXPORT_FLAGS_3D_PHYSICS() { return getToken(GDScriptParser.EXPORT_FLAGS_3D_PHYSICS, 0); }
+		public TerminalNode EXPORT_FLAGS_3D_RENDER() { return getToken(GDScriptParser.EXPORT_FLAGS_3D_RENDER, 0); }
+		public TerminalNode EXPORT_FLAGS_3D_NAVIGATION() { return getToken(GDScriptParser.EXPORT_FLAGS_3D_NAVIGATION, 0); }
+		public List<TerminalNode> NEWLINE() { return getTokens(GDScriptParser.NEWLINE); }
+		public TerminalNode NEWLINE(int i) {
+			return getToken(GDScriptParser.NEWLINE, i);
+		}
+		public Export_flags_3dContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_export_flags_3d; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterExport_flags_3d(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitExport_flags_3d(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitExport_flags_3d(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Export_flags_3dContext export_flags_3d() throws RecognitionException {
+		Export_flags_3dContext _localctx = new Export_flags_3dContext(_ctx, getState());
+		enterRule(_localctx, 38, RULE_export_flags_3d);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(353);
+			match(AT);
+			setState(354);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 1835008L) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			setState(358);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==NEWLINE) {
+				{
+				{
+				setState(355);
+				match(NEWLINE);
+				}
+				}
+				setState(360);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Export_enumContext extends ParserRuleContext {
+		public TerminalNode AT() { return getToken(GDScriptParser.AT, 0); }
+		public TerminalNode EXPORT_ENUM() { return getToken(GDScriptParser.EXPORT_ENUM, 0); }
+		public TerminalNode OPEN_PAREN() { return getToken(GDScriptParser.OPEN_PAREN, 0); }
+		public ArgListContext argList() {
+			return getRuleContext(ArgListContext.class,0);
+		}
+		public TerminalNode CLOSE_PAREN() { return getToken(GDScriptParser.CLOSE_PAREN, 0); }
+		public Export_enumContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_export_enum; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterExport_enum(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitExport_enum(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitExport_enum(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Export_enumContext export_enum() throws RecognitionException {
+		Export_enumContext _localctx = new Export_enumContext(_ctx, getState());
+		enterRule(_localctx, 40, RULE_export_enum);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(361);
+			match(AT);
+			setState(362);
+			match(EXPORT_ENUM);
+			setState(363);
+			match(OPEN_PAREN);
+			setState(364);
+			argList();
+			setState(365);
+			match(CLOSE_PAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -902,12 +2057,12 @@ public class GDScriptParser extends Parser {
 
 	public final TypeHintContext typeHint() throws RecognitionException {
 		TypeHintContext _localctx = new TypeHintContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_typeHint);
+		enterRule(_localctx, 42, RULE_typeHint);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(201);
+			setState(367);
 			_la = _input.LA(1);
 			if ( !(_la==IDENTIFIER || _la==BUILTINTYPE) ) {
 			_errHandler.recoverInline(this);
@@ -934,11 +2089,15 @@ public class GDScriptParser extends Parser {
 	public static class ConstDeclContext extends ParserRuleContext {
 		public TerminalNode CONST() { return getToken(GDScriptParser.CONST, 0); }
 		public TerminalNode IDENTIFIER() { return getToken(GDScriptParser.IDENTIFIER, 0); }
+		public TerminalNode NEWLINE() { return getToken(GDScriptParser.NEWLINE, 0); }
 		public TerminalNode ASSIGN() { return getToken(GDScriptParser.ASSIGN, 0); }
+		public TerminalNode COLON_ASSIGN() { return getToken(GDScriptParser.COLON_ASSIGN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public TerminalNode NEWLINE() { return getToken(GDScriptParser.NEWLINE, 0); }
+		public StmtContext stmt() {
+			return getRuleContext(StmtContext.class,0);
+		}
 		public TerminalNode COLON() { return getToken(GDScriptParser.COLON, 0); }
 		public TypeHintContext typeHint() {
 			return getRuleContext(TypeHintContext.class,0);
@@ -964,32 +2123,54 @@ public class GDScriptParser extends Parser {
 
 	public final ConstDeclContext constDecl() throws RecognitionException {
 		ConstDeclContext _localctx = new ConstDeclContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_constDecl);
+		enterRule(_localctx, 44, RULE_constDecl);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(203);
+			setState(369);
 			match(CONST);
-			setState(204);
+			setState(370);
 			match(IDENTIFIER);
-			setState(207);
+			setState(373);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COLON) {
 				{
-				setState(205);
+				setState(371);
 				match(COLON);
-				setState(206);
+				setState(372);
 				typeHint();
 				}
 			}
 
-			setState(209);
-			match(ASSIGN);
-			setState(210);
-			expression(0);
-			setState(211);
+			setState(375);
+			_la = _input.LA(1);
+			if ( !(_la==ASSIGN || _la==COLON_ASSIGN) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			setState(378);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,47,_ctx) ) {
+			case 1:
+				{
+				setState(376);
+				expression(0);
+				}
+				break;
+			case 2:
+				{
+				setState(377);
+				stmt();
+				}
+				break;
+			}
+			setState(380);
 			match(NEWLINE);
 			}
 		}
@@ -1033,26 +2214,26 @@ public class GDScriptParser extends Parser {
 
 	public final SignalDeclContext signalDecl() throws RecognitionException {
 		SignalDeclContext _localctx = new SignalDeclContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_signalDecl);
+		enterRule(_localctx, 46, RULE_signalDecl);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(213);
+			setState(382);
 			match(SIGNAL);
-			setState(214);
+			setState(383);
 			match(IDENTIFIER);
-			setState(216);
+			setState(385);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==OPEN_PAREN) {
 				{
-				setState(215);
+				setState(384);
 				signalParList();
 				}
 			}
 
-			setState(218);
+			setState(387);
 			match(NEWLINE);
 			}
 		}
@@ -1100,40 +2281,40 @@ public class GDScriptParser extends Parser {
 
 	public final SignalParListContext signalParList() throws RecognitionException {
 		SignalParListContext _localctx = new SignalParListContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_signalParList);
+		enterRule(_localctx, 48, RULE_signalParList);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(220);
+			setState(389);
 			match(OPEN_PAREN);
-			setState(229);
+			setState(398);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==IDENTIFIER) {
 				{
-				setState(221);
+				setState(390);
 				match(IDENTIFIER);
-				setState(226);
+				setState(395);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					setState(222);
+					setState(391);
 					match(COMMA);
-					setState(223);
+					setState(392);
 					match(IDENTIFIER);
 					}
 					}
-					setState(228);
+					setState(397);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 			}
 
-			setState(231);
+			setState(400);
 			match(CLOSE_PAREN);
 			}
 		}
@@ -1177,26 +2358,26 @@ public class GDScriptParser extends Parser {
 
 	public final EnumDeclContext enumDecl() throws RecognitionException {
 		EnumDeclContext _localctx = new EnumDeclContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_enumDecl);
+		enterRule(_localctx, 50, RULE_enumDecl);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(233);
+			setState(402);
 			match(ENUM);
-			setState(235);
+			setState(404);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==IDENTIFIER) {
 				{
-				setState(234);
+				setState(403);
 				match(IDENTIFIER);
 				}
 			}
 
-			setState(237);
+			setState(406);
 			enumList();
-			setState(238);
+			setState(407);
 			match(NEWLINE);
 			}
 		}
@@ -1254,48 +2435,48 @@ public class GDScriptParser extends Parser {
 
 	public final EnumListContext enumList() throws RecognitionException {
 		EnumListContext _localctx = new EnumListContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_enumList);
+		enterRule(_localctx, 52, RULE_enumList);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(240);
+			setState(409);
 			match(OPEN_BRACE);
 			{
-			setState(241);
+			setState(410);
 			match(IDENTIFIER);
-			setState(244);
+			setState(413);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ASSIGN) {
 				{
-				setState(242);
+				setState(411);
 				match(ASSIGN);
-				setState(243);
+				setState(412);
 				expression(0);
 				}
 			}
 
-			setState(254);
+			setState(423);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,29,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,54,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(246);
+					setState(415);
 					match(COMMA);
-					setState(247);
+					setState(416);
 					match(IDENTIFIER);
-					setState(250);
+					setState(419);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					if (_la==ASSIGN) {
 						{
-						setState(248);
+						setState(417);
 						match(ASSIGN);
-						setState(249);
+						setState(418);
 						expression(0);
 						}
 					}
@@ -1303,22 +2484,22 @@ public class GDScriptParser extends Parser {
 					}
 					} 
 				}
-				setState(256);
+				setState(425);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,29,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,54,_ctx);
 			}
-			setState(258);
+			setState(427);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(257);
+				setState(426);
 				match(COMMA);
 				}
 			}
 
 			}
-			setState(260);
+			setState(429);
 			match(CLOSE_BRACE);
 			}
 		}
@@ -1375,64 +2556,64 @@ public class GDScriptParser extends Parser {
 
 	public final MethodDeclContext methodDecl() throws RecognitionException {
 		MethodDeclContext _localctx = new MethodDeclContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_methodDecl);
+		enterRule(_localctx, 54, RULE_methodDecl);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(263);
+			setState(432);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 1032192L) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 1152921513062563840L) != 0)) {
 				{
-				setState(262);
+				setState(431);
 				rpc();
 				}
 			}
 
-			setState(266);
+			setState(435);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==STATIC) {
 				{
-				setState(265);
+				setState(434);
 				match(STATIC);
 				}
 			}
 
-			setState(268);
+			setState(437);
 			match(FUNC);
-			setState(269);
+			setState(438);
 			match(IDENTIFIER);
-			setState(270);
+			setState(439);
 			match(OPEN_PAREN);
-			setState(272);
+			setState(441);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==VAR || _la==IDENTIFIER) {
 				{
-				setState(271);
+				setState(440);
 				parList();
 				}
 			}
 
-			setState(274);
+			setState(443);
 			match(CLOSE_PAREN);
-			setState(277);
+			setState(446);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ARROW) {
 				{
-				setState(275);
+				setState(444);
 				match(ARROW);
-				setState(276);
+				setState(445);
 				typeHint();
 				}
 			}
 
-			setState(279);
+			setState(448);
 			match(COLON);
-			setState(280);
+			setState(449);
 			stmtOrSuite();
 			}
 		}
@@ -1480,26 +2661,26 @@ public class GDScriptParser extends Parser {
 
 	public final ParListContext parList() throws RecognitionException {
 		ParListContext _localctx = new ParListContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_parList);
+		enterRule(_localctx, 56, RULE_parList);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(282);
+			setState(451);
 			parameter();
-			setState(287);
+			setState(456);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(283);
+				setState(452);
 				match(COMMA);
-				setState(284);
+				setState(453);
 				parameter();
 				}
 				}
-				setState(289);
+				setState(458);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1549,43 +2730,43 @@ public class GDScriptParser extends Parser {
 
 	public final ParameterContext parameter() throws RecognitionException {
 		ParameterContext _localctx = new ParameterContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_parameter);
+		enterRule(_localctx, 58, RULE_parameter);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(291);
+			setState(460);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==VAR) {
 				{
-				setState(290);
+				setState(459);
 				match(VAR);
 				}
 			}
 
-			setState(293);
+			setState(462);
 			match(IDENTIFIER);
-			setState(296);
+			setState(465);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COLON) {
 				{
-				setState(294);
+				setState(463);
 				match(COLON);
-				setState(295);
+				setState(464);
 				typeHint();
 				}
 			}
 
-			setState(300);
+			setState(469);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ASSIGN) {
 				{
-				setState(298);
+				setState(467);
 				match(ASSIGN);
-				setState(299);
+				setState(468);
 				expression(0);
 				}
 			}
@@ -1611,6 +2792,11 @@ public class GDScriptParser extends Parser {
 		public TerminalNode REMOTESYNC() { return getToken(GDScriptParser.REMOTESYNC, 0); }
 		public TerminalNode MASTERSYNC() { return getToken(GDScriptParser.MASTERSYNC, 0); }
 		public TerminalNode PUPPETSYNC() { return getToken(GDScriptParser.PUPPETSYNC, 0); }
+		public TerminalNode RPC() { return getToken(GDScriptParser.RPC, 0); }
+		public TerminalNode OPEN_PAREN() { return getToken(GDScriptParser.OPEN_PAREN, 0); }
+		public TerminalNode STRING() { return getToken(GDScriptParser.STRING, 0); }
+		public TerminalNode CLOSE_PAREN() { return getToken(GDScriptParser.CLOSE_PAREN, 0); }
+		public TerminalNode NEWLINE() { return getToken(GDScriptParser.NEWLINE, 0); }
 		public RpcContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1632,21 +2818,81 @@ public class GDScriptParser extends Parser {
 
 	public final RpcContext rpc() throws RecognitionException {
 		RpcContext _localctx = new RpcContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_rpc);
+		enterRule(_localctx, 60, RULE_rpc);
 		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(302);
-			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 1032192L) != 0)) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
+			setState(484);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case REMOTE:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(471);
+				match(REMOTE);
+				}
+				break;
+			case MASTER:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(472);
+				match(MASTER);
+				}
+				break;
+			case PUPPET:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(473);
+				match(PUPPET);
+				}
+				break;
+			case REMOTESYNC:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(474);
+				match(REMOTESYNC);
+				}
+				break;
+			case MASTERSYNC:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(475);
+				match(MASTERSYNC);
+				}
+				break;
+			case PUPPETSYNC:
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(476);
+				match(PUPPETSYNC);
+				}
+				break;
+			case RPC:
+				enterOuterAlt(_localctx, 7);
+				{
+				{
+				setState(477);
+				match(RPC);
+				setState(478);
+				match(OPEN_PAREN);
+				setState(479);
+				match(STRING);
+				setState(480);
+				match(CLOSE_PAREN);
+				setState(482);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if (_la==NEWLINE) {
+					{
+					setState(481);
+					match(NEWLINE);
+					}
+				}
+
+				}
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1704,50 +2950,50 @@ public class GDScriptParser extends Parser {
 
 	public final ConstructorDeclContext constructorDecl() throws RecognitionException {
 		ConstructorDeclContext _localctx = new ConstructorDeclContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_constructorDecl);
+		enterRule(_localctx, 62, RULE_constructorDecl);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(304);
+			setState(486);
 			match(FUNC);
-			setState(305);
+			setState(487);
 			match(IDENTIFIER);
-			setState(306);
+			setState(488);
 			match(OPEN_PAREN);
-			setState(308);
+			setState(490);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==VAR || _la==IDENTIFIER) {
 				{
-				setState(307);
+				setState(489);
 				parList();
 				}
 			}
 
-			setState(310);
+			setState(492);
 			match(CLOSE_PAREN);
 			{
-			setState(311);
+			setState(493);
 			match(DOT);
-			setState(312);
+			setState(494);
 			match(OPEN_PAREN);
-			setState(314);
+			setState(496);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 39)) & ~0x3f) == 0 && ((1L << (_la - 39)) & 222928740571709245L) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 5463146568846671936L) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 8092423049708543L) != 0)) {
 				{
-				setState(313);
+				setState(495);
 				argList();
 				}
 			}
 
-			setState(316);
+			setState(498);
 			match(CLOSE_PAREN);
 			}
-			setState(318);
+			setState(500);
 			match(COLON);
-			setState(319);
+			setState(501);
 			stmtOrSuite();
 			}
 		}
@@ -1769,6 +3015,12 @@ public class GDScriptParser extends Parser {
 		}
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
+		}
+		public List<StmtContext> stmt() {
+			return getRuleContexts(StmtContext.class);
+		}
+		public StmtContext stmt(int i) {
+			return getRuleContext(StmtContext.class,i);
 		}
 		public List<TerminalNode> COMMA() { return getTokens(GDScriptParser.COMMA); }
 		public TerminalNode COMMA(int i) {
@@ -1795,29 +3047,70 @@ public class GDScriptParser extends Parser {
 
 	public final ArgListContext argList() throws RecognitionException {
 		ArgListContext _localctx = new ArgListContext(_ctx, getState());
-		enterRule(_localctx, 36, RULE_argList);
+		enterRule(_localctx, 64, RULE_argList);
 		int _la;
 		try {
+			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(321);
-			expression(0);
-			setState(326);
+			setState(505);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==COMMA) {
+			switch ( getInterpreter().adaptivePredict(_input,68,_ctx) ) {
+			case 1:
 				{
-				{
-				setState(322);
-				match(COMMA);
-				setState(323);
+				setState(503);
 				expression(0);
 				}
+				break;
+			case 2:
+				{
+				setState(504);
+				stmt();
 				}
-				setState(328);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
+				break;
 			}
+			setState(514);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,70,_ctx);
+			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(507);
+					match(COMMA);
+					setState(510);
+					_errHandler.sync(this);
+					switch ( getInterpreter().adaptivePredict(_input,69,_ctx) ) {
+					case 1:
+						{
+						setState(508);
+						expression(0);
+						}
+						break;
+					case 2:
+						{
+						setState(509);
+						stmt();
+						}
+						break;
+					}
+					}
+					} 
+				}
+				setState(516);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,70,_ctx);
+			}
+			setState(518);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==COMMA) {
+				{
+				setState(517);
+				match(COMMA);
+				}
+			}
+
 			}
 		}
 		catch (RecognitionException re) {
@@ -1875,58 +3168,58 @@ public class GDScriptParser extends Parser {
 
 	public final InnerClassContext innerClass() throws RecognitionException {
 		InnerClassContext _localctx = new InnerClassContext(_ctx, getState());
-		enterRule(_localctx, 38, RULE_innerClass);
+		enterRule(_localctx, 66, RULE_innerClass);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(329);
+			setState(520);
 			match(CLASS);
-			setState(330);
+			setState(521);
 			match(IDENTIFIER);
-			setState(332);
+			setState(523);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==EXTENDS) {
 				{
-				setState(331);
+				setState(522);
 				inheritance();
 				}
 			}
 
-			setState(334);
+			setState(525);
 			match(COLON);
-			setState(335);
+			setState(526);
 			match(NEWLINE);
-			setState(336);
+			setState(527);
 			match(INDENT);
-			setState(340);
+			setState(531);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==EXTENDS) {
 				{
-				setState(337);
+				setState(528);
 				inheritance();
-				setState(338);
+				setState(529);
 				match(NEWLINE);
 				}
 			}
 
-			setState(343); 
+			setState(534); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(342);
+				setState(533);
 				topLevelDecl();
 				}
 				}
-				setState(345); 
+				setState(536); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 35184374185824L) != 0) || _la==AT );
-			setState(347);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & -2319073570073869984L) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 17099622304449535L) != 0) );
+			setState(538);
 			match(DEDENT);
 			}
 		}
@@ -1973,9 +3266,9 @@ public class GDScriptParser extends Parser {
 
 	public final StmtOrSuiteContext stmtOrSuite() throws RecognitionException {
 		StmtOrSuiteContext _localctx = new StmtOrSuiteContext(_ctx, getState());
-		enterRule(_localctx, 40, RULE_stmtOrSuite);
+		enterRule(_localctx, 68, RULE_stmtOrSuite);
 		try {
-			setState(355);
+			setState(546);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case VAR:
@@ -1996,10 +3289,15 @@ public class GDScriptParser extends Parser {
 			case FALSE:
 			case NULL:
 			case SELF:
+			case AWAIT:
+			case WARNING_IGNORE:
 			case IDENTIFIER:
 			case BUILTINTYPE:
 			case CONSTANT:
 			case STRING:
+			case STRINGNAME:
+			case MULTI_LINE_STRING:
+			case NODEPATH:
 			case INTEGER:
 			case FLOAT:
 			case DOT:
@@ -2009,24 +3307,25 @@ public class GDScriptParser extends Parser {
 			case LOGIC_NOT:
 			case ADD:
 			case MINUS:
+			case MOD:
 			case NOT_OP:
 			case DOLLAR:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(349);
+				setState(540);
 				stmt();
 				}
 				break;
 			case NEWLINE:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(350);
+				setState(541);
 				match(NEWLINE);
-				setState(351);
+				setState(542);
 				match(INDENT);
-				setState(352);
+				setState(543);
 				suite();
-				setState(353);
+				setState(544);
 				match(DEDENT);
 				}
 				break;
@@ -2074,25 +3373,25 @@ public class GDScriptParser extends Parser {
 
 	public final SuiteContext suite() throws RecognitionException {
 		SuiteContext _localctx = new SuiteContext(_ctx, getState());
-		enterRule(_localctx, 42, RULE_suite);
+		enterRule(_localctx, 70, RULE_suite);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(358); 
+			setState(549); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(357);
+				setState(548);
 				stmt();
 				}
 				}
-				setState(360); 
+				setState(551); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 17907230332420160L) != 0) || ((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & 1660948549L) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 5463146568846671936L) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 8092423049708543L) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -2141,11 +3440,25 @@ public class GDScriptParser extends Parser {
 		public PreloadStmtContext preloadStmt() {
 			return getRuleContext(PreloadStmtContext.class,0);
 		}
+		public AwaitStmtContext awaitStmt() {
+			return getRuleContext(AwaitStmtContext.class,0);
+		}
 		public TerminalNode BREAKPOINT() { return getToken(GDScriptParser.BREAKPOINT, 0); }
 		public StmtEndContext stmtEnd() {
 			return getRuleContext(StmtEndContext.class,0);
 		}
 		public TerminalNode PASS() { return getToken(GDScriptParser.PASS, 0); }
+		public TerminalNode WARNING_IGNORE() { return getToken(GDScriptParser.WARNING_IGNORE, 0); }
+		public TerminalNode OPEN_PAREN() { return getToken(GDScriptParser.OPEN_PAREN, 0); }
+		public List<TerminalNode> STRING() { return getTokens(GDScriptParser.STRING); }
+		public TerminalNode STRING(int i) {
+			return getToken(GDScriptParser.STRING, i);
+		}
+		public TerminalNode CLOSE_PAREN() { return getToken(GDScriptParser.CLOSE_PAREN, 0); }
+		public List<TerminalNode> COMMA() { return getTokens(GDScriptParser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(GDScriptParser.COMMA, i);
+		}
 		public StmtContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2167,103 +3480,142 @@ public class GDScriptParser extends Parser {
 
 	public final StmtContext stmt() throws RecognitionException {
 		StmtContext _localctx = new StmtContext(_ctx, getState());
-		enterRule(_localctx, 44, RULE_stmt);
+		enterRule(_localctx, 72, RULE_stmt);
+		int _la;
 		try {
-			setState(377);
+			setState(581);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,47,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,78,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(362);
+				setState(553);
 				varDeclStmt();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(363);
+				setState(554);
 				ifStmt();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(364);
+				setState(555);
 				forStmt();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(365);
+				setState(556);
 				whileStmt();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(366);
+				setState(557);
 				matchStmt();
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(367);
+				setState(558);
 				flowStmt();
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(368);
+				setState(559);
 				assignmentStmt();
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(369);
+				setState(560);
 				exprStmt();
 				}
 				break;
 			case 9:
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(370);
+				setState(561);
 				assertStmt();
 				}
 				break;
 			case 10:
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(371);
+				setState(562);
 				yieldStmt();
 				}
 				break;
 			case 11:
 				enterOuterAlt(_localctx, 11);
 				{
-				setState(372);
+				setState(563);
 				preloadStmt();
 				}
 				break;
 			case 12:
 				enterOuterAlt(_localctx, 12);
 				{
-				setState(373);
-				match(BREAKPOINT);
-				setState(374);
-				stmtEnd();
+				setState(564);
+				awaitStmt();
 				}
 				break;
 			case 13:
 				enterOuterAlt(_localctx, 13);
 				{
-				setState(375);
+				setState(565);
+				match(BREAKPOINT);
+				setState(566);
+				stmtEnd();
+				}
+				break;
+			case 14:
+				enterOuterAlt(_localctx, 14);
+				{
+				setState(567);
 				match(PASS);
-				setState(376);
+				setState(568);
+				stmtEnd();
+				}
+				break;
+			case 15:
+				enterOuterAlt(_localctx, 15);
+				{
+				setState(569);
+				match(WARNING_IGNORE);
+				setState(570);
+				match(OPEN_PAREN);
+				setState(571);
+				match(STRING);
+				setState(576);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (_la==COMMA) {
+					{
+					{
+					setState(572);
+					match(COMMA);
+					setState(573);
+					match(STRING);
+					}
+					}
+					setState(578);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				setState(579);
+				match(CLOSE_PAREN);
+				setState(580);
 				stmtEnd();
 				}
 				break;
@@ -2305,12 +3657,12 @@ public class GDScriptParser extends Parser {
 
 	public final StmtEndContext stmtEnd() throws RecognitionException {
 		StmtEndContext _localctx = new StmtEndContext(_ctx, getState());
-		enterRule(_localctx, 46, RULE_stmtEnd);
+		enterRule(_localctx, 74, RULE_stmtEnd);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(379);
+			setState(583);
 			_la = _input.LA(1);
 			if ( !(_la==NEWLINE || _la==SEMI_COLON) ) {
 			_errHandler.recoverInline(this);
@@ -2320,6 +3672,54 @@ public class GDScriptParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class AwaitStmtContext extends ParserRuleContext {
+		public TerminalNode AWAIT() { return getToken(GDScriptParser.AWAIT, 0); }
+		public StmtContext stmt() {
+			return getRuleContext(StmtContext.class,0);
+		}
+		public AwaitStmtContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_awaitStmt; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterAwaitStmt(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitAwaitStmt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitAwaitStmt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final AwaitStmtContext awaitStmt() throws RecognitionException {
+		AwaitStmtContext _localctx = new AwaitStmtContext(_ctx, getState());
+		enterRule(_localctx, 76, RULE_awaitStmt);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(585);
+			match(AWAIT);
+			setState(586);
+			stmt();
 			}
 		}
 		catch (RecognitionException re) {
@@ -2357,6 +3757,10 @@ public class GDScriptParser extends Parser {
 			return getToken(GDScriptParser.ELIF, i);
 		}
 		public TerminalNode ELSE() { return getToken(GDScriptParser.ELSE, 0); }
+		public List<TerminalNode> NEWLINE() { return getTokens(GDScriptParser.NEWLINE); }
+		public TerminalNode NEWLINE(int i) {
+			return getToken(GDScriptParser.NEWLINE, i);
+		}
 		public IfStmtContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2378,54 +3782,70 @@ public class GDScriptParser extends Parser {
 
 	public final IfStmtContext ifStmt() throws RecognitionException {
 		IfStmtContext _localctx = new IfStmtContext(_ctx, getState());
-		enterRule(_localctx, 48, RULE_ifStmt);
+		enterRule(_localctx, 78, RULE_ifStmt);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(381);
+			setState(588);
 			match(IF);
-			setState(382);
+			setState(589);
 			expression(0);
-			setState(383);
+			setState(590);
 			match(COLON);
-			setState(384);
+			setState(591);
 			stmtOrSuite();
-			setState(392);
+			setState(599);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,48,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,79,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(385);
+					setState(592);
 					match(ELIF);
-					setState(386);
+					setState(593);
 					expression(0);
-					setState(387);
+					setState(594);
 					match(COLON);
-					setState(388);
+					setState(595);
 					stmtOrSuite();
 					}
 					} 
 				}
-				setState(394);
+				setState(601);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,48,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,79,_ctx);
 			}
-			setState(398);
+			setState(605);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,49,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,80,_ctx) ) {
 			case 1:
 				{
-				setState(395);
+				setState(602);
 				match(ELSE);
-				setState(396);
+				setState(603);
 				match(COLON);
-				setState(397);
+				setState(604);
 				stmtOrSuite();
 				}
 				break;
+			}
+			setState(610);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,81,_ctx);
+			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(607);
+					match(NEWLINE);
+					}
+					} 
+				}
+				setState(612);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,81,_ctx);
 			}
 			}
 		}
@@ -2471,17 +3891,17 @@ public class GDScriptParser extends Parser {
 
 	public final WhileStmtContext whileStmt() throws RecognitionException {
 		WhileStmtContext _localctx = new WhileStmtContext(_ctx, getState());
-		enterRule(_localctx, 50, RULE_whileStmt);
+		enterRule(_localctx, 80, RULE_whileStmt);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(400);
+			setState(613);
 			match(WHILE);
-			setState(401);
+			setState(614);
 			expression(0);
-			setState(402);
+			setState(615);
 			match(COLON);
-			setState(403);
+			setState(616);
 			stmtOrSuite();
 			}
 		}
@@ -2529,21 +3949,21 @@ public class GDScriptParser extends Parser {
 
 	public final ForStmtContext forStmt() throws RecognitionException {
 		ForStmtContext _localctx = new ForStmtContext(_ctx, getState());
-		enterRule(_localctx, 52, RULE_forStmt);
+		enterRule(_localctx, 82, RULE_forStmt);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(405);
+			setState(618);
 			match(FOR);
-			setState(406);
+			setState(619);
 			match(IDENTIFIER);
-			setState(407);
+			setState(620);
 			match(IN);
-			setState(408);
+			setState(621);
 			expression(0);
-			setState(409);
+			setState(622);
 			match(COLON);
-			setState(410);
+			setState(623);
 			stmtOrSuite();
 			}
 		}
@@ -2592,23 +4012,23 @@ public class GDScriptParser extends Parser {
 
 	public final MatchStmtContext matchStmt() throws RecognitionException {
 		MatchStmtContext _localctx = new MatchStmtContext(_ctx, getState());
-		enterRule(_localctx, 54, RULE_matchStmt);
+		enterRule(_localctx, 84, RULE_matchStmt);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(412);
+			setState(625);
 			match(MATCH);
-			setState(413);
+			setState(626);
 			expression(0);
-			setState(414);
+			setState(627);
 			match(COLON);
-			setState(415);
+			setState(628);
 			match(NEWLINE);
-			setState(416);
+			setState(629);
 			match(INDENT);
-			setState(417);
+			setState(630);
 			matchBlock();
-			setState(418);
+			setState(631);
 			match(DEDENT);
 			}
 		}
@@ -2662,29 +4082,29 @@ public class GDScriptParser extends Parser {
 
 	public final MatchBlockContext matchBlock() throws RecognitionException {
 		MatchBlockContext _localctx = new MatchBlockContext(_ctx, getState());
-		enterRule(_localctx, 56, RULE_matchBlock);
+		enterRule(_localctx, 86, RULE_matchBlock);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(424); 
+			setState(637); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(420);
+				setState(633);
 				patternList();
-				setState(421);
+				setState(634);
 				match(COLON);
-				setState(422);
+				setState(635);
 				stmtOrSuite();
 				}
 				}
-				setState(426); 
+				setState(639); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 17907196125773888L) != 0) || ((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & 1660948581L) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 274719577269600320L) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 8092423183926271L) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -2731,26 +4151,26 @@ public class GDScriptParser extends Parser {
 
 	public final PatternListContext patternList() throws RecognitionException {
 		PatternListContext _localctx = new PatternListContext(_ctx, getState());
-		enterRule(_localctx, 58, RULE_patternList);
+		enterRule(_localctx, 88, RULE_patternList);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(428);
+			setState(641);
 			pattern();
-			setState(433);
+			setState(646);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(429);
+				setState(642);
 				match(COMMA);
-				setState(430);
+				setState(643);
 				pattern();
 				}
 				}
-				setState(435);
+				setState(648);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -2808,64 +4228,64 @@ public class GDScriptParser extends Parser {
 
 	public final PatternContext pattern() throws RecognitionException {
 		PatternContext _localctx = new PatternContext(_ctx, getState());
-		enterRule(_localctx, 60, RULE_pattern);
+		enterRule(_localctx, 90, RULE_pattern);
 		try {
-			setState(444);
+			setState(657);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,52,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,84,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(436);
+				setState(649);
 				literal();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(437);
+				setState(650);
 				match(BUILTINTYPE);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(438);
+				setState(651);
 				match(CONSTANT);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(439);
+				setState(652);
 				match(UNDERSCORE);
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(440);
+				setState(653);
 				bindingPattern();
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(441);
+				setState(654);
 				arrayPattern();
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(442);
+				setState(655);
 				dictPattern();
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(443);
+				setState(656);
 				expression(0);
 				}
 				break;
@@ -2907,13 +4327,13 @@ public class GDScriptParser extends Parser {
 
 	public final BindingPatternContext bindingPattern() throws RecognitionException {
 		BindingPatternContext _localctx = new BindingPatternContext(_ctx, getState());
-		enterRule(_localctx, 62, RULE_bindingPattern);
+		enterRule(_localctx, 92, RULE_bindingPattern);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(446);
+			setState(659);
 			match(VAR);
-			setState(447);
+			setState(660);
 			match(IDENTIFIER);
 			}
 		}
@@ -2964,42 +4384,42 @@ public class GDScriptParser extends Parser {
 
 	public final ArrayPatternContext arrayPattern() throws RecognitionException {
 		ArrayPatternContext _localctx = new ArrayPatternContext(_ctx, getState());
-		enterRule(_localctx, 64, RULE_arrayPattern);
+		enterRule(_localctx, 94, RULE_arrayPattern);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(449);
+			setState(662);
 			match(OPEN_BRACK);
-			setState(461);
+			setState(674);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 17907196125773888L) != 0) || ((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & 1660948581L) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 274719577269600320L) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 8092423183926271L) != 0)) {
 				{
-				setState(450);
+				setState(663);
 				pattern();
-				setState(455);
+				setState(668);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					setState(451);
+					setState(664);
 					match(COMMA);
-					setState(452);
+					setState(665);
 					pattern();
 					}
 					}
-					setState(457);
+					setState(670);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(459);
+				setState(672);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==DOTDOT) {
 					{
-					setState(458);
+					setState(671);
 					match(DOTDOT);
 					}
 				}
@@ -3007,7 +4427,7 @@ public class GDScriptParser extends Parser {
 				}
 			}
 
-			setState(463);
+			setState(676);
 			match(CLOSE_BRACK);
 			}
 		}
@@ -3058,50 +4478,50 @@ public class GDScriptParser extends Parser {
 
 	public final DictPatternContext dictPattern() throws RecognitionException {
 		DictPatternContext _localctx = new DictPatternContext(_ctx, getState());
-		enterRule(_localctx, 66, RULE_dictPattern);
+		enterRule(_localctx, 96, RULE_dictPattern);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(465);
+			setState(678);
 			match(OPEN_BRACE);
-			setState(467);
+			setState(680);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==STRING) {
 				{
-				setState(466);
+				setState(679);
 				keyValuePattern();
 				}
 			}
 
-			setState(473);
+			setState(686);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(469);
+				setState(682);
 				match(COMMA);
-				setState(470);
+				setState(683);
 				keyValuePattern();
 				}
 				}
-				setState(475);
+				setState(688);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(477);
+			setState(690);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==DOTDOT) {
 				{
-				setState(476);
+				setState(689);
 				match(DOTDOT);
 				}
 			}
 
-			setState(479);
+			setState(692);
 			match(CLOSE_BRACE);
 			}
 		}
@@ -3144,21 +4564,21 @@ public class GDScriptParser extends Parser {
 
 	public final KeyValuePatternContext keyValuePattern() throws RecognitionException {
 		KeyValuePatternContext _localctx = new KeyValuePatternContext(_ctx, getState());
-		enterRule(_localctx, 68, RULE_keyValuePattern);
+		enterRule(_localctx, 98, RULE_keyValuePattern);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(481);
+			setState(694);
 			match(STRING);
-			setState(484);
+			setState(697);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COLON) {
 				{
-				setState(482);
+				setState(695);
 				match(COLON);
-				setState(483);
+				setState(696);
 				pattern();
 				}
 			}
@@ -3208,46 +4628,46 @@ public class GDScriptParser extends Parser {
 
 	public final FlowStmtContext flowStmt() throws RecognitionException {
 		FlowStmtContext _localctx = new FlowStmtContext(_ctx, getState());
-		enterRule(_localctx, 70, RULE_flowStmt);
+		enterRule(_localctx, 100, RULE_flowStmt);
 		int _la;
 		try {
-			setState(495);
+			setState(708);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case CONTINUE:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(486);
+				setState(699);
 				match(CONTINUE);
-				setState(487);
+				setState(700);
 				stmtEnd();
 				}
 				break;
 			case BREAK:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(488);
+				setState(701);
 				match(BREAK);
-				setState(489);
+				setState(702);
 				stmtEnd();
 				}
 				break;
 			case RETURN:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(490);
+				setState(703);
 				match(RETURN);
-				setState(492);
+				setState(705);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 39)) & ~0x3f) == 0 && ((1L << (_la - 39)) & 222928740571709245L) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 274719577269600256L) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 8092423049708543L) != 0)) {
 					{
-					setState(491);
+					setState(704);
 					expression(0);
 					}
 				}
 
-				setState(494);
+				setState(707);
 				stmtEnd();
 				}
 				break;
@@ -3307,16 +4727,16 @@ public class GDScriptParser extends Parser {
 
 	public final AssignmentStmtContext assignmentStmt() throws RecognitionException {
 		AssignmentStmtContext _localctx = new AssignmentStmtContext(_ctx, getState());
-		enterRule(_localctx, 72, RULE_assignmentStmt);
+		enterRule(_localctx, 102, RULE_assignmentStmt);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(497);
+			setState(710);
 			expression(0);
-			setState(498);
+			setState(711);
 			_la = _input.LA(1);
-			if ( !(((((_la - 56)) & ~0x3f) == 0 && ((1L << (_la - 56)) & 1021L) != 0)) ) {
+			if ( !(((((_la - 76)) & ~0x3f) == 0 && ((1L << (_la - 76)) & 1021L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -3324,9 +4744,9 @@ public class GDScriptParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(499);
+			setState(712);
 			expression(0);
-			setState(500);
+			setState(713);
 			stmtEnd();
 			}
 		}
@@ -3381,33 +4801,33 @@ public class GDScriptParser extends Parser {
 
 	public final VarDeclStmtContext varDeclStmt() throws RecognitionException {
 		VarDeclStmtContext _localctx = new VarDeclStmtContext(_ctx, getState());
-		enterRule(_localctx, 74, RULE_varDeclStmt);
+		enterRule(_localctx, 104, RULE_varDeclStmt);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(502);
+			setState(715);
 			match(VAR);
-			setState(503);
+			setState(716);
 			match(IDENTIFIER);
-			setState(506);
+			setState(719);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COLON) {
 				{
-				setState(504);
+				setState(717);
 				match(COLON);
-				setState(505);
+				setState(718);
 				typeHint();
 				}
 			}
 
-			setState(513);
+			setState(726);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ASSIGN || _la==COLON_ASSIGN) {
 				{
-				setState(508);
+				setState(721);
 				_la = _input.LA(1);
 				if ( !(_la==ASSIGN || _la==COLON_ASSIGN) ) {
 				_errHandler.recoverInline(this);
@@ -3417,18 +4837,18 @@ public class GDScriptParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(511);
+				setState(724);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,63,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,95,_ctx) ) {
 				case 1:
 					{
-					setState(509);
+					setState(722);
 					expression(0);
 					}
 					break;
 				case 2:
 					{
-					setState(510);
+					setState(723);
 					stmt();
 					}
 					break;
@@ -3436,7 +4856,7 @@ public class GDScriptParser extends Parser {
 				}
 			}
 
-			setState(515);
+			setState(728);
 			stmtEnd();
 			}
 		}
@@ -3485,32 +4905,32 @@ public class GDScriptParser extends Parser {
 
 	public final AssertStmtContext assertStmt() throws RecognitionException {
 		AssertStmtContext _localctx = new AssertStmtContext(_ctx, getState());
-		enterRule(_localctx, 76, RULE_assertStmt);
+		enterRule(_localctx, 106, RULE_assertStmt);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(517);
+			setState(730);
 			match(ASSERT);
-			setState(518);
+			setState(731);
 			match(OPEN_PAREN);
-			setState(519);
+			setState(732);
 			expression(0);
-			setState(522);
+			setState(735);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(520);
+				setState(733);
 				match(COMMA);
-				setState(521);
+				setState(734);
 				match(STRING);
 				}
 			}
 
-			setState(524);
+			setState(737);
 			match(CLOSE_PAREN);
-			setState(525);
+			setState(738);
 			stmtEnd();
 			}
 		}
@@ -3561,25 +4981,25 @@ public class GDScriptParser extends Parser {
 
 	public final YieldStmtContext yieldStmt() throws RecognitionException {
 		YieldStmtContext _localctx = new YieldStmtContext(_ctx, getState());
-		enterRule(_localctx, 78, RULE_yieldStmt);
+		enterRule(_localctx, 108, RULE_yieldStmt);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(527);
+			setState(740);
 			match(YIELD);
-			setState(528);
+			setState(741);
 			match(OPEN_PAREN);
 			{
-			setState(529);
+			setState(742);
 			expression(0);
-			setState(530);
+			setState(743);
 			match(COMMA);
-			setState(531);
+			setState(744);
 			expression(0);
 			}
-			setState(533);
+			setState(746);
 			match(CLOSE_PAREN);
-			setState(534);
+			setState(747);
 			stmtEnd();
 			}
 		}
@@ -3600,8 +5020,11 @@ public class GDScriptParser extends Parser {
 		public TerminalNode OPEN_PAREN() { return getToken(GDScriptParser.OPEN_PAREN, 0); }
 		public TerminalNode CLOSE_PAREN() { return getToken(GDScriptParser.CLOSE_PAREN, 0); }
 		public TerminalNode CONSTANT() { return getToken(GDScriptParser.CONSTANT, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
 		}
 		public StmtEndContext stmtEnd() {
 			return getRuleContext(StmtEndContext.class,0);
@@ -3627,38 +5050,48 @@ public class GDScriptParser extends Parser {
 
 	public final PreloadStmtContext preloadStmt() throws RecognitionException {
 		PreloadStmtContext _localctx = new PreloadStmtContext(_ctx, getState());
-		enterRule(_localctx, 80, RULE_preloadStmt);
+		enterRule(_localctx, 110, RULE_preloadStmt);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(536);
+			setState(749);
 			match(PRELOAD);
-			setState(537);
+			setState(750);
 			match(OPEN_PAREN);
-			setState(540);
+			setState(753);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,66,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,98,_ctx) ) {
 			case 1:
 				{
-				setState(538);
+				setState(751);
 				match(CONSTANT);
 				}
 				break;
 			case 2:
 				{
-				setState(539);
+				setState(752);
 				expression(0);
 				}
 				break;
 			}
-			setState(542);
+			setState(755);
 			match(CLOSE_PAREN);
-			setState(544);
+			setState(757);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,67,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,99,_ctx) ) {
 			case 1:
 				{
-				setState(543);
+				setState(756);
+				expression(0);
+				}
+				break;
+			}
+			setState(760);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,100,_ctx) ) {
+			case 1:
+				{
+				setState(759);
 				stmtEnd();
 				}
 				break;
@@ -3705,13 +5138,13 @@ public class GDScriptParser extends Parser {
 
 	public final ExprStmtContext exprStmt() throws RecognitionException {
 		ExprStmtContext _localctx = new ExprStmtContext(_ctx, getState());
-		enterRule(_localctx, 82, RULE_exprStmt);
+		enterRule(_localctx, 112, RULE_exprStmt);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(546);
+			setState(762);
 			expression(0);
-			setState(547);
+			setState(763);
 			stmtEnd();
 			}
 		}
@@ -3759,84 +5192,6 @@ public class GDScriptParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitMinus(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class BitShiftContext extends ExpressionContext {
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public TerminalNode LEFT_SHIFT() { return getToken(GDScriptParser.LEFT_SHIFT, 0); }
-		public TerminalNode RIGHT_SHIFT() { return getToken(GDScriptParser.RIGHT_SHIFT, 0); }
-		public BitShiftContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterBitShift(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitBitShift(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitBitShift(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class ComparisonContext extends ExpressionContext {
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public TerminalNode LESS_THAN() { return getToken(GDScriptParser.LESS_THAN, 0); }
-		public TerminalNode GREATER_THAN() { return getToken(GDScriptParser.GREATER_THAN, 0); }
-		public TerminalNode LT_EQ() { return getToken(GDScriptParser.LT_EQ, 0); }
-		public TerminalNode GT_EQ() { return getToken(GDScriptParser.GT_EQ, 0); }
-		public TerminalNode EQUALS() { return getToken(GDScriptParser.EQUALS, 0); }
-		public TerminalNode NOT_EQ() { return getToken(GDScriptParser.NOT_EQ, 0); }
-		public ComparisonContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterComparison(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitComparison(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitComparison(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class InContext extends ExpressionContext {
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public TerminalNode IN() { return getToken(GDScriptParser.IN, 0); }
-		public InContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterIn(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitIn(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitIn(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3912,58 +5267,6 @@ public class GDScriptParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class ArrayDeclContext extends ExpressionContext {
-		public TerminalNode OPEN_BRACK() { return getToken(GDScriptParser.OPEN_BRACK, 0); }
-		public TerminalNode CLOSE_BRACK() { return getToken(GDScriptParser.CLOSE_BRACK, 0); }
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public List<TerminalNode> COMMA() { return getTokens(GDScriptParser.COMMA); }
-		public TerminalNode COMMA(int i) {
-			return getToken(GDScriptParser.COMMA, i);
-		}
-		public ArrayDeclContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterArrayDecl(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitArrayDecl(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitArrayDecl(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class IsContext extends ExpressionContext {
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public TerminalNode IS() { return getToken(GDScriptParser.IS, 0); }
-		public TerminalNode IDENTIFIER() { return getToken(GDScriptParser.IDENTIFIER, 0); }
-		public TerminalNode BUILTINTYPE() { return getToken(GDScriptParser.BUILTINTYPE, 0); }
-		public IsContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterIs(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitIs(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitIs(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class SubscriptionContext extends ExpressionContext {
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
@@ -3989,57 +5292,6 @@ public class GDScriptParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class PlusContext extends ExpressionContext {
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public TerminalNode ADD() { return getToken(GDScriptParser.ADD, 0); }
-		public PlusContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterPlus(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitPlus(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitPlus(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class CallContext extends ExpressionContext {
-		public TerminalNode DOT() { return getToken(GDScriptParser.DOT, 0); }
-		public TerminalNode IDENTIFIER() { return getToken(GDScriptParser.IDENTIFIER, 0); }
-		public TerminalNode OPEN_PAREN() { return getToken(GDScriptParser.OPEN_PAREN, 0); }
-		public TerminalNode CLOSE_PAREN() { return getToken(GDScriptParser.CLOSE_PAREN, 0); }
-		public ArgListContext argList() {
-			return getRuleContext(ArgListContext.class,0);
-		}
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public CallContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterCall(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitCall(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitCall(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class CastContext extends ExpressionContext {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
@@ -4060,30 +5312,6 @@ public class GDScriptParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitCast(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class BitAndContext extends ExpressionContext {
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public TerminalNode AND_OP() { return getToken(GDScriptParser.AND_OP, 0); }
-		public BitAndContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterBitAnd(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitBitAnd(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitBitAnd(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4167,6 +5395,281 @@ public class GDScriptParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
+	public static class AttributeContext extends ExpressionContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public TerminalNode DOT() { return getToken(GDScriptParser.DOT, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(GDScriptParser.IDENTIFIER, 0); }
+		public AttributeContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterAttribute(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitAttribute(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitAttribute(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class FactorContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode STAR() { return getToken(GDScriptParser.STAR, 0); }
+		public TerminalNode DIV() { return getToken(GDScriptParser.DIV, 0); }
+		public TerminalNode MOD() { return getToken(GDScriptParser.MOD, 0); }
+		public FactorContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterFactor(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitFactor(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitFactor(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class LogicNotContext extends ExpressionContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public TerminalNode LOGIC_NOT() { return getToken(GDScriptParser.LOGIC_NOT, 0); }
+		public TerminalNode NOT() { return getToken(GDScriptParser.NOT, 0); }
+		public LogicNotContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterLogicNot(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitLogicNot(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitLogicNot(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class BitShiftContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode LEFT_SHIFT() { return getToken(GDScriptParser.LEFT_SHIFT, 0); }
+		public TerminalNode RIGHT_SHIFT() { return getToken(GDScriptParser.RIGHT_SHIFT, 0); }
+		public BitShiftContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterBitShift(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitBitShift(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitBitShift(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ComparisonContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode LESS_THAN() { return getToken(GDScriptParser.LESS_THAN, 0); }
+		public TerminalNode GREATER_THAN() { return getToken(GDScriptParser.GREATER_THAN, 0); }
+		public TerminalNode LT_EQ() { return getToken(GDScriptParser.LT_EQ, 0); }
+		public TerminalNode GT_EQ() { return getToken(GDScriptParser.GT_EQ, 0); }
+		public TerminalNode EQUALS() { return getToken(GDScriptParser.EQUALS, 0); }
+		public TerminalNode NOT_EQ() { return getToken(GDScriptParser.NOT_EQ, 0); }
+		public ComparisonContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterComparison(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitComparison(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitComparison(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class InContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode IN() { return getToken(GDScriptParser.IN, 0); }
+		public InContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterIn(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitIn(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitIn(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ArrayDeclContext extends ExpressionContext {
+		public TerminalNode OPEN_BRACK() { return getToken(GDScriptParser.OPEN_BRACK, 0); }
+		public TerminalNode CLOSE_BRACK() { return getToken(GDScriptParser.CLOSE_BRACK, 0); }
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public List<TerminalNode> COMMA() { return getTokens(GDScriptParser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(GDScriptParser.COMMA, i);
+		}
+		public ArrayDeclContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterArrayDecl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitArrayDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitArrayDecl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class IsContext extends ExpressionContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public TerminalNode IS() { return getToken(GDScriptParser.IS, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(GDScriptParser.IDENTIFIER, 0); }
+		public TerminalNode BUILTINTYPE() { return getToken(GDScriptParser.BUILTINTYPE, 0); }
+		public IsContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterIs(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitIs(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitIs(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class PlusContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode ADD() { return getToken(GDScriptParser.ADD, 0); }
+		public PlusContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterPlus(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitPlus(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitPlus(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class CallContext extends ExpressionContext {
+		public TerminalNode DOT() { return getToken(GDScriptParser.DOT, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(GDScriptParser.IDENTIFIER, 0); }
+		public TerminalNode OPEN_PAREN() { return getToken(GDScriptParser.OPEN_PAREN, 0); }
+		public TerminalNode CLOSE_PAREN() { return getToken(GDScriptParser.CLOSE_PAREN, 0); }
+		public ArgListContext argList() {
+			return getRuleContext(ArgListContext.class,0);
+		}
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public CallContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterCall(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitCall(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitCall(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class BitAndContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode AND_OP() { return getToken(GDScriptParser.AND_OP, 0); }
+		public BitAndContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterBitAnd(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitBitAnd(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitBitAnd(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class BitXorContext extends ExpressionContext {
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
@@ -4218,50 +5721,29 @@ public class GDScriptParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class AttributeContext extends ExpressionContext {
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public TerminalNode DOT() { return getToken(GDScriptParser.DOT, 0); }
-		public TerminalNode IDENTIFIER() { return getToken(GDScriptParser.IDENTIFIER, 0); }
-		public AttributeContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterAttribute(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitAttribute(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitAttribute(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class FactorContext extends ExpressionContext {
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public TerminalNode STAR() { return getToken(GDScriptParser.STAR, 0); }
-		public TerminalNode DIV() { return getToken(GDScriptParser.DIV, 0); }
+	public static class UniqueNodeContext extends ExpressionContext {
 		public TerminalNode MOD() { return getToken(GDScriptParser.MOD, 0); }
-		public FactorContext(ExpressionContext ctx) { copyFrom(ctx); }
+		public TerminalNode STRING() { return getToken(GDScriptParser.STRING, 0); }
+		public List<TerminalNode> IDENTIFIER() { return getTokens(GDScriptParser.IDENTIFIER); }
+		public TerminalNode IDENTIFIER(int i) {
+			return getToken(GDScriptParser.IDENTIFIER, i);
+		}
+		public List<TerminalNode> DIV() { return getTokens(GDScriptParser.DIV); }
+		public TerminalNode DIV(int i) {
+			return getToken(GDScriptParser.DIV, i);
+		}
+		public UniqueNodeContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterFactor(this);
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterUniqueNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitFactor(this);
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitUniqueNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitFactor(this);
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitUniqueNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4283,28 +5765,6 @@ public class GDScriptParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitBitNot(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class LogicNotContext extends ExpressionContext {
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public TerminalNode LOGIC_NOT() { return getToken(GDScriptParser.LOGIC_NOT, 0); }
-		public TerminalNode NOT() { return getToken(GDScriptParser.NOT, 0); }
-		public LogicNotContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterLogicNot(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitLogicNot(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitLogicNot(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4347,14 +5807,14 @@ public class GDScriptParser extends Parser {
 		int _parentState = getState();
 		ExpressionContext _localctx = new ExpressionContext(_ctx, _parentState);
 		ExpressionContext _prevctx = _localctx;
-		int _startState = 84;
-		enterRecursionRule(_localctx, 84, RULE_expression, _p);
+		int _startState = 114;
+		enterRecursionRule(_localctx, 114, RULE_expression, _p);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(614);
+			setState(842);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case TRUE:
@@ -4363,7 +5823,7 @@ public class GDScriptParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(550);
+				setState(766);
 				match(TRUE);
 				}
 				break;
@@ -4372,7 +5832,7 @@ public class GDScriptParser extends Parser {
 				_localctx = new PrimaryContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(551);
+				setState(767);
 				match(FALSE);
 				}
 				break;
@@ -4381,7 +5841,7 @@ public class GDScriptParser extends Parser {
 				_localctx = new PrimaryContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(552);
+				setState(768);
 				match(NULL);
 				}
 				break;
@@ -4390,7 +5850,7 @@ public class GDScriptParser extends Parser {
 				_localctx = new PrimaryContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(553);
+				setState(769);
 				match(SELF);
 				}
 				break;
@@ -4398,13 +5858,16 @@ public class GDScriptParser extends Parser {
 			case BUILTINTYPE:
 			case CONSTANT:
 			case STRING:
+			case STRINGNAME:
+			case MULTI_LINE_STRING:
+			case NODEPATH:
 			case INTEGER:
 			case FLOAT:
 				{
 				_localctx = new PrimaryContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(554);
+				setState(770);
 				literal();
 				}
 				break;
@@ -4413,39 +5876,39 @@ public class GDScriptParser extends Parser {
 				_localctx = new ArrayDeclContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(555);
+				setState(771);
 				match(OPEN_BRACK);
-				setState(567);
+				setState(783);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 39)) & ~0x3f) == 0 && ((1L << (_la - 39)) & 222928740571709245L) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 274719577269600256L) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 8092423049708543L) != 0)) {
 					{
-					setState(556);
+					setState(772);
 					expression(0);
-					setState(561);
+					setState(777);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,68,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,101,_ctx);
 					while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 						if ( _alt==1 ) {
 							{
 							{
-							setState(557);
+							setState(773);
 							match(COMMA);
-							setState(558);
+							setState(774);
 							expression(0);
 							}
 							} 
 						}
-						setState(563);
+						setState(779);
 						_errHandler.sync(this);
-						_alt = getInterpreter().adaptivePredict(_input,68,_ctx);
+						_alt = getInterpreter().adaptivePredict(_input,101,_ctx);
 					}
-					setState(565);
+					setState(781);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					if (_la==COMMA) {
 						{
-						setState(564);
+						setState(780);
 						match(COMMA);
 						}
 					}
@@ -4453,7 +5916,7 @@ public class GDScriptParser extends Parser {
 					}
 				}
 
-				setState(569);
+				setState(785);
 				match(CLOSE_BRACK);
 				}
 				break;
@@ -4462,39 +5925,39 @@ public class GDScriptParser extends Parser {
 				_localctx = new DictDeclContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(570);
+				setState(786);
 				match(OPEN_BRACE);
-				setState(582);
+				setState(798);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 39)) & ~0x3f) == 0 && ((1L << (_la - 39)) & 222928740571709245L) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 274719577269600256L) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 8092423049708543L) != 0)) {
 					{
-					setState(571);
+					setState(787);
 					keyValue();
-					setState(576);
+					setState(792);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,71,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,104,_ctx);
 					while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 						if ( _alt==1 ) {
 							{
 							{
-							setState(572);
+							setState(788);
 							match(COMMA);
-							setState(573);
+							setState(789);
 							keyValue();
 							}
 							} 
 						}
-						setState(578);
+						setState(794);
 						_errHandler.sync(this);
-						_alt = getInterpreter().adaptivePredict(_input,71,_ctx);
+						_alt = getInterpreter().adaptivePredict(_input,104,_ctx);
 					}
-					setState(580);
+					setState(796);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					if (_la==COMMA) {
 						{
-						setState(579);
+						setState(795);
 						match(COMMA);
 						}
 					}
@@ -4502,7 +5965,7 @@ public class GDScriptParser extends Parser {
 					}
 				}
 
-				setState(584);
+				setState(800);
 				match(CLOSE_BRACE);
 				}
 				break;
@@ -4511,11 +5974,11 @@ public class GDScriptParser extends Parser {
 				_localctx = new PrimaryContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(585);
+				setState(801);
 				match(OPEN_PAREN);
-				setState(586);
+				setState(802);
 				expression(0);
-				setState(587);
+				setState(803);
 				match(CLOSE_PAREN);
 				}
 				break;
@@ -4524,23 +5987,23 @@ public class GDScriptParser extends Parser {
 				_localctx = new CallContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(589);
+				setState(805);
 				match(DOT);
-				setState(590);
+				setState(806);
 				match(IDENTIFIER);
-				setState(591);
+				setState(807);
 				match(OPEN_PAREN);
-				setState(593);
+				setState(809);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 39)) & ~0x3f) == 0 && ((1L << (_la - 39)) & 222928740571709245L) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 5463146568846671936L) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 8092423049708543L) != 0)) {
 					{
-					setState(592);
+					setState(808);
 					argList();
 					}
 				}
 
-				setState(595);
+				setState(811);
 				match(CLOSE_PAREN);
 				}
 				break;
@@ -4549,38 +6012,83 @@ public class GDScriptParser extends Parser {
 				_localctx = new GetNodeContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(596);
+				setState(812);
 				match(DOLLAR);
-				setState(606);
+				setState(822);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case STRING:
 					{
-					setState(597);
+					setState(813);
 					match(STRING);
 					}
 					break;
 				case IDENTIFIER:
 					{
-					setState(598);
+					setState(814);
 					match(IDENTIFIER);
-					setState(603);
+					setState(819);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,75,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,108,_ctx);
 					while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 						if ( _alt==1 ) {
 							{
 							{
-							setState(599);
+							setState(815);
 							match(DIV);
-							setState(600);
+							setState(816);
 							match(IDENTIFIER);
 							}
 							} 
 						}
-						setState(605);
+						setState(821);
 						_errHandler.sync(this);
-						_alt = getInterpreter().adaptivePredict(_input,75,_ctx);
+						_alt = getInterpreter().adaptivePredict(_input,108,_ctx);
+					}
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
+				}
+				}
+				break;
+			case MOD:
+				{
+				_localctx = new UniqueNodeContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(824);
+				match(MOD);
+				setState(834);
+				_errHandler.sync(this);
+				switch (_input.LA(1)) {
+				case STRING:
+					{
+					setState(825);
+					match(STRING);
+					}
+					break;
+				case IDENTIFIER:
+					{
+					setState(826);
+					match(IDENTIFIER);
+					setState(831);
+					_errHandler.sync(this);
+					_alt = getInterpreter().adaptivePredict(_input,110,_ctx);
+					while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+						if ( _alt==1 ) {
+							{
+							{
+							setState(827);
+							match(DIV);
+							setState(828);
+							match(IDENTIFIER);
+							}
+							} 
+						}
+						setState(833);
+						_errHandler.sync(this);
+						_alt = getInterpreter().adaptivePredict(_input,110,_ctx);
 					}
 					}
 					break;
@@ -4594,9 +6102,9 @@ public class GDScriptParser extends Parser {
 				_localctx = new BitNotContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(608);
+				setState(836);
 				match(NOT_OP);
-				setState(609);
+				setState(837);
 				expression(16);
 				}
 				break;
@@ -4606,7 +6114,7 @@ public class GDScriptParser extends Parser {
 				_localctx = new SignContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(610);
+				setState(838);
 				_la = _input.LA(1);
 				if ( !(_la==ADD || _la==MINUS) ) {
 				_errHandler.recoverInline(this);
@@ -4616,7 +6124,7 @@ public class GDScriptParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(611);
+				setState(839);
 				expression(15);
 				}
 				break;
@@ -4626,7 +6134,7 @@ public class GDScriptParser extends Parser {
 				_localctx = new LogicNotContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(612);
+				setState(840);
 				_la = _input.LA(1);
 				if ( !(_la==NOT || _la==LOGIC_NOT) ) {
 				_errHandler.recoverInline(this);
@@ -4636,7 +6144,7 @@ public class GDScriptParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(613);
+				setState(841);
 				expression(5);
 				}
 				break;
@@ -4644,26 +6152,26 @@ public class GDScriptParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(677);
+			setState(905);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,80,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,115,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(675);
+					setState(903);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,79,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,114,_ctx) ) {
 					case 1:
 						{
 						_localctx = new FactorContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(616);
+						setState(844);
 						if (!(precpred(_ctx, 14))) throw new FailedPredicateException(this, "precpred(_ctx, 14)");
-						setState(617);
+						setState(845);
 						_la = _input.LA(1);
-						if ( !(((((_la - 92)) & ~0x3f) == 0 && ((1L << (_la - 92)) & 7L) != 0)) ) {
+						if ( !(((((_la - 112)) & ~0x3f) == 0 && ((1L << (_la - 112)) & 7L) != 0)) ) {
 						_errHandler.recoverInline(this);
 						}
 						else {
@@ -4671,7 +6179,7 @@ public class GDScriptParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(618);
+						setState(846);
 						expression(15);
 						}
 						break;
@@ -4679,11 +6187,11 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new PlusContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(619);
+						setState(847);
 						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
-						setState(620);
+						setState(848);
 						match(ADD);
-						setState(621);
+						setState(849);
 						expression(14);
 						}
 						break;
@@ -4691,11 +6199,11 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new MinusContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(622);
+						setState(850);
 						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
-						setState(623);
+						setState(851);
 						match(MINUS);
-						setState(624);
+						setState(852);
 						expression(13);
 						}
 						break;
@@ -4703,9 +6211,9 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new BitShiftContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(625);
+						setState(853);
 						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
-						setState(626);
+						setState(854);
 						_la = _input.LA(1);
 						if ( !(_la==LEFT_SHIFT || _la==RIGHT_SHIFT) ) {
 						_errHandler.recoverInline(this);
@@ -4715,7 +6223,7 @@ public class GDScriptParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(627);
+						setState(855);
 						expression(12);
 						}
 						break;
@@ -4723,11 +6231,11 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new BitAndContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(628);
+						setState(856);
 						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
-						setState(629);
+						setState(857);
 						match(AND_OP);
-						setState(630);
+						setState(858);
 						expression(11);
 						}
 						break;
@@ -4735,11 +6243,11 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new BitXorContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(631);
+						setState(859);
 						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
-						setState(632);
+						setState(860);
 						match(XOR);
-						setState(633);
+						setState(861);
 						expression(10);
 						}
 						break;
@@ -4747,11 +6255,11 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new BitOrContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(634);
+						setState(862);
 						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
-						setState(635);
+						setState(863);
 						match(OR_OP);
-						setState(636);
+						setState(864);
 						expression(9);
 						}
 						break;
@@ -4759,11 +6267,11 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new ComparisonContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(637);
+						setState(865);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
-						setState(638);
+						setState(866);
 						_la = _input.LA(1);
-						if ( !(((((_la - 79)) & ~0x3f) == 0 && ((1L << (_la - 79)) & 63L) != 0)) ) {
+						if ( !(((((_la - 99)) & ~0x3f) == 0 && ((1L << (_la - 99)) & 63L) != 0)) ) {
 						_errHandler.recoverInline(this);
 						}
 						else {
@@ -4771,7 +6279,7 @@ public class GDScriptParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(639);
+						setState(867);
 						expression(8);
 						}
 						break;
@@ -4779,11 +6287,11 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new InContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(640);
+						setState(868);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(641);
+						setState(869);
 						match(IN);
-						setState(642);
+						setState(870);
 						expression(7);
 						}
 						break;
@@ -4791,9 +6299,9 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new LogicAndContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(643);
+						setState(871);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(644);
+						setState(872);
 						_la = _input.LA(1);
 						if ( !(_la==AND || _la==LOGIC_AND) ) {
 						_errHandler.recoverInline(this);
@@ -4803,7 +6311,7 @@ public class GDScriptParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(645);
+						setState(873);
 						expression(5);
 						}
 						break;
@@ -4811,9 +6319,9 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new LogicOrContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(646);
+						setState(874);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(647);
+						setState(875);
 						_la = _input.LA(1);
 						if ( !(_la==OR || _la==LOGIC_OR) ) {
 						_errHandler.recoverInline(this);
@@ -4823,7 +6331,7 @@ public class GDScriptParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(648);
+						setState(876);
 						expression(4);
 						}
 						break;
@@ -4831,15 +6339,15 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new TernacyExprContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(649);
+						setState(877);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-						setState(650);
+						setState(878);
 						match(IF);
-						setState(651);
+						setState(879);
 						expression(0);
-						setState(652);
+						setState(880);
 						match(ELSE);
-						setState(653);
+						setState(881);
 						expression(3);
 						}
 						break;
@@ -4847,13 +6355,13 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new SubscriptionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(655);
-						if (!(precpred(_ctx, 22))) throw new FailedPredicateException(this, "precpred(_ctx, 22)");
-						setState(656);
+						setState(883);
+						if (!(precpred(_ctx, 23))) throw new FailedPredicateException(this, "precpred(_ctx, 23)");
+						setState(884);
 						match(OPEN_BRACK);
-						setState(657);
+						setState(885);
 						expression(0);
-						setState(658);
+						setState(886);
 						match(CLOSE_BRACK);
 						}
 						break;
@@ -4861,11 +6369,11 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new AttributeContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(660);
-						if (!(precpred(_ctx, 21))) throw new FailedPredicateException(this, "precpred(_ctx, 21)");
-						setState(661);
+						setState(888);
+						if (!(precpred(_ctx, 22))) throw new FailedPredicateException(this, "precpred(_ctx, 22)");
+						setState(889);
 						match(DOT);
-						setState(662);
+						setState(890);
 						match(IDENTIFIER);
 						}
 						break;
@@ -4873,21 +6381,21 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new CallContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(663);
-						if (!(precpred(_ctx, 20))) throw new FailedPredicateException(this, "precpred(_ctx, 20)");
-						setState(664);
+						setState(891);
+						if (!(precpred(_ctx, 21))) throw new FailedPredicateException(this, "precpred(_ctx, 21)");
+						setState(892);
 						match(OPEN_PAREN);
-						setState(666);
+						setState(894);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if (((((_la - 39)) & ~0x3f) == 0 && ((1L << (_la - 39)) & 222928740571709245L) != 0)) {
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 5463146568846671936L) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 8092423049708543L) != 0)) {
 							{
-							setState(665);
+							setState(893);
 							argList();
 							}
 						}
 
-						setState(668);
+						setState(896);
 						match(CLOSE_PAREN);
 						}
 						break;
@@ -4895,11 +6403,11 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new IsContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(669);
+						setState(897);
 						if (!(precpred(_ctx, 17))) throw new FailedPredicateException(this, "precpred(_ctx, 17)");
-						setState(670);
+						setState(898);
 						match(IS);
-						setState(671);
+						setState(899);
 						_la = _input.LA(1);
 						if ( !(_la==IDENTIFIER || _la==BUILTINTYPE) ) {
 						_errHandler.recoverInline(this);
@@ -4915,20 +6423,20 @@ public class GDScriptParser extends Parser {
 						{
 						_localctx = new CastContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(672);
+						setState(900);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
-						setState(673);
+						setState(901);
 						match(AS);
-						setState(674);
+						setState(902);
 						typeHint();
 						}
 						break;
 					}
 					} 
 				}
-				setState(679);
+				setState(907);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,80,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,115,_ctx);
 			}
 			}
 		}
@@ -4946,6 +6454,9 @@ public class GDScriptParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class LiteralContext extends ParserRuleContext {
 		public TerminalNode STRING() { return getToken(GDScriptParser.STRING, 0); }
+		public TerminalNode MULTI_LINE_STRING() { return getToken(GDScriptParser.MULTI_LINE_STRING, 0); }
+		public TerminalNode STRINGNAME() { return getToken(GDScriptParser.STRINGNAME, 0); }
+		public TerminalNode NODEPATH() { return getToken(GDScriptParser.NODEPATH, 0); }
 		public TerminalNode INTEGER() { return getToken(GDScriptParser.INTEGER, 0); }
 		public TerminalNode FLOAT() { return getToken(GDScriptParser.FLOAT, 0); }
 		public TerminalNode IDENTIFIER() { return getToken(GDScriptParser.IDENTIFIER, 0); }
@@ -4972,14 +6483,67 @@ public class GDScriptParser extends Parser {
 
 	public final LiteralContext literal() throws RecognitionException {
 		LiteralContext _localctx = new LiteralContext(_ctx, getState());
-		enterRule(_localctx, 86, RULE_literal);
+		enterRule(_localctx, 116, RULE_literal);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(680);
+			setState(908);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 8866461766385664L) != 0)) ) {
+			if ( !(((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 511L) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class NumberContext extends ParserRuleContext {
+		public TerminalNode INTEGER() { return getToken(GDScriptParser.INTEGER, 0); }
+		public TerminalNode FLOAT() { return getToken(GDScriptParser.FLOAT, 0); }
+		public NumberContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_number; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).enterNumber(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GDScriptParserListener ) ((GDScriptParserListener)listener).exitNumber(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GDScriptParserVisitor ) return ((GDScriptParserVisitor<? extends T>)visitor).visitNumber(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final NumberContext number() throws RecognitionException {
+		NumberContext _localctx = new NumberContext(_ctx, getState());
+		enterRule(_localctx, 118, RULE_number);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(910);
+			_la = _input.LA(1);
+			if ( !(_la==INTEGER || _la==FLOAT) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -5032,30 +6596,30 @@ public class GDScriptParser extends Parser {
 
 	public final KeyValueContext keyValue() throws RecognitionException {
 		KeyValueContext _localctx = new KeyValueContext(_ctx, getState());
-		enterRule(_localctx, 88, RULE_keyValue);
+		enterRule(_localctx, 120, RULE_keyValue);
 		try {
-			setState(689);
+			setState(919);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,81,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,116,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(682);
+				setState(912);
 				expression(0);
-				setState(683);
+				setState(913);
 				match(COLON);
-				setState(684);
+				setState(914);
 				expression(0);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(686);
+				setState(916);
 				match(IDENTIFIER);
-				setState(687);
+				setState(917);
 				match(ASSIGN);
-				setState(688);
+				setState(918);
 				expression(0);
 				}
 				break;
@@ -5074,7 +6638,7 @@ public class GDScriptParser extends Parser {
 
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 42:
+		case 57:
 			return expression_sempred((ExpressionContext)_localctx, predIndex);
 		}
 		return true;
@@ -5106,11 +6670,11 @@ public class GDScriptParser extends Parser {
 		case 11:
 			return precpred(_ctx, 2);
 		case 12:
-			return precpred(_ctx, 22);
+			return precpred(_ctx, 23);
 		case 13:
-			return precpred(_ctx, 21);
+			return precpred(_ctx, 22);
 		case 14:
-			return precpred(_ctx, 20);
+			return precpred(_ctx, 21);
 		case 15:
 			return precpred(_ctx, 17);
 		case 16:
@@ -5120,7 +6684,7 @@ public class GDScriptParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001b\u02b4\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001v\u039a\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
@@ -5132,454 +6696,609 @@ public class GDScriptParser extends Parser {
 		"\u0002\u001c\u0007\u001c\u0002\u001d\u0007\u001d\u0002\u001e\u0007\u001e"+
 		"\u0002\u001f\u0007\u001f\u0002 \u0007 \u0002!\u0007!\u0002\"\u0007\"\u0002"+
 		"#\u0007#\u0002$\u0007$\u0002%\u0007%\u0002&\u0007&\u0002\'\u0007\'\u0002"+
-		"(\u0007(\u0002)\u0007)\u0002*\u0007*\u0002+\u0007+\u0002,\u0007,\u0001"+
-		"\u0000\u0001\u0000\u0001\u0000\u0003\u0000^\b\u0000\u0001\u0000\u0001"+
-		"\u0000\u0001\u0000\u0003\u0000c\b\u0000\u0001\u0000\u0003\u0000f\b\u0000"+
-		"\u0001\u0000\u0005\u0000i\b\u0000\n\u0000\f\u0000l\t\u0000\u0001\u0000"+
-		"\u0005\u0000o\b\u0000\n\u0000\f\u0000r\t\u0000\u0001\u0000\u0001\u0000"+
-		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0005\u0001z\b\u0001"+
-		"\n\u0001\f\u0001}\t\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
-		"\u0003\u0002\u0083\b\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003"+
-		"\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003"+
-		"\u0003\u0003\u008f\b\u0003\u0001\u0004\u0003\u0004\u0092\b\u0004\u0001"+
-		"\u0004\u0003\u0004\u0095\b\u0004\u0001\u0004\u0003\u0004\u0098\b\u0004"+
-		"\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0003\u0004\u009e\b\u0004"+
-		"\u0001\u0004\u0001\u0004\u0003\u0004\u00a2\b\u0004\u0001\u0004\u0001\u0004"+
-		"\u0003\u0004\u00a6\b\u0004\u0003\u0004\u00a8\b\u0004\u0001\u0004\u0003"+
-		"\u0004\u00ab\b\u0004\u0001\u0004\u0001\u0004\u0001\u0005\u0001\u0005\u0003"+
-		"\u0005\u00b1\b\u0005\u0001\u0005\u0001\u0005\u0003\u0005\u00b5\b\u0005"+
-		"\u0001\u0006\u0003\u0006\u00b8\b\u0006\u0001\u0006\u0001\u0006\u0001\u0006"+
-		"\u0001\u0006\u0001\u0006\u0001\u0006\u0005\u0006\u00c0\b\u0006\n\u0006"+
-		"\f\u0006\u00c3\t\u0006\u0003\u0006\u00c5\b\u0006\u0001\u0006\u0003\u0006"+
-		"\u00c8\b\u0006\u0001\u0007\u0001\u0007\u0001\b\u0001\b\u0001\b\u0001\b"+
-		"\u0003\b\u00d0\b\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\t\u0001\t\u0001"+
-		"\t\u0003\t\u00d9\b\t\u0001\t\u0001\t\u0001\n\u0001\n\u0001\n\u0001\n\u0005"+
-		"\n\u00e1\b\n\n\n\f\n\u00e4\t\n\u0003\n\u00e6\b\n\u0001\n\u0001\n\u0001"+
-		"\u000b\u0001\u000b\u0003\u000b\u00ec\b\u000b\u0001\u000b\u0001\u000b\u0001"+
-		"\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0003\f\u00f5\b\f\u0001\f\u0001"+
-		"\f\u0001\f\u0001\f\u0003\f\u00fb\b\f\u0005\f\u00fd\b\f\n\f\f\f\u0100\t"+
-		"\f\u0001\f\u0003\f\u0103\b\f\u0001\f\u0001\f\u0001\r\u0003\r\u0108\b\r"+
-		"\u0001\r\u0003\r\u010b\b\r\u0001\r\u0001\r\u0001\r\u0001\r\u0003\r\u0111"+
-		"\b\r\u0001\r\u0001\r\u0001\r\u0003\r\u0116\b\r\u0001\r\u0001\r\u0001\r"+
-		"\u0001\u000e\u0001\u000e\u0001\u000e\u0005\u000e\u011e\b\u000e\n\u000e"+
-		"\f\u000e\u0121\t\u000e\u0001\u000f\u0003\u000f\u0124\b\u000f\u0001\u000f"+
-		"\u0001\u000f\u0001\u000f\u0003\u000f\u0129\b\u000f\u0001\u000f\u0001\u000f"+
-		"\u0003\u000f\u012d\b\u000f\u0001\u0010\u0001\u0010\u0001\u0011\u0001\u0011"+
-		"\u0001\u0011\u0001\u0011\u0003\u0011\u0135\b\u0011\u0001\u0011\u0001\u0011"+
-		"\u0001\u0011\u0001\u0011\u0003\u0011\u013b\b\u0011\u0001\u0011\u0001\u0011"+
-		"\u0001\u0011\u0001\u0011\u0001\u0011\u0001\u0012\u0001\u0012\u0001\u0012"+
-		"\u0005\u0012\u0145\b\u0012\n\u0012\f\u0012\u0148\t\u0012\u0001\u0013\u0001"+
-		"\u0013\u0001\u0013\u0003\u0013\u014d\b\u0013\u0001\u0013\u0001\u0013\u0001"+
-		"\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0003\u0013\u0155\b\u0013\u0001"+
-		"\u0013\u0004\u0013\u0158\b\u0013\u000b\u0013\f\u0013\u0159\u0001\u0013"+
-		"\u0001\u0013\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014"+
-		"\u0001\u0014\u0003\u0014\u0164\b\u0014\u0001\u0015\u0004\u0015\u0167\b"+
-		"\u0015\u000b\u0015\f\u0015\u0168\u0001\u0016\u0001\u0016\u0001\u0016\u0001"+
-		"\u0016\u0001\u0016\u0001\u0016\u0001\u0016\u0001\u0016\u0001\u0016\u0001"+
-		"\u0016\u0001\u0016\u0001\u0016\u0001\u0016\u0001\u0016\u0001\u0016\u0003"+
-		"\u0016\u017a\b\u0016\u0001\u0017\u0001\u0017\u0001\u0018\u0001\u0018\u0001"+
-		"\u0018\u0001\u0018\u0001\u0018\u0001\u0018\u0001\u0018\u0001\u0018\u0001"+
-		"\u0018\u0005\u0018\u0187\b\u0018\n\u0018\f\u0018\u018a\t\u0018\u0001\u0018"+
-		"\u0001\u0018\u0001\u0018\u0003\u0018\u018f\b\u0018\u0001\u0019\u0001\u0019"+
+		"(\u0007(\u0002)\u0007)\u0002*\u0007*\u0002+\u0007+\u0002,\u0007,\u0002"+
+		"-\u0007-\u0002.\u0007.\u0002/\u0007/\u00020\u00070\u00021\u00071\u0002"+
+		"2\u00072\u00023\u00073\u00024\u00074\u00025\u00075\u00026\u00076\u0002"+
+		"7\u00077\u00028\u00078\u00029\u00079\u0002:\u0007:\u0002;\u0007;\u0002"+
+		"<\u0007<\u0001\u0000\u0003\u0000|\b\u0000\u0001\u0000\u0003\u0000\u007f"+
+		"\b\u0000\u0001\u0000\u0005\u0000\u0082\b\u0000\n\u0000\f\u0000\u0085\t"+
+		"\u0000\u0001\u0000\u0005\u0000\u0088\b\u0000\n\u0000\f\u0000\u008b\t\u0000"+
+		"\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0005\u0001"+
+		"\u0092\b\u0001\n\u0001\f\u0001\u0095\t\u0001\u0003\u0001\u0097\b\u0001"+
+		"\u0001\u0001\u0001\u0001\u0003\u0001\u009b\b\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0005\u0001\u00a0\b\u0001\n\u0001\f\u0001\u00a3\t\u0001\u0003"+
+		"\u0001\u00a5\b\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
+		"\u0002\u0005\u0002\u00ac\b\u0002\n\u0002\f\u0002\u00af\t\u0002\u0001\u0003"+
+		"\u0001\u0003\u0003\u0003\u00b3\b\u0003\u0001\u0003\u0001\u0003\u0003\u0003"+
+		"\u00b7\b\u0003\u0003\u0003\u00b9\b\u0003\u0001\u0004\u0001\u0004\u0001"+
+		"\u0004\u0001\u0004\u0005\u0004\u00bf\b\u0004\n\u0004\f\u0004\u00c2\t\u0004"+
+		"\u0001\u0004\u0005\u0004\u00c5\b\u0004\n\u0004\f\u0004\u00c8\t\u0004\u0001"+
+		"\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0003\u0005\u00ce\b\u0005\u0001"+
+		"\u0005\u0005\u0005\u00d1\b\u0005\n\u0005\f\u0005\u00d4\t\u0005\u0001\u0006"+
+		"\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006"+
+		"\u0001\u0006\u0001\u0006\u0003\u0006\u00df\b\u0006\u0001\u0007\u0003\u0007"+
+		"\u00e2\b\u0007\u0001\u0007\u0003\u0007\u00e5\b\u0007\u0001\u0007\u0001"+
+		"\u0007\u0001\u0007\u0001\u0007\u0003\u0007\u00eb\b\u0007\u0001\u0007\u0001"+
+		"\u0007\u0001\u0007\u0003\u0007\u00f0\b\u0007\u0003\u0007\u00f2\b\u0007"+
+		"\u0001\u0007\u0001\u0007\u0001\u0007\u0003\u0007\u00f7\b\u0007\u0003\u0007"+
+		"\u00f9\b\u0007\u0003\u0007\u00fb\b\u0007\u0001\u0007\u0003\u0007\u00fe"+
+		"\b\u0007\u0001\u0007\u0001\u0007\u0001\b\u0001\b\u0003\b\u0104\b\b\u0001"+
+		"\b\u0001\b\u0003\b\u0108\b\b\u0001\t\u0003\t\u010b\b\t\u0001\t\u0003\t"+
+		"\u010e\b\t\u0001\t\u0003\t\u0111\b\t\u0001\n\u0001\n\u0001\n\u0001\n\u0001"+
+		"\n\u0001\n\u0001\n\u0001\n\u0003\n\u011b\b\n\u0001\u000b\u0003\u000b\u011e"+
+		"\b\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001"+
+		"\u000b\u0005\u000b\u0126\b\u000b\n\u000b\f\u000b\u0129\t\u000b\u0003\u000b"+
+		"\u012b\b\u000b\u0001\u000b\u0003\u000b\u012e\b\u000b\u0001\u000b\u0003"+
+		"\u000b\u0131\b\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0003"+
+		"\f\u0139\b\f\u0001\r\u0001\r\u0001\r\u0001\r\u0001\r\u0001\r\u0003\r\u0141"+
+		"\b\r\u0001\u000e\u0001\u000e\u0001\u000e\u0003\u000e\u0146\b\u000e\u0001"+
+		"\u000f\u0001\u000f\u0001\u000f\u0003\u000f\u014b\b\u000f\u0001\u0010\u0001"+
+		"\u0010\u0001\u0010\u0003\u0010\u0150\b\u0010\u0001\u0011\u0001\u0011\u0001"+
+		"\u0011\u0001\u0011\u0001\u0011\u0001\u0011\u0003\u0011\u0158\b\u0011\u0001"+
+		"\u0012\u0001\u0012\u0001\u0012\u0005\u0012\u015d\b\u0012\n\u0012\f\u0012"+
+		"\u0160\t\u0012\u0001\u0013\u0001\u0013\u0001\u0013\u0005\u0013\u0165\b"+
+		"\u0013\n\u0013\f\u0013\u0168\t\u0013\u0001\u0014\u0001\u0014\u0001\u0014"+
+		"\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0015\u0001\u0015\u0001\u0016"+
+		"\u0001\u0016\u0001\u0016\u0001\u0016\u0003\u0016\u0176\b\u0016\u0001\u0016"+
+		"\u0001\u0016\u0001\u0016\u0003\u0016\u017b\b\u0016\u0001\u0016\u0001\u0016"+
+		"\u0001\u0017\u0001\u0017\u0001\u0017\u0003\u0017\u0182\b\u0017\u0001\u0017"+
+		"\u0001\u0017\u0001\u0018\u0001\u0018\u0001\u0018\u0001\u0018\u0005\u0018"+
+		"\u018a\b\u0018\n\u0018\f\u0018\u018d\t\u0018\u0003\u0018\u018f\b\u0018"+
+		"\u0001\u0018\u0001\u0018\u0001\u0019\u0001\u0019\u0003\u0019\u0195\b\u0019"+
 		"\u0001\u0019\u0001\u0019\u0001\u0019\u0001\u001a\u0001\u001a\u0001\u001a"+
-		"\u0001\u001a\u0001\u001a\u0001\u001a\u0001\u001a\u0001\u001b\u0001\u001b"+
-		"\u0001\u001b\u0001\u001b\u0001\u001b\u0001\u001b\u0001\u001b\u0001\u001b"+
-		"\u0001\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0004\u001c\u01a9\b\u001c"+
-		"\u000b\u001c\f\u001c\u01aa\u0001\u001d\u0001\u001d\u0001\u001d\u0005\u001d"+
-		"\u01b0\b\u001d\n\u001d\f\u001d\u01b3\t\u001d\u0001\u001e\u0001\u001e\u0001"+
-		"\u001e\u0001\u001e\u0001\u001e\u0001\u001e\u0001\u001e\u0001\u001e\u0003"+
-		"\u001e\u01bd\b\u001e\u0001\u001f\u0001\u001f\u0001\u001f\u0001 \u0001"+
-		" \u0001 \u0001 \u0005 \u01c6\b \n \f \u01c9\t \u0001 \u0003 \u01cc\b "+
-		"\u0003 \u01ce\b \u0001 \u0001 \u0001!\u0001!\u0003!\u01d4\b!\u0001!\u0001"+
-		"!\u0005!\u01d8\b!\n!\f!\u01db\t!\u0001!\u0003!\u01de\b!\u0001!\u0001!"+
-		"\u0001\"\u0001\"\u0001\"\u0003\"\u01e5\b\"\u0001#\u0001#\u0001#\u0001"+
-		"#\u0001#\u0001#\u0003#\u01ed\b#\u0001#\u0003#\u01f0\b#\u0001$\u0001$\u0001"+
-		"$\u0001$\u0001$\u0001%\u0001%\u0001%\u0001%\u0003%\u01fb\b%\u0001%\u0001"+
-		"%\u0001%\u0003%\u0200\b%\u0003%\u0202\b%\u0001%\u0001%\u0001&\u0001&\u0001"+
-		"&\u0001&\u0001&\u0003&\u020b\b&\u0001&\u0001&\u0001&\u0001\'\u0001\'\u0001"+
-		"\'\u0001\'\u0001\'\u0001\'\u0001\'\u0001\'\u0001\'\u0001(\u0001(\u0001"+
-		"(\u0001(\u0003(\u021d\b(\u0001(\u0001(\u0003(\u0221\b(\u0001)\u0001)\u0001"+
-		")\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001"+
-		"*\u0005*\u0230\b*\n*\f*\u0233\t*\u0001*\u0003*\u0236\b*\u0003*\u0238\b"+
-		"*\u0001*\u0001*\u0001*\u0001*\u0001*\u0005*\u023f\b*\n*\f*\u0242\t*\u0001"+
-		"*\u0003*\u0245\b*\u0003*\u0247\b*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001"+
-		"*\u0001*\u0001*\u0001*\u0003*\u0252\b*\u0001*\u0001*\u0001*\u0001*\u0001"+
-		"*\u0001*\u0005*\u025a\b*\n*\f*\u025d\t*\u0003*\u025f\b*\u0001*\u0001*"+
-		"\u0001*\u0001*\u0001*\u0001*\u0003*\u0267\b*\u0001*\u0001*\u0001*\u0001"+
-		"*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001"+
-		"*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001"+
-		"*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001"+
-		"*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001"+
-		"*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0003*\u029b\b*\u0001*\u0001"+
-		"*\u0001*\u0001*\u0001*\u0001*\u0001*\u0005*\u02a4\b*\n*\f*\u02a7\t*\u0001"+
-		"+\u0001+\u0001,\u0001,\u0001,\u0001,\u0001,\u0001,\u0001,\u0003,\u02b2"+
-		"\b,\u0001,\u0000\u0001T-\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012"+
-		"\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.02468:<>@BDFHJLNPRTVX\u0000"+
-		"\u000e\u0002\u0000//22\u0001\u0000/0\u0001\u0000\u000e\u0013\u0002\u0000"+
-		"..KK\u0002\u000088:A\u0001\u000089\u0001\u0000Z[\u0002\u0000\'\'NN\u0001"+
-		"\u0000\\^\u0001\u0000XY\u0001\u0000OT\u0002\u0000&&MM\u0002\u0000%%LL"+
-		"\u0001\u0000/4\u030b\u0000]\u0001\u0000\u0000\u0000\u0002u\u0001\u0000"+
-		"\u0000\u0000\u0004~\u0001\u0000\u0000\u0000\u0006\u008e\u0001\u0000\u0000"+
-		"\u0000\b\u0091\u0001\u0000\u0000\u0000\n\u00ae\u0001\u0000\u0000\u0000"+
-		"\f\u00b7\u0001\u0000\u0000\u0000\u000e\u00c9\u0001\u0000\u0000\u0000\u0010"+
-		"\u00cb\u0001\u0000\u0000\u0000\u0012\u00d5\u0001\u0000\u0000\u0000\u0014"+
-		"\u00dc\u0001\u0000\u0000\u0000\u0016\u00e9\u0001\u0000\u0000\u0000\u0018"+
-		"\u00f0\u0001\u0000\u0000\u0000\u001a\u0107\u0001\u0000\u0000\u0000\u001c"+
-		"\u011a\u0001\u0000\u0000\u0000\u001e\u0123\u0001\u0000\u0000\u0000 \u012e"+
-		"\u0001\u0000\u0000\u0000\"\u0130\u0001\u0000\u0000\u0000$\u0141\u0001"+
-		"\u0000\u0000\u0000&\u0149\u0001\u0000\u0000\u0000(\u0163\u0001\u0000\u0000"+
-		"\u0000*\u0166\u0001\u0000\u0000\u0000,\u0179\u0001\u0000\u0000\u0000."+
-		"\u017b\u0001\u0000\u0000\u00000\u017d\u0001\u0000\u0000\u00002\u0190\u0001"+
-		"\u0000\u0000\u00004\u0195\u0001\u0000\u0000\u00006\u019c\u0001\u0000\u0000"+
-		"\u00008\u01a8\u0001\u0000\u0000\u0000:\u01ac\u0001\u0000\u0000\u0000<"+
-		"\u01bc\u0001\u0000\u0000\u0000>\u01be\u0001\u0000\u0000\u0000@\u01c1\u0001"+
-		"\u0000\u0000\u0000B\u01d1\u0001\u0000\u0000\u0000D\u01e1\u0001\u0000\u0000"+
-		"\u0000F\u01ef\u0001\u0000\u0000\u0000H\u01f1\u0001\u0000\u0000\u0000J"+
-		"\u01f6\u0001\u0000\u0000\u0000L\u0205\u0001\u0000\u0000\u0000N\u020f\u0001"+
-		"\u0000\u0000\u0000P\u0218\u0001\u0000\u0000\u0000R\u0222\u0001\u0000\u0000"+
-		"\u0000T\u0266\u0001\u0000\u0000\u0000V\u02a8\u0001\u0000\u0000\u0000X"+
-		"\u02b1\u0001\u0000\u0000\u0000Z[\u0005a\u0000\u0000[\\\u0005-\u0000\u0000"+
-		"\\^\u0005.\u0000\u0000]Z\u0001\u0000\u0000\u0000]^\u0001\u0000\u0000\u0000"+
-		"^b\u0001\u0000\u0000\u0000_`\u0003\u0002\u0001\u0000`a\u0005.\u0000\u0000"+
-		"ac\u0001\u0000\u0000\u0000b_\u0001\u0000\u0000\u0000bc\u0001\u0000\u0000"+
-		"\u0000ce\u0001\u0000\u0000\u0000df\u0003\u0004\u0002\u0000ed\u0001\u0000"+
-		"\u0000\u0000ef\u0001\u0000\u0000\u0000fj\u0001\u0000\u0000\u0000gi\u0003"+
-		"\u0006\u0003\u0000hg\u0001\u0000\u0000\u0000il\u0001\u0000\u0000\u0000"+
-		"jh\u0001\u0000\u0000\u0000jk\u0001\u0000\u0000\u0000kp\u0001\u0000\u0000"+
-		"\u0000lj\u0001\u0000\u0000\u0000mo\u0005.\u0000\u0000nm\u0001\u0000\u0000"+
-		"\u0000or\u0001\u0000\u0000\u0000pn\u0001\u0000\u0000\u0000pq\u0001\u0000"+
-		"\u0000\u0000qs\u0001\u0000\u0000\u0000rp\u0001\u0000\u0000\u0000st\u0005"+
-		"\u0000\u0000\u0001t\u0001\u0001\u0000\u0000\u0000uv\u0005\u0003\u0000"+
-		"\u0000v{\u0007\u0000\u0000\u0000wx\u00055\u0000\u0000xz\u0005/\u0000\u0000"+
-		"yw\u0001\u0000\u0000\u0000z}\u0001\u0000\u0000\u0000{y\u0001\u0000\u0000"+
-		"\u0000{|\u0001\u0000\u0000\u0000|\u0003\u0001\u0000\u0000\u0000}{\u0001"+
-		"\u0000\u0000\u0000~\u007f\u0005\u0004\u0000\u0000\u007f\u0082\u0005/\u0000"+
-		"\u0000\u0080\u0081\u00056\u0000\u0000\u0081\u0083\u00052\u0000\u0000\u0082"+
-		"\u0080\u0001\u0000\u0000\u0000\u0082\u0083\u0001\u0000\u0000\u0000\u0083"+
-		"\u0084\u0001\u0000\u0000\u0000\u0084\u0085\u0005.\u0000\u0000\u0085\u0005"+
-		"\u0001\u0000\u0000\u0000\u0086\u008f\u0003\b\u0004\u0000\u0087\u008f\u0003"+
-		"\u0010\b\u0000\u0088\u008f\u0003\u0012\t\u0000\u0089\u008f\u0003\u0016"+
-		"\u000b\u0000\u008a\u008f\u0003\u001a\r\u0000\u008b\u008f\u0003\"\u0011"+
-		"\u0000\u008c\u008f\u0003&\u0013\u0000\u008d\u008f\u0005-\u0000\u0000\u008e"+
-		"\u0086\u0001\u0000\u0000\u0000\u008e\u0087\u0001\u0000\u0000\u0000\u008e"+
-		"\u0088\u0001\u0000\u0000\u0000\u008e\u0089\u0001\u0000\u0000\u0000\u008e"+
-		"\u008a\u0001\u0000\u0000\u0000\u008e\u008b\u0001\u0000\u0000\u0000\u008e"+
-		"\u008c\u0001\u0000\u0000\u0000\u008e\u008d\u0001\u0000\u0000\u0000\u008f"+
-		"\u0007\u0001\u0000\u0000\u0000\u0090\u0092\u0005a\u0000\u0000\u0091\u0090"+
-		"\u0001\u0000\u0000\u0000\u0091\u0092\u0001\u0000\u0000\u0000\u0092\u0094"+
-		"\u0001\u0000\u0000\u0000\u0093\u0095\u0005\u0005\u0000\u0000\u0094\u0093"+
-		"\u0001\u0000\u0000\u0000\u0094\u0095\u0001\u0000\u0000\u0000\u0095\u0097"+
-		"\u0001\u0000\u0000\u0000\u0096\u0098\u0003\f\u0006\u0000\u0097\u0096\u0001"+
-		"\u0000\u0000\u0000\u0097\u0098\u0001\u0000\u0000\u0000\u0098\u0099\u0001"+
-		"\u0000\u0000\u0000\u0099\u009a\u0005\u0006\u0000\u0000\u009a\u00a7\u0005"+
-		"/\u0000\u0000\u009b\u009c\u00057\u0000\u0000\u009c\u009e\u0003\u000e\u0007"+
-		"\u0000\u009d\u009b\u0001\u0000\u0000\u0000\u009d\u009e\u0001\u0000\u0000"+
-		"\u0000\u009e\u00a1\u0001\u0000\u0000\u0000\u009f\u00a0\u00058\u0000\u0000"+
-		"\u00a0\u00a2\u0003T*\u0000\u00a1\u009f\u0001\u0000\u0000\u0000\u00a1\u00a2"+
-		"\u0001\u0000\u0000\u0000\u00a2\u00a8\u0001\u0000\u0000\u0000\u00a3\u00a4"+
-		"\u00059\u0000\u0000\u00a4\u00a6\u0003T*\u0000\u00a5\u00a3\u0001\u0000"+
-		"\u0000\u0000\u00a5\u00a6\u0001\u0000\u0000\u0000\u00a6\u00a8\u0001\u0000"+
-		"\u0000\u0000\u00a7\u009d\u0001\u0000\u0000\u0000\u00a7\u00a5\u0001\u0000"+
-		"\u0000\u0000\u00a8\u00aa\u0001\u0000\u0000\u0000\u00a9\u00ab\u0003\n\u0005"+
-		"\u0000\u00aa\u00a9\u0001\u0000\u0000\u0000\u00aa\u00ab\u0001\u0000\u0000"+
-		"\u0000\u00ab\u00ac\u0001\u0000\u0000\u0000\u00ac\u00ad\u0005.\u0000\u0000"+
-		"\u00ad\t\u0001\u0000\u0000\u0000\u00ae\u00b0\u0005\u0007\u0000\u0000\u00af"+
-		"\u00b1\u0005/\u0000\u0000\u00b0\u00af\u0001\u0000\u0000\u0000\u00b0\u00b1"+
-		"\u0001\u0000\u0000\u0000\u00b1\u00b4\u0001\u0000\u0000\u0000\u00b2\u00b3"+
-		"\u00056\u0000\u0000\u00b3\u00b5\u0005/\u0000\u0000\u00b4\u00b2\u0001\u0000"+
-		"\u0000\u0000\u00b4\u00b5\u0001\u0000\u0000\u0000\u00b5\u000b\u0001\u0000"+
-		"\u0000\u0000\u00b6\u00b8\u0005a\u0000\u0000\u00b7\u00b6\u0001\u0000\u0000"+
-		"\u0000\u00b7\u00b8\u0001\u0000\u0000\u0000\u00b8\u00b9\u0001\u0000\u0000"+
-		"\u0000\u00b9\u00c7\u0005\b\u0000\u0000\u00ba\u00c4\u0005B\u0000\u0000"+
-		"\u00bb\u00c5\u00050\u0000\u0000\u00bc\u00c1\u0005/\u0000\u0000\u00bd\u00be"+
-		"\u00056\u0000\u0000\u00be\u00c0\u0003V+\u0000\u00bf\u00bd\u0001\u0000"+
-		"\u0000\u0000\u00c0\u00c3\u0001\u0000\u0000\u0000\u00c1\u00bf\u0001\u0000"+
-		"\u0000\u0000\u00c1\u00c2\u0001\u0000\u0000\u0000\u00c2\u00c5\u0001\u0000"+
-		"\u0000\u0000\u00c3\u00c1\u0001\u0000\u0000\u0000\u00c4\u00bb\u0001\u0000"+
-		"\u0000\u0000\u00c4\u00bc\u0001\u0000\u0000\u0000\u00c4\u00c5\u0001\u0000"+
-		"\u0000\u0000\u00c5\u00c6\u0001\u0000\u0000\u0000\u00c6\u00c8\u0005C\u0000"+
-		"\u0000\u00c7\u00ba\u0001\u0000\u0000\u0000\u00c7\u00c8\u0001\u0000\u0000"+
-		"\u0000\u00c8\r\u0001\u0000\u0000\u0000\u00c9\u00ca\u0007\u0001\u0000\u0000"+
-		"\u00ca\u000f\u0001\u0000\u0000\u0000\u00cb\u00cc\u0005\t\u0000\u0000\u00cc"+
-		"\u00cf\u0005/\u0000\u0000\u00cd\u00ce\u00057\u0000\u0000\u00ce\u00d0\u0003"+
-		"\u000e\u0007\u0000\u00cf\u00cd\u0001\u0000\u0000\u0000\u00cf\u00d0\u0001"+
-		"\u0000\u0000\u0000\u00d0\u00d1\u0001\u0000\u0000\u0000\u00d1\u00d2\u0005"+
-		"8\u0000\u0000\u00d2\u00d3\u0003T*\u0000\u00d3\u00d4\u0005.\u0000\u0000"+
-		"\u00d4\u0011\u0001\u0000\u0000\u0000\u00d5\u00d6\u0005\n\u0000\u0000\u00d6"+
-		"\u00d8\u0005/\u0000\u0000\u00d7\u00d9\u0003\u0014\n\u0000\u00d8\u00d7"+
-		"\u0001\u0000\u0000\u0000\u00d8\u00d9\u0001\u0000\u0000\u0000\u00d9\u00da"+
-		"\u0001\u0000\u0000\u0000\u00da\u00db\u0005.\u0000\u0000\u00db\u0013\u0001"+
-		"\u0000\u0000\u0000\u00dc\u00e5\u0005B\u0000\u0000\u00dd\u00e2\u0005/\u0000"+
-		"\u0000\u00de\u00df\u00056\u0000\u0000\u00df\u00e1\u0005/\u0000\u0000\u00e0"+
-		"\u00de\u0001\u0000\u0000\u0000\u00e1\u00e4\u0001\u0000\u0000\u0000\u00e2"+
-		"\u00e0\u0001\u0000\u0000\u0000\u00e2\u00e3\u0001\u0000\u0000\u0000\u00e3"+
-		"\u00e6\u0001\u0000\u0000\u0000\u00e4\u00e2\u0001\u0000\u0000\u0000\u00e5"+
-		"\u00dd\u0001\u0000\u0000\u0000\u00e5\u00e6\u0001\u0000\u0000\u0000\u00e6"+
-		"\u00e7\u0001\u0000\u0000\u0000\u00e7\u00e8\u0005C\u0000\u0000\u00e8\u0015"+
-		"\u0001\u0000\u0000\u0000\u00e9\u00eb\u0005\u000b\u0000\u0000\u00ea\u00ec"+
-		"\u0005/\u0000\u0000\u00eb\u00ea\u0001\u0000\u0000\u0000\u00eb\u00ec\u0001"+
-		"\u0000\u0000\u0000\u00ec\u00ed\u0001\u0000\u0000\u0000\u00ed\u00ee\u0003"+
-		"\u0018\f\u0000\u00ee\u00ef\u0005.\u0000\u0000\u00ef\u0017\u0001\u0000"+
-		"\u0000\u0000\u00f0\u00f1\u0005D\u0000\u0000\u00f1\u00f4\u0005/\u0000\u0000"+
-		"\u00f2\u00f3\u00058\u0000\u0000\u00f3\u00f5\u0003T*\u0000\u00f4\u00f2"+
-		"\u0001\u0000\u0000\u0000\u00f4\u00f5\u0001\u0000\u0000\u0000\u00f5\u00fe"+
-		"\u0001\u0000\u0000\u0000\u00f6\u00f7\u00056\u0000\u0000\u00f7\u00fa\u0005"+
-		"/\u0000\u0000\u00f8\u00f9\u00058\u0000\u0000\u00f9\u00fb\u0003T*\u0000"+
-		"\u00fa\u00f8\u0001\u0000\u0000\u0000\u00fa\u00fb\u0001\u0000\u0000\u0000"+
-		"\u00fb\u00fd\u0001\u0000\u0000\u0000\u00fc\u00f6\u0001\u0000\u0000\u0000"+
-		"\u00fd\u0100\u0001\u0000\u0000\u0000\u00fe\u00fc\u0001\u0000\u0000\u0000"+
-		"\u00fe\u00ff\u0001\u0000\u0000\u0000\u00ff\u0102\u0001\u0000\u0000\u0000"+
-		"\u0100\u00fe\u0001\u0000\u0000\u0000\u0101\u0103\u00056\u0000\u0000\u0102"+
-		"\u0101\u0001\u0000\u0000\u0000\u0102\u0103\u0001\u0000\u0000\u0000\u0103"+
-		"\u0104\u0001\u0000\u0000\u0000\u0104\u0105\u0005E\u0000\u0000\u0105\u0019"+
-		"\u0001\u0000\u0000\u0000\u0106\u0108\u0003 \u0010\u0000\u0107\u0106\u0001"+
-		"\u0000\u0000\u0000\u0107\u0108\u0001\u0000\u0000\u0000\u0108\u010a\u0001"+
-		"\u0000\u0000\u0000\u0109\u010b\u0005\f\u0000\u0000\u010a\u0109\u0001\u0000"+
-		"\u0000\u0000\u010a\u010b\u0001\u0000\u0000\u0000\u010b\u010c\u0001\u0000"+
-		"\u0000\u0000\u010c\u010d\u0005\r\u0000\u0000\u010d\u010e\u0005/\u0000"+
-		"\u0000\u010e\u0110\u0005B\u0000\u0000\u010f\u0111\u0003\u001c\u000e\u0000"+
-		"\u0110\u010f\u0001\u0000\u0000\u0000\u0110\u0111\u0001\u0000\u0000\u0000"+
-		"\u0111\u0112\u0001\u0000\u0000\u0000\u0112\u0115\u0005C\u0000\u0000\u0113"+
-		"\u0114\u0005F\u0000\u0000\u0114\u0116\u0003\u000e\u0007\u0000\u0115\u0113"+
-		"\u0001\u0000\u0000\u0000\u0115\u0116\u0001\u0000\u0000\u0000\u0116\u0117"+
-		"\u0001\u0000\u0000\u0000\u0117\u0118\u00057\u0000\u0000\u0118\u0119\u0003"+
-		"(\u0014\u0000\u0119\u001b\u0001\u0000\u0000\u0000\u011a\u011f\u0003\u001e"+
-		"\u000f\u0000\u011b\u011c\u00056\u0000\u0000\u011c\u011e\u0003\u001e\u000f"+
-		"\u0000\u011d\u011b\u0001\u0000\u0000\u0000\u011e\u0121\u0001\u0000\u0000"+
-		"\u0000\u011f\u011d\u0001\u0000\u0000\u0000\u011f\u0120\u0001\u0000\u0000"+
-		"\u0000\u0120\u001d\u0001\u0000\u0000\u0000\u0121\u011f\u0001\u0000\u0000"+
-		"\u0000\u0122\u0124\u0005\u0006\u0000\u0000\u0123\u0122\u0001\u0000\u0000"+
-		"\u0000\u0123\u0124\u0001\u0000\u0000\u0000\u0124\u0125\u0001\u0000\u0000"+
-		"\u0000\u0125\u0128\u0005/\u0000\u0000\u0126\u0127\u00057\u0000\u0000\u0127"+
-		"\u0129\u0003\u000e\u0007\u0000\u0128\u0126\u0001\u0000\u0000\u0000\u0128"+
-		"\u0129\u0001\u0000\u0000\u0000\u0129\u012c\u0001\u0000\u0000\u0000\u012a"+
-		"\u012b\u00058\u0000\u0000\u012b\u012d\u0003T*\u0000\u012c\u012a\u0001"+
-		"\u0000\u0000\u0000\u012c\u012d\u0001\u0000\u0000\u0000\u012d\u001f\u0001"+
-		"\u0000\u0000\u0000\u012e\u012f\u0007\u0002\u0000\u0000\u012f!\u0001\u0000"+
-		"\u0000\u0000\u0130\u0131\u0005\r\u0000\u0000\u0131\u0132\u0005/\u0000"+
-		"\u0000\u0132\u0134\u0005B\u0000\u0000\u0133\u0135\u0003\u001c\u000e\u0000"+
-		"\u0134\u0133\u0001\u0000\u0000\u0000\u0134\u0135\u0001\u0000\u0000\u0000"+
-		"\u0135\u0136\u0001\u0000\u0000\u0000\u0136\u0137\u0005C\u0000\u0000\u0137"+
-		"\u0138\u00055\u0000\u0000\u0138\u013a\u0005B\u0000\u0000\u0139\u013b\u0003"+
-		"$\u0012\u0000\u013a\u0139\u0001\u0000\u0000\u0000\u013a\u013b\u0001\u0000"+
-		"\u0000\u0000\u013b\u013c\u0001\u0000\u0000\u0000\u013c\u013d\u0005C\u0000"+
-		"\u0000\u013d\u013e\u0001\u0000\u0000\u0000\u013e\u013f\u00057\u0000\u0000"+
-		"\u013f\u0140\u0003(\u0014\u0000\u0140#\u0001\u0000\u0000\u0000\u0141\u0146"+
-		"\u0003T*\u0000\u0142\u0143\u00056\u0000\u0000\u0143\u0145\u0003T*\u0000"+
-		"\u0144\u0142\u0001\u0000\u0000\u0000\u0145\u0148\u0001\u0000\u0000\u0000"+
-		"\u0146\u0144\u0001\u0000\u0000\u0000\u0146\u0147\u0001\u0000\u0000\u0000"+
-		"\u0147%\u0001\u0000\u0000\u0000\u0148\u0146\u0001\u0000\u0000\u0000\u0149"+
-		"\u014a\u0005\u0014\u0000\u0000\u014a\u014c\u0005/\u0000\u0000\u014b\u014d"+
-		"\u0003\u0002\u0001\u0000\u014c\u014b\u0001\u0000\u0000\u0000\u014c\u014d"+
-		"\u0001\u0000\u0000\u0000\u014d\u014e\u0001\u0000\u0000\u0000\u014e\u014f"+
-		"\u00057\u0000\u0000\u014f\u0150\u0005.\u0000\u0000\u0150\u0154\u0005\u0001"+
-		"\u0000\u0000\u0151\u0152\u0003\u0002\u0001\u0000\u0152\u0153\u0005.\u0000"+
-		"\u0000\u0153\u0155\u0001\u0000\u0000\u0000\u0154\u0151\u0001\u0000\u0000"+
-		"\u0000\u0154\u0155\u0001\u0000\u0000\u0000\u0155\u0157\u0001\u0000\u0000"+
-		"\u0000\u0156\u0158\u0003\u0006\u0003\u0000\u0157\u0156\u0001\u0000\u0000"+
-		"\u0000\u0158\u0159\u0001\u0000\u0000\u0000\u0159\u0157\u0001\u0000\u0000"+
-		"\u0000\u0159\u015a\u0001\u0000\u0000\u0000\u015a\u015b\u0001\u0000\u0000"+
-		"\u0000\u015b\u015c\u0005\u0002\u0000\u0000\u015c\'\u0001\u0000\u0000\u0000"+
-		"\u015d\u0164\u0003,\u0016\u0000\u015e\u015f\u0005.\u0000\u0000\u015f\u0160"+
-		"\u0005\u0001\u0000\u0000\u0160\u0161\u0003*\u0015\u0000\u0161\u0162\u0005"+
-		"\u0002\u0000\u0000\u0162\u0164\u0001\u0000\u0000\u0000\u0163\u015d\u0001"+
-		"\u0000\u0000\u0000\u0163\u015e\u0001\u0000\u0000\u0000\u0164)\u0001\u0000"+
-		"\u0000\u0000\u0165\u0167\u0003,\u0016\u0000\u0166\u0165\u0001\u0000\u0000"+
-		"\u0000\u0167\u0168\u0001\u0000\u0000\u0000\u0168\u0166\u0001\u0000\u0000"+
-		"\u0000\u0168\u0169\u0001\u0000\u0000\u0000\u0169+\u0001\u0000\u0000\u0000"+
-		"\u016a\u017a\u0003J%\u0000\u016b\u017a\u00030\u0018\u0000\u016c\u017a"+
-		"\u00034\u001a\u0000\u016d\u017a\u00032\u0019\u0000\u016e\u017a\u00036"+
-		"\u001b\u0000\u016f\u017a\u0003F#\u0000\u0170\u017a\u0003H$\u0000\u0171"+
-		"\u017a\u0003R)\u0000\u0172\u017a\u0003L&\u0000\u0173\u017a\u0003N\'\u0000"+
-		"\u0174\u017a\u0003P(\u0000\u0175\u0176\u0005\u0015\u0000\u0000\u0176\u017a"+
-		"\u0003.\u0017\u0000\u0177\u0178\u0005\u0016\u0000\u0000\u0178\u017a\u0003"+
-		".\u0017\u0000\u0179\u016a\u0001\u0000\u0000\u0000\u0179\u016b\u0001\u0000"+
-		"\u0000\u0000\u0179\u016c\u0001\u0000\u0000\u0000\u0179\u016d\u0001\u0000"+
-		"\u0000\u0000\u0179\u016e\u0001\u0000\u0000\u0000\u0179\u016f\u0001\u0000"+
-		"\u0000\u0000\u0179\u0170\u0001\u0000\u0000\u0000\u0179\u0171\u0001\u0000"+
-		"\u0000\u0000\u0179\u0172\u0001\u0000\u0000\u0000\u0179\u0173\u0001\u0000"+
-		"\u0000\u0000\u0179\u0174\u0001\u0000\u0000\u0000\u0179\u0175\u0001\u0000"+
-		"\u0000\u0000\u0179\u0177\u0001\u0000\u0000\u0000\u017a-\u0001\u0000\u0000"+
-		"\u0000\u017b\u017c\u0007\u0003\u0000\u0000\u017c/\u0001\u0000\u0000\u0000"+
-		"\u017d\u017e\u0005\u0017\u0000\u0000\u017e\u017f\u0003T*\u0000\u017f\u0180"+
-		"\u00057\u0000\u0000\u0180\u0188\u0003(\u0014\u0000\u0181\u0182\u0005\u0018"+
-		"\u0000\u0000\u0182\u0183\u0003T*\u0000\u0183\u0184\u00057\u0000\u0000"+
-		"\u0184\u0185\u0003(\u0014\u0000\u0185\u0187\u0001\u0000\u0000\u0000\u0186"+
-		"\u0181\u0001\u0000\u0000\u0000\u0187\u018a\u0001\u0000\u0000\u0000\u0188"+
-		"\u0186\u0001\u0000\u0000\u0000\u0188\u0189\u0001\u0000\u0000\u0000\u0189"+
-		"\u018e\u0001\u0000\u0000\u0000\u018a\u0188\u0001\u0000\u0000\u0000\u018b"+
-		"\u018c\u0005$\u0000\u0000\u018c\u018d\u00057\u0000\u0000\u018d\u018f\u0003"+
-		"(\u0014\u0000\u018e\u018b\u0001\u0000\u0000\u0000\u018e\u018f\u0001\u0000"+
-		"\u0000\u0000\u018f1\u0001\u0000\u0000\u0000\u0190\u0191\u0005\u0019\u0000"+
-		"\u0000\u0191\u0192\u0003T*\u0000\u0192\u0193\u00057\u0000\u0000\u0193"+
-		"\u0194\u0003(\u0014\u0000\u01943\u0001\u0000\u0000\u0000\u0195\u0196\u0005"+
-		"\u001a\u0000\u0000\u0196\u0197\u0005/\u0000\u0000\u0197\u0198\u0005\u001b"+
-		"\u0000\u0000\u0198\u0199\u0003T*\u0000\u0199\u019a\u00057\u0000\u0000"+
-		"\u019a\u019b\u0003(\u0014\u0000\u019b5\u0001\u0000\u0000\u0000\u019c\u019d"+
-		"\u0005\u001c\u0000\u0000\u019d\u019e\u0003T*\u0000\u019e\u019f\u00057"+
-		"\u0000\u0000\u019f\u01a0\u0005.\u0000\u0000\u01a0\u01a1\u0005\u0001\u0000"+
-		"\u0000\u01a1\u01a2\u00038\u001c\u0000\u01a2\u01a3\u0005\u0002\u0000\u0000"+
-		"\u01a37\u0001\u0000\u0000\u0000\u01a4\u01a5\u0003:\u001d\u0000\u01a5\u01a6"+
-		"\u00057\u0000\u0000\u01a6\u01a7\u0003(\u0014\u0000\u01a7\u01a9\u0001\u0000"+
-		"\u0000\u0000\u01a8\u01a4\u0001\u0000\u0000\u0000\u01a9\u01aa\u0001\u0000"+
-		"\u0000\u0000\u01aa\u01a8\u0001\u0000\u0000\u0000\u01aa\u01ab\u0001\u0000"+
-		"\u0000\u0000\u01ab9\u0001\u0000\u0000\u0000\u01ac\u01b1\u0003<\u001e\u0000"+
-		"\u01ad\u01ae\u00056\u0000\u0000\u01ae\u01b0\u0003<\u001e\u0000\u01af\u01ad"+
-		"\u0001\u0000\u0000\u0000\u01b0\u01b3\u0001\u0000\u0000\u0000\u01b1\u01af"+
-		"\u0001\u0000\u0000\u0000\u01b1\u01b2\u0001\u0000\u0000\u0000\u01b2;\u0001"+
-		"\u0000\u0000\u0000\u01b3\u01b1\u0001\u0000\u0000\u0000\u01b4\u01bd\u0003"+
-		"V+\u0000\u01b5\u01bd\u00050\u0000\u0000\u01b6\u01bd\u00051\u0000\u0000"+
-		"\u01b7\u01bd\u0005G\u0000\u0000\u01b8\u01bd\u0003>\u001f\u0000\u01b9\u01bd"+
-		"\u0003@ \u0000\u01ba\u01bd\u0003B!\u0000\u01bb\u01bd\u0003T*\u0000\u01bc"+
-		"\u01b4\u0001\u0000\u0000\u0000\u01bc\u01b5\u0001\u0000\u0000\u0000\u01bc"+
-		"\u01b6\u0001\u0000\u0000\u0000\u01bc\u01b7\u0001\u0000\u0000\u0000\u01bc"+
-		"\u01b8\u0001\u0000\u0000\u0000\u01bc\u01b9\u0001\u0000\u0000\u0000\u01bc"+
-		"\u01ba\u0001\u0000\u0000\u0000\u01bc\u01bb\u0001\u0000\u0000\u0000\u01bd"+
-		"=\u0001\u0000\u0000\u0000\u01be\u01bf\u0005\u0006\u0000\u0000\u01bf\u01c0"+
-		"\u0005/\u0000\u0000\u01c0?\u0001\u0000\u0000\u0000\u01c1\u01cd\u0005H"+
-		"\u0000\u0000\u01c2\u01c7\u0003<\u001e\u0000\u01c3\u01c4\u00056\u0000\u0000"+
-		"\u01c4\u01c6\u0003<\u001e\u0000\u01c5\u01c3\u0001\u0000\u0000\u0000\u01c6"+
-		"\u01c9\u0001\u0000\u0000\u0000\u01c7\u01c5\u0001\u0000\u0000\u0000\u01c7"+
-		"\u01c8\u0001\u0000\u0000\u0000\u01c8\u01cb\u0001\u0000\u0000\u0000\u01c9"+
-		"\u01c7\u0001\u0000\u0000\u0000\u01ca\u01cc\u0005J\u0000\u0000\u01cb\u01ca"+
-		"\u0001\u0000\u0000\u0000\u01cb\u01cc\u0001\u0000\u0000\u0000\u01cc\u01ce"+
-		"\u0001\u0000\u0000\u0000\u01cd\u01c2\u0001\u0000\u0000\u0000\u01cd\u01ce"+
-		"\u0001\u0000\u0000\u0000\u01ce\u01cf\u0001\u0000\u0000\u0000\u01cf\u01d0"+
-		"\u0005I\u0000\u0000\u01d0A\u0001\u0000\u0000\u0000\u01d1\u01d3\u0005D"+
-		"\u0000\u0000\u01d2\u01d4\u0003D\"\u0000\u01d3\u01d2\u0001\u0000\u0000"+
-		"\u0000\u01d3\u01d4\u0001\u0000\u0000\u0000\u01d4\u01d9\u0001\u0000\u0000"+
-		"\u0000\u01d5\u01d6\u00056\u0000\u0000\u01d6\u01d8\u0003D\"\u0000\u01d7"+
-		"\u01d5\u0001\u0000\u0000\u0000\u01d8\u01db\u0001\u0000\u0000\u0000\u01d9"+
-		"\u01d7\u0001\u0000\u0000\u0000\u01d9\u01da\u0001\u0000\u0000\u0000\u01da"+
-		"\u01dd\u0001\u0000\u0000\u0000\u01db\u01d9\u0001\u0000\u0000\u0000\u01dc"+
-		"\u01de\u0005J\u0000\u0000\u01dd\u01dc\u0001\u0000\u0000\u0000\u01dd\u01de"+
-		"\u0001\u0000\u0000\u0000\u01de\u01df\u0001\u0000\u0000\u0000\u01df\u01e0"+
-		"\u0005E\u0000\u0000\u01e0C\u0001\u0000\u0000\u0000\u01e1\u01e4\u00052"+
-		"\u0000\u0000\u01e2\u01e3\u00057\u0000\u0000\u01e3\u01e5\u0003<\u001e\u0000"+
-		"\u01e4\u01e2\u0001\u0000\u0000\u0000\u01e4\u01e5\u0001\u0000\u0000\u0000"+
-		"\u01e5E\u0001\u0000\u0000\u0000\u01e6\u01e7\u0005\u001d\u0000\u0000\u01e7"+
-		"\u01f0\u0003.\u0017\u0000\u01e8\u01e9\u0005\u001e\u0000\u0000\u01e9\u01f0"+
-		"\u0003.\u0017\u0000\u01ea\u01ec\u0005\u001f\u0000\u0000\u01eb\u01ed\u0003"+
-		"T*\u0000\u01ec\u01eb\u0001\u0000\u0000\u0000\u01ec\u01ed\u0001\u0000\u0000"+
-		"\u0000\u01ed\u01ee\u0001\u0000\u0000\u0000\u01ee\u01f0\u0003.\u0017\u0000"+
-		"\u01ef\u01e6\u0001\u0000\u0000\u0000\u01ef\u01e8\u0001\u0000\u0000\u0000"+
-		"\u01ef\u01ea\u0001\u0000\u0000\u0000\u01f0G\u0001\u0000\u0000\u0000\u01f1"+
-		"\u01f2\u0003T*\u0000\u01f2\u01f3\u0007\u0004\u0000\u0000\u01f3\u01f4\u0003"+
-		"T*\u0000\u01f4\u01f5\u0003.\u0017\u0000\u01f5I\u0001\u0000\u0000\u0000"+
-		"\u01f6\u01f7\u0005\u0006\u0000\u0000\u01f7\u01fa\u0005/\u0000\u0000\u01f8"+
-		"\u01f9\u00057\u0000\u0000\u01f9\u01fb\u0003\u000e\u0007\u0000\u01fa\u01f8"+
-		"\u0001\u0000\u0000\u0000\u01fa\u01fb\u0001\u0000\u0000\u0000\u01fb\u0201"+
-		"\u0001\u0000\u0000\u0000\u01fc\u01ff\u0007\u0005\u0000\u0000\u01fd\u0200"+
-		"\u0003T*\u0000\u01fe\u0200\u0003,\u0016\u0000\u01ff\u01fd\u0001\u0000"+
-		"\u0000\u0000\u01ff\u01fe\u0001\u0000\u0000\u0000\u0200\u0202\u0001\u0000"+
-		"\u0000\u0000\u0201\u01fc\u0001\u0000\u0000\u0000\u0201\u0202\u0001\u0000"+
-		"\u0000\u0000\u0202\u0203\u0001\u0000\u0000\u0000\u0203\u0204\u0003.\u0017"+
-		"\u0000\u0204K\u0001\u0000\u0000\u0000\u0205\u0206\u0005 \u0000\u0000\u0206"+
-		"\u0207\u0005B\u0000\u0000\u0207\u020a\u0003T*\u0000\u0208\u0209\u0005"+
-		"6\u0000\u0000\u0209\u020b\u00052\u0000\u0000\u020a\u0208\u0001\u0000\u0000"+
-		"\u0000\u020a\u020b\u0001\u0000\u0000\u0000\u020b\u020c\u0001\u0000\u0000"+
-		"\u0000\u020c\u020d\u0005C\u0000\u0000\u020d\u020e\u0003.\u0017\u0000\u020e"+
-		"M\u0001\u0000\u0000\u0000\u020f\u0210\u0005!\u0000\u0000\u0210\u0211\u0005"+
-		"B\u0000\u0000\u0211\u0212\u0003T*\u0000\u0212\u0213\u00056\u0000\u0000"+
-		"\u0213\u0214\u0003T*\u0000\u0214\u0215\u0001\u0000\u0000\u0000\u0215\u0216"+
-		"\u0005C\u0000\u0000\u0216\u0217\u0003.\u0017\u0000\u0217O\u0001\u0000"+
-		"\u0000\u0000\u0218\u0219\u0005\"\u0000\u0000\u0219\u021c\u0005B\u0000"+
-		"\u0000\u021a\u021d\u00051\u0000\u0000\u021b\u021d\u0003T*\u0000\u021c"+
-		"\u021a\u0001\u0000\u0000\u0000\u021c\u021b\u0001\u0000\u0000\u0000\u021d"+
-		"\u021e\u0001\u0000\u0000\u0000\u021e\u0220\u0005C\u0000\u0000\u021f\u0221"+
-		"\u0003.\u0017\u0000\u0220\u021f\u0001\u0000\u0000\u0000\u0220\u0221\u0001"+
-		"\u0000\u0000\u0000\u0221Q\u0001\u0000\u0000\u0000\u0222\u0223\u0003T*"+
-		"\u0000\u0223\u0224\u0003.\u0017\u0000\u0224S\u0001\u0000\u0000\u0000\u0225"+
-		"\u0226\u0006*\uffff\uffff\u0000\u0226\u0267\u0005)\u0000\u0000\u0227\u0267"+
-		"\u0005*\u0000\u0000\u0228\u0267\u0005+\u0000\u0000\u0229\u0267\u0005,"+
-		"\u0000\u0000\u022a\u0267\u0003V+\u0000\u022b\u0237\u0005H\u0000\u0000"+
-		"\u022c\u0231\u0003T*\u0000\u022d\u022e\u00056\u0000\u0000\u022e\u0230"+
-		"\u0003T*\u0000\u022f\u022d\u0001\u0000\u0000\u0000\u0230\u0233\u0001\u0000"+
-		"\u0000\u0000\u0231\u022f\u0001\u0000\u0000\u0000\u0231\u0232\u0001\u0000"+
-		"\u0000\u0000\u0232\u0235\u0001\u0000\u0000\u0000\u0233\u0231\u0001\u0000"+
-		"\u0000\u0000\u0234\u0236\u00056\u0000\u0000\u0235\u0234\u0001\u0000\u0000"+
-		"\u0000\u0235\u0236\u0001\u0000\u0000\u0000\u0236\u0238\u0001\u0000\u0000"+
-		"\u0000\u0237\u022c\u0001\u0000\u0000\u0000\u0237\u0238\u0001\u0000\u0000"+
-		"\u0000\u0238\u0239\u0001\u0000\u0000\u0000\u0239\u0267\u0005I\u0000\u0000"+
-		"\u023a\u0246\u0005D\u0000\u0000\u023b\u0240\u0003X,\u0000\u023c\u023d"+
-		"\u00056\u0000\u0000\u023d\u023f\u0003X,\u0000\u023e\u023c\u0001\u0000"+
-		"\u0000\u0000\u023f\u0242\u0001\u0000\u0000\u0000\u0240\u023e\u0001\u0000"+
-		"\u0000\u0000\u0240\u0241\u0001\u0000\u0000\u0000\u0241\u0244\u0001\u0000"+
-		"\u0000\u0000\u0242\u0240\u0001\u0000\u0000\u0000\u0243\u0245\u00056\u0000"+
-		"\u0000\u0244\u0243\u0001\u0000\u0000\u0000\u0244\u0245\u0001\u0000\u0000"+
-		"\u0000\u0245\u0247\u0001\u0000\u0000\u0000\u0246\u023b\u0001\u0000\u0000"+
-		"\u0000\u0246\u0247\u0001\u0000\u0000\u0000\u0247\u0248\u0001\u0000\u0000"+
-		"\u0000\u0248\u0267\u0005E\u0000\u0000\u0249\u024a\u0005B\u0000\u0000\u024a"+
-		"\u024b\u0003T*\u0000\u024b\u024c\u0005C\u0000\u0000\u024c\u0267\u0001"+
-		"\u0000\u0000\u0000\u024d\u024e\u00055\u0000\u0000\u024e\u024f\u0005/\u0000"+
-		"\u0000\u024f\u0251\u0005B\u0000\u0000\u0250\u0252\u0003$\u0012\u0000\u0251"+
-		"\u0250\u0001\u0000\u0000\u0000\u0251\u0252\u0001\u0000\u0000\u0000\u0252"+
-		"\u0253\u0001\u0000\u0000\u0000\u0253\u0267\u0005C\u0000\u0000\u0254\u025e"+
-		"\u0005`\u0000\u0000\u0255\u025f\u00052\u0000\u0000\u0256\u025b\u0005/"+
-		"\u0000\u0000\u0257\u0258\u0005]\u0000\u0000\u0258\u025a\u0005/\u0000\u0000"+
-		"\u0259\u0257\u0001\u0000\u0000\u0000\u025a\u025d\u0001\u0000\u0000\u0000"+
-		"\u025b\u0259\u0001\u0000\u0000\u0000\u025b\u025c\u0001\u0000\u0000\u0000"+
-		"\u025c\u025f\u0001\u0000\u0000\u0000\u025d\u025b\u0001\u0000\u0000\u0000"+
-		"\u025e\u0255\u0001\u0000\u0000\u0000\u025e\u0256\u0001\u0000\u0000\u0000"+
-		"\u025f\u0267\u0001\u0000\u0000\u0000\u0260\u0261\u0005_\u0000\u0000\u0261"+
-		"\u0267\u0003T*\u0010\u0262\u0263\u0007\u0006\u0000\u0000\u0263\u0267\u0003"+
-		"T*\u000f\u0264\u0265\u0007\u0007\u0000\u0000\u0265\u0267\u0003T*\u0005"+
-		"\u0266\u0225\u0001\u0000\u0000\u0000\u0266\u0227\u0001\u0000\u0000\u0000"+
-		"\u0266\u0228\u0001\u0000\u0000\u0000\u0266\u0229\u0001\u0000\u0000\u0000"+
-		"\u0266\u022a\u0001\u0000\u0000\u0000\u0266\u022b\u0001\u0000\u0000\u0000"+
-		"\u0266\u023a\u0001\u0000\u0000\u0000\u0266\u0249\u0001\u0000\u0000\u0000"+
-		"\u0266\u024d\u0001\u0000\u0000\u0000\u0266\u0254\u0001\u0000\u0000\u0000"+
-		"\u0266\u0260\u0001\u0000\u0000\u0000\u0266\u0262\u0001\u0000\u0000\u0000"+
-		"\u0266\u0264\u0001\u0000\u0000\u0000\u0267\u02a5\u0001\u0000\u0000\u0000"+
-		"\u0268\u0269\n\u000e\u0000\u0000\u0269\u026a\u0007\b\u0000\u0000\u026a"+
-		"\u02a4\u0003T*\u000f\u026b\u026c\n\r\u0000\u0000\u026c\u026d\u0005Z\u0000"+
-		"\u0000\u026d\u02a4\u0003T*\u000e\u026e\u026f\n\f\u0000\u0000\u026f\u0270"+
-		"\u0005[\u0000\u0000\u0270\u02a4\u0003T*\r\u0271\u0272\n\u000b\u0000\u0000"+
-		"\u0272\u0273\u0007\t\u0000\u0000\u0273\u02a4\u0003T*\f\u0274\u0275\n\n"+
-		"\u0000\u0000\u0275\u0276\u0005W\u0000\u0000\u0276\u02a4\u0003T*\u000b"+
-		"\u0277\u0278\n\t\u0000\u0000\u0278\u0279\u0005V\u0000\u0000\u0279\u02a4"+
-		"\u0003T*\n\u027a\u027b\n\b\u0000\u0000\u027b\u027c\u0005U\u0000\u0000"+
-		"\u027c\u02a4\u0003T*\t\u027d\u027e\n\u0007\u0000\u0000\u027e\u027f\u0007"+
-		"\n\u0000\u0000\u027f\u02a4\u0003T*\b\u0280\u0281\n\u0006\u0000\u0000\u0281"+
-		"\u0282\u0005\u001b\u0000\u0000\u0282\u02a4\u0003T*\u0007\u0283\u0284\n"+
-		"\u0004\u0000\u0000\u0284\u0285\u0007\u000b\u0000\u0000\u0285\u02a4\u0003"+
-		"T*\u0005\u0286\u0287\n\u0003\u0000\u0000\u0287\u0288\u0007\f\u0000\u0000"+
-		"\u0288\u02a4\u0003T*\u0004\u0289\u028a\n\u0002\u0000\u0000\u028a\u028b"+
-		"\u0005\u0017\u0000\u0000\u028b\u028c\u0003T*\u0000\u028c\u028d\u0005$"+
-		"\u0000\u0000\u028d\u028e\u0003T*\u0003\u028e\u02a4\u0001\u0000\u0000\u0000"+
-		"\u028f\u0290\n\u0016\u0000\u0000\u0290\u0291\u0005H\u0000\u0000\u0291"+
-		"\u0292\u0003T*\u0000\u0292\u0293\u0005I\u0000\u0000\u0293\u02a4\u0001"+
-		"\u0000\u0000\u0000\u0294\u0295\n\u0015\u0000\u0000\u0295\u0296\u00055"+
-		"\u0000\u0000\u0296\u02a4\u0005/\u0000\u0000\u0297\u0298\n\u0014\u0000"+
-		"\u0000\u0298\u029a\u0005B\u0000\u0000\u0299\u029b\u0003$\u0012\u0000\u029a"+
-		"\u0299\u0001\u0000\u0000\u0000\u029a\u029b\u0001\u0000\u0000\u0000\u029b"+
-		"\u029c\u0001\u0000\u0000\u0000\u029c\u02a4\u0005C\u0000\u0000\u029d\u029e"+
-		"\n\u0011\u0000\u0000\u029e\u029f\u0005(\u0000\u0000\u029f\u02a4\u0007"+
-		"\u0001\u0000\u0000\u02a0\u02a1\n\u0001\u0000\u0000\u02a1\u02a2\u0005#"+
-		"\u0000\u0000\u02a2\u02a4\u0003\u000e\u0007\u0000\u02a3\u0268\u0001\u0000"+
-		"\u0000\u0000\u02a3\u026b\u0001\u0000\u0000\u0000\u02a3\u026e\u0001\u0000"+
-		"\u0000\u0000\u02a3\u0271\u0001\u0000\u0000\u0000\u02a3\u0274\u0001\u0000"+
-		"\u0000\u0000\u02a3\u0277\u0001\u0000\u0000\u0000\u02a3\u027a\u0001\u0000"+
-		"\u0000\u0000\u02a3\u027d\u0001\u0000\u0000\u0000\u02a3\u0280\u0001\u0000"+
-		"\u0000\u0000\u02a3\u0283\u0001\u0000\u0000\u0000\u02a3\u0286\u0001\u0000"+
-		"\u0000\u0000\u02a3\u0289\u0001\u0000\u0000\u0000\u02a3\u028f\u0001\u0000"+
-		"\u0000\u0000\u02a3\u0294\u0001\u0000\u0000\u0000\u02a3\u0297\u0001\u0000"+
-		"\u0000\u0000\u02a3\u029d\u0001\u0000\u0000\u0000\u02a3\u02a0\u0001\u0000"+
-		"\u0000\u0000\u02a4\u02a7\u0001\u0000\u0000\u0000\u02a5\u02a3\u0001\u0000"+
-		"\u0000\u0000\u02a5\u02a6\u0001\u0000\u0000\u0000\u02a6U\u0001\u0000\u0000"+
-		"\u0000\u02a7\u02a5\u0001\u0000\u0000\u0000\u02a8\u02a9\u0007\r\u0000\u0000"+
-		"\u02a9W\u0001\u0000\u0000\u0000\u02aa\u02ab\u0003T*\u0000\u02ab\u02ac"+
-		"\u00057\u0000\u0000\u02ac\u02ad\u0003T*\u0000\u02ad\u02b2\u0001\u0000"+
-		"\u0000\u0000\u02ae\u02af\u0005/\u0000\u0000\u02af\u02b0\u00058\u0000\u0000"+
-		"\u02b0\u02b2\u0003T*\u0000\u02b1\u02aa\u0001\u0000\u0000\u0000\u02b1\u02ae"+
-		"\u0001\u0000\u0000\u0000\u02b2Y\u0001\u0000\u0000\u0000R]bejp{\u0082\u008e"+
-		"\u0091\u0094\u0097\u009d\u00a1\u00a5\u00a7\u00aa\u00b0\u00b4\u00b7\u00c1"+
-		"\u00c4\u00c7\u00cf\u00d8\u00e2\u00e5\u00eb\u00f4\u00fa\u00fe\u0102\u0107"+
-		"\u010a\u0110\u0115\u011f\u0123\u0128\u012c\u0134\u013a\u0146\u014c\u0154"+
-		"\u0159\u0163\u0168\u0179\u0188\u018e\u01aa\u01b1\u01bc\u01c7\u01cb\u01cd"+
-		"\u01d3\u01d9\u01dd\u01e4\u01ec\u01ef\u01fa\u01ff\u0201\u020a\u021c\u0220"+
-		"\u0231\u0235\u0237\u0240\u0244\u0246\u0251\u025b\u025e\u0266\u029a\u02a3"+
-		"\u02a5\u02b1";
+		"\u0001\u001a\u0003\u001a\u019e\b\u001a\u0001\u001a\u0001\u001a\u0001\u001a"+
+		"\u0001\u001a\u0003\u001a\u01a4\b\u001a\u0005\u001a\u01a6\b\u001a\n\u001a"+
+		"\f\u001a\u01a9\t\u001a\u0001\u001a\u0003\u001a\u01ac\b\u001a\u0001\u001a"+
+		"\u0001\u001a\u0001\u001b\u0003\u001b\u01b1\b\u001b\u0001\u001b\u0003\u001b"+
+		"\u01b4\b\u001b\u0001\u001b\u0001\u001b\u0001\u001b\u0001\u001b\u0003\u001b"+
+		"\u01ba\b\u001b\u0001\u001b\u0001\u001b\u0001\u001b\u0003\u001b\u01bf\b"+
+		"\u001b\u0001\u001b\u0001\u001b\u0001\u001b\u0001\u001c\u0001\u001c\u0001"+
+		"\u001c\u0005\u001c\u01c7\b\u001c\n\u001c\f\u001c\u01ca\t\u001c\u0001\u001d"+
+		"\u0003\u001d\u01cd\b\u001d\u0001\u001d\u0001\u001d\u0001\u001d\u0003\u001d"+
+		"\u01d2\b\u001d\u0001\u001d\u0001\u001d\u0003\u001d\u01d6\b\u001d\u0001"+
+		"\u001e\u0001\u001e\u0001\u001e\u0001\u001e\u0001\u001e\u0001\u001e\u0001"+
+		"\u001e\u0001\u001e\u0001\u001e\u0001\u001e\u0001\u001e\u0003\u001e\u01e3"+
+		"\b\u001e\u0003\u001e\u01e5\b\u001e\u0001\u001f\u0001\u001f\u0001\u001f"+
+		"\u0001\u001f\u0003\u001f\u01eb\b\u001f\u0001\u001f\u0001\u001f\u0001\u001f"+
+		"\u0001\u001f\u0003\u001f\u01f1\b\u001f\u0001\u001f\u0001\u001f\u0001\u001f"+
+		"\u0001\u001f\u0001\u001f\u0001 \u0001 \u0003 \u01fa\b \u0001 \u0001 \u0001"+
+		" \u0003 \u01ff\b \u0005 \u0201\b \n \f \u0204\t \u0001 \u0003 \u0207\b"+
+		" \u0001!\u0001!\u0001!\u0003!\u020c\b!\u0001!\u0001!\u0001!\u0001!\u0001"+
+		"!\u0001!\u0003!\u0214\b!\u0001!\u0004!\u0217\b!\u000b!\f!\u0218\u0001"+
+		"!\u0001!\u0001\"\u0001\"\u0001\"\u0001\"\u0001\"\u0001\"\u0003\"\u0223"+
+		"\b\"\u0001#\u0004#\u0226\b#\u000b#\f#\u0227\u0001$\u0001$\u0001$\u0001"+
+		"$\u0001$\u0001$\u0001$\u0001$\u0001$\u0001$\u0001$\u0001$\u0001$\u0001"+
+		"$\u0001$\u0001$\u0001$\u0001$\u0001$\u0001$\u0001$\u0005$\u023f\b$\n$"+
+		"\f$\u0242\t$\u0001$\u0001$\u0003$\u0246\b$\u0001%\u0001%\u0001&\u0001"+
+		"&\u0001&\u0001\'\u0001\'\u0001\'\u0001\'\u0001\'\u0001\'\u0001\'\u0001"+
+		"\'\u0001\'\u0005\'\u0256\b\'\n\'\f\'\u0259\t\'\u0001\'\u0001\'\u0001\'"+
+		"\u0003\'\u025e\b\'\u0001\'\u0005\'\u0261\b\'\n\'\f\'\u0264\t\'\u0001("+
+		"\u0001(\u0001(\u0001(\u0001(\u0001)\u0001)\u0001)\u0001)\u0001)\u0001"+
+		")\u0001)\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001*\u0001"+
+		"+\u0001+\u0001+\u0001+\u0004+\u027e\b+\u000b+\f+\u027f\u0001,\u0001,\u0001"+
+		",\u0005,\u0285\b,\n,\f,\u0288\t,\u0001-\u0001-\u0001-\u0001-\u0001-\u0001"+
+		"-\u0001-\u0001-\u0003-\u0292\b-\u0001.\u0001.\u0001.\u0001/\u0001/\u0001"+
+		"/\u0001/\u0005/\u029b\b/\n/\f/\u029e\t/\u0001/\u0003/\u02a1\b/\u0003/"+
+		"\u02a3\b/\u0001/\u0001/\u00010\u00010\u00030\u02a9\b0\u00010\u00010\u0005"+
+		"0\u02ad\b0\n0\f0\u02b0\t0\u00010\u00030\u02b3\b0\u00010\u00010\u00011"+
+		"\u00011\u00011\u00031\u02ba\b1\u00012\u00012\u00012\u00012\u00012\u0001"+
+		"2\u00032\u02c2\b2\u00012\u00032\u02c5\b2\u00013\u00013\u00013\u00013\u0001"+
+		"3\u00014\u00014\u00014\u00014\u00034\u02d0\b4\u00014\u00014\u00014\u0003"+
+		"4\u02d5\b4\u00034\u02d7\b4\u00014\u00014\u00015\u00015\u00015\u00015\u0001"+
+		"5\u00035\u02e0\b5\u00015\u00015\u00015\u00016\u00016\u00016\u00016\u0001"+
+		"6\u00016\u00016\u00016\u00016\u00017\u00017\u00017\u00017\u00037\u02f2"+
+		"\b7\u00017\u00017\u00037\u02f6\b7\u00017\u00037\u02f9\b7\u00018\u0001"+
+		"8\u00018\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u0001"+
+		"9\u00019\u00059\u0308\b9\n9\f9\u030b\t9\u00019\u00039\u030e\b9\u00039"+
+		"\u0310\b9\u00019\u00019\u00019\u00019\u00019\u00059\u0317\b9\n9\f9\u031a"+
+		"\t9\u00019\u00039\u031d\b9\u00039\u031f\b9\u00019\u00019\u00019\u0001"+
+		"9\u00019\u00019\u00019\u00019\u00019\u00039\u032a\b9\u00019\u00019\u0001"+
+		"9\u00019\u00019\u00019\u00059\u0332\b9\n9\f9\u0335\t9\u00039\u0337\b9"+
+		"\u00019\u00019\u00019\u00019\u00019\u00059\u033e\b9\n9\f9\u0341\t9\u0003"+
+		"9\u0343\b9\u00019\u00019\u00019\u00019\u00019\u00019\u00039\u034b\b9\u0001"+
+		"9\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u0001"+
+		"9\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u0001"+
+		"9\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u0001"+
+		"9\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u0001"+
+		"9\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u0003"+
+		"9\u037f\b9\u00019\u00019\u00019\u00019\u00019\u00019\u00019\u00059\u0388"+
+		"\b9\n9\f9\u038b\t9\u0001:\u0001:\u0001;\u0001;\u0001<\u0001<\u0001<\u0001"+
+		"<\u0001<\u0001<\u0001<\u0003<\u0398\b<\u0001<\u0000\u0001r=\u0000\u0002"+
+		"\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e"+
+		" \"$&(*,.02468:<>@BDFHJLNPRTVXZ\\^`bdfhjlnprtvx\u0000\u0010\u0002\u0000"+
+		"@@CC\u0001\u0000\u000f\u0011\u0001\u0000\u0012\u0014\u0001\u0000@A\u0001"+
+		"\u0000LM\u0002\u0000??__\u0002\u0000LLNU\u0001\u0000no\u0002\u000044b"+
+		"b\u0001\u0000pr\u0001\u0000lm\u0001\u0000ch\u0002\u000033aa\u0002\u0000"+
+		"22``\u0001\u0000@H\u0001\u0000GH\u0413\u0000{\u0001\u0000\u0000\u0000"+
+		"\u0002\u00a4\u0001\u0000\u0000\u0000\u0004\u00a6\u0001\u0000\u0000\u0000"+
+		"\u0006\u00b8\u0001\u0000\u0000\u0000\b\u00ba\u0001\u0000\u0000\u0000\n"+
+		"\u00c9\u0001\u0000\u0000\u0000\f\u00de\u0001\u0000\u0000\u0000\u000e\u00e1"+
+		"\u0001\u0000\u0000\u0000\u0010\u0101\u0001\u0000\u0000\u0000\u0012\u010a"+
+		"\u0001\u0000\u0000\u0000\u0014\u011a\u0001\u0000\u0000\u0000\u0016\u011d"+
+		"\u0001\u0000\u0000\u0000\u0018\u0132\u0001\u0000\u0000\u0000\u001a\u013a"+
+		"\u0001\u0000\u0000\u0000\u001c\u0142\u0001\u0000\u0000\u0000\u001e\u0147"+
+		"\u0001\u0000\u0000\u0000 \u014c\u0001\u0000\u0000\u0000\"\u0151\u0001"+
+		"\u0000\u0000\u0000$\u0159\u0001\u0000\u0000\u0000&\u0161\u0001\u0000\u0000"+
+		"\u0000(\u0169\u0001\u0000\u0000\u0000*\u016f\u0001\u0000\u0000\u0000,"+
+		"\u0171\u0001\u0000\u0000\u0000.\u017e\u0001\u0000\u0000\u00000\u0185\u0001"+
+		"\u0000\u0000\u00002\u0192\u0001\u0000\u0000\u00004\u0199\u0001\u0000\u0000"+
+		"\u00006\u01b0\u0001\u0000\u0000\u00008\u01c3\u0001\u0000\u0000\u0000:"+
+		"\u01cc\u0001\u0000\u0000\u0000<\u01e4\u0001\u0000\u0000\u0000>\u01e6\u0001"+
+		"\u0000\u0000\u0000@\u01f9\u0001\u0000\u0000\u0000B\u0208\u0001\u0000\u0000"+
+		"\u0000D\u0222\u0001\u0000\u0000\u0000F\u0225\u0001\u0000\u0000\u0000H"+
+		"\u0245\u0001\u0000\u0000\u0000J\u0247\u0001\u0000\u0000\u0000L\u0249\u0001"+
+		"\u0000\u0000\u0000N\u024c\u0001\u0000\u0000\u0000P\u0265\u0001\u0000\u0000"+
+		"\u0000R\u026a\u0001\u0000\u0000\u0000T\u0271\u0001\u0000\u0000\u0000V"+
+		"\u027d\u0001\u0000\u0000\u0000X\u0281\u0001\u0000\u0000\u0000Z\u0291\u0001"+
+		"\u0000\u0000\u0000\\\u0293\u0001\u0000\u0000\u0000^\u0296\u0001\u0000"+
+		"\u0000\u0000`\u02a6\u0001\u0000\u0000\u0000b\u02b6\u0001\u0000\u0000\u0000"+
+		"d\u02c4\u0001\u0000\u0000\u0000f\u02c6\u0001\u0000\u0000\u0000h\u02cb"+
+		"\u0001\u0000\u0000\u0000j\u02da\u0001\u0000\u0000\u0000l\u02e4\u0001\u0000"+
+		"\u0000\u0000n\u02ed\u0001\u0000\u0000\u0000p\u02fa\u0001\u0000\u0000\u0000"+
+		"r\u034a\u0001\u0000\u0000\u0000t\u038c\u0001\u0000\u0000\u0000v\u038e"+
+		"\u0001\u0000\u0000\u0000x\u0397\u0001\u0000\u0000\u0000z|\u0003\u0002"+
+		"\u0001\u0000{z\u0001\u0000\u0000\u0000{|\u0001\u0000\u0000\u0000|~\u0001"+
+		"\u0000\u0000\u0000}\u007f\u0003\u0006\u0003\u0000~}\u0001\u0000\u0000"+
+		"\u0000~\u007f\u0001\u0000\u0000\u0000\u007f\u0083\u0001\u0000\u0000\u0000"+
+		"\u0080\u0082\u0003\f\u0006\u0000\u0081\u0080\u0001\u0000\u0000\u0000\u0082"+
+		"\u0085\u0001\u0000\u0000\u0000\u0083\u0081\u0001\u0000\u0000\u0000\u0083"+
+		"\u0084\u0001\u0000\u0000\u0000\u0084\u0089\u0001\u0000\u0000\u0000\u0085"+
+		"\u0083\u0001\u0000\u0000\u0000\u0086\u0088\u0005?\u0000\u0000\u0087\u0086"+
+		"\u0001\u0000\u0000\u0000\u0088\u008b\u0001\u0000\u0000\u0000\u0089\u0087"+
+		"\u0001\u0000\u0000\u0000\u0089\u008a\u0001\u0000\u0000\u0000\u008a\u008c"+
+		"\u0001\u0000\u0000\u0000\u008b\u0089\u0001\u0000\u0000\u0000\u008c\u008d"+
+		"\u0005\u0000\u0000\u0001\u008d\u0001\u0001\u0000\u0000\u0000\u008e\u008f"+
+		"\u0005u\u0000\u0000\u008f\u0093\u0005:\u0000\u0000\u0090\u0092\u0005?"+
+		"\u0000\u0000\u0091\u0090\u0001\u0000\u0000\u0000\u0092\u0095\u0001\u0000"+
+		"\u0000\u0000\u0093\u0091\u0001\u0000\u0000\u0000\u0093\u0094\u0001\u0000"+
+		"\u0000\u0000\u0094\u0097\u0001\u0000\u0000\u0000\u0095\u0093\u0001\u0000"+
+		"\u0000\u0000\u0096\u008e\u0001\u0000\u0000\u0000\u0096\u0097\u0001\u0000"+
+		"\u0000\u0000\u0097\u0098\u0001\u0000\u0000\u0000\u0098\u00a5\u0003\u0004"+
+		"\u0002\u0000\u0099\u009b\u0003\u0004\u0002\u0000\u009a\u0099\u0001\u0000"+
+		"\u0000\u0000\u009a\u009b\u0001\u0000\u0000\u0000\u009b\u009c\u0001\u0000"+
+		"\u0000\u0000\u009c\u009d\u0005u\u0000\u0000\u009d\u00a1\u0005:\u0000\u0000"+
+		"\u009e\u00a0\u0005?\u0000\u0000\u009f\u009e\u0001\u0000\u0000\u0000\u00a0"+
+		"\u00a3\u0001\u0000\u0000\u0000\u00a1\u009f\u0001\u0000\u0000\u0000\u00a1"+
+		"\u00a2\u0001\u0000\u0000\u0000\u00a2\u00a5\u0001\u0000\u0000\u0000\u00a3"+
+		"\u00a1\u0001\u0000\u0000\u0000\u00a4\u0096\u0001\u0000\u0000\u0000\u00a4"+
+		"\u009a\u0001\u0000\u0000\u0000\u00a5\u0003\u0001\u0000\u0000\u0000\u00a6"+
+		"\u00a7\u0005=\u0000\u0000\u00a7\u00a8\u0005V\u0000\u0000\u00a8\u00a9\u0005"+
+		"C\u0000\u0000\u00a9\u00ad\u0005W\u0000\u0000\u00aa\u00ac\u0005?\u0000"+
+		"\u0000\u00ab\u00aa\u0001\u0000\u0000\u0000\u00ac\u00af\u0001\u0000\u0000"+
+		"\u0000\u00ad\u00ab\u0001\u0000\u0000\u0000\u00ad\u00ae\u0001\u0000\u0000"+
+		"\u0000\u00ae\u0005\u0001\u0000\u0000\u0000\u00af\u00ad\u0001\u0000\u0000"+
+		"\u0000\u00b0\u00b2\u0003\n\u0005\u0000\u00b1\u00b3\u0003\b\u0004\u0000"+
+		"\u00b2\u00b1\u0001\u0000\u0000\u0000\u00b2\u00b3\u0001\u0000\u0000\u0000"+
+		"\u00b3\u00b9\u0001\u0000\u0000\u0000\u00b4\u00b6\u0003\b\u0004\u0000\u00b5"+
+		"\u00b7\u0003\n\u0005\u0000\u00b6\u00b5\u0001\u0000\u0000\u0000\u00b6\u00b7"+
+		"\u0001\u0000\u0000\u0000\u00b7\u00b9\u0001\u0000\u0000\u0000\u00b8\u00b0"+
+		"\u0001\u0000\u0000\u0000\u00b8\u00b4\u0001\u0000\u0000\u0000\u00b9\u0007"+
+		"\u0001\u0000\u0000\u0000\u00ba\u00bb\u0005\u0003\u0000\u0000\u00bb\u00c0"+
+		"\u0007\u0000\u0000\u0000\u00bc\u00bd\u0005I\u0000\u0000\u00bd\u00bf\u0005"+
+		"@\u0000\u0000\u00be\u00bc\u0001\u0000\u0000\u0000\u00bf\u00c2\u0001\u0000"+
+		"\u0000\u0000\u00c0\u00be\u0001\u0000\u0000\u0000\u00c0\u00c1\u0001\u0000"+
+		"\u0000\u0000\u00c1\u00c6\u0001\u0000\u0000\u0000\u00c2\u00c0\u0001\u0000"+
+		"\u0000\u0000\u00c3\u00c5\u0005?\u0000\u0000\u00c4\u00c3\u0001\u0000\u0000"+
+		"\u0000\u00c5\u00c8\u0001\u0000\u0000\u0000\u00c6\u00c4\u0001\u0000\u0000"+
+		"\u0000\u00c6\u00c7\u0001\u0000\u0000\u0000\u00c7\t\u0001\u0000\u0000\u0000"+
+		"\u00c8\u00c6\u0001\u0000\u0000\u0000\u00c9\u00ca\u0005\u0004\u0000\u0000"+
+		"\u00ca\u00cd\u0005@\u0000\u0000\u00cb\u00cc\u0005J\u0000\u0000\u00cc\u00ce"+
+		"\u0005C\u0000\u0000\u00cd\u00cb\u0001\u0000\u0000\u0000\u00cd\u00ce\u0001"+
+		"\u0000\u0000\u0000\u00ce\u00d2\u0001\u0000\u0000\u0000\u00cf\u00d1\u0005"+
+		"?\u0000\u0000\u00d0\u00cf\u0001\u0000\u0000\u0000\u00d1\u00d4\u0001\u0000"+
+		"\u0000\u0000\u00d2\u00d0\u0001\u0000\u0000\u0000\u00d2\u00d3\u0001\u0000"+
+		"\u0000\u0000\u00d3\u000b\u0001\u0000\u0000\u0000\u00d4\u00d2\u0001\u0000"+
+		"\u0000\u0000\u00d5\u00df\u0003\u000e\u0007\u0000\u00d6\u00df\u0003,\u0016"+
+		"\u0000\u00d7\u00df\u0003.\u0017\u0000\u00d8\u00df\u00032\u0019\u0000\u00d9"+
+		"\u00df\u00036\u001b\u0000\u00da\u00df\u0003>\u001f\u0000\u00db\u00df\u0003"+
+		"B!\u0000\u00dc\u00df\u0005:\u0000\u0000\u00dd\u00df\u0003H$\u0000\u00de"+
+		"\u00d5\u0001\u0000\u0000\u0000\u00de\u00d6\u0001\u0000\u0000\u0000\u00de"+
+		"\u00d7\u0001\u0000\u0000\u0000\u00de\u00d8\u0001\u0000\u0000\u0000\u00de"+
+		"\u00d9\u0001\u0000\u0000\u0000\u00de\u00da\u0001\u0000\u0000\u0000\u00de"+
+		"\u00db\u0001\u0000\u0000\u0000\u00de\u00dc\u0001\u0000\u0000\u0000\u00de"+
+		"\u00dd\u0001\u0000\u0000\u0000\u00df\r\u0001\u0000\u0000\u0000\u00e0\u00e2"+
+		"\u0003\u0012\t\u0000\u00e1\u00e0\u0001\u0000\u0000\u0000\u00e1\u00e2\u0001"+
+		"\u0000\u0000\u0000\u00e2\u00e4\u0001\u0000\u0000\u0000\u00e3\u00e5\u0003"+
+		"\u0014\n\u0000\u00e4\u00e3\u0001\u0000\u0000\u0000\u00e4\u00e5\u0001\u0000"+
+		"\u0000\u0000\u00e5\u00e6\u0001\u0000\u0000\u0000\u00e6\u00e7\u0005\u0006"+
+		"\u0000\u0000\u00e7\u00fa\u0005@\u0000\u0000\u00e8\u00e9\u0005K\u0000\u0000"+
+		"\u00e9\u00eb\u0003*\u0015\u0000\u00ea\u00e8\u0001\u0000\u0000\u0000\u00ea"+
+		"\u00eb\u0001\u0000\u0000\u0000\u00eb\u00f1\u0001\u0000\u0000\u0000\u00ec"+
+		"\u00ef\u0005L\u0000\u0000\u00ed\u00f0\u0003r9\u0000\u00ee\u00f0\u0003"+
+		"H$\u0000\u00ef\u00ed\u0001\u0000\u0000\u0000\u00ef\u00ee\u0001\u0000\u0000"+
+		"\u0000\u00f0\u00f2\u0001\u0000\u0000\u0000\u00f1\u00ec\u0001\u0000\u0000"+
+		"\u0000\u00f1\u00f2\u0001\u0000\u0000\u0000\u00f2\u00fb\u0001\u0000\u0000"+
+		"\u0000\u00f3\u00f6\u0005M\u0000\u0000\u00f4\u00f7\u0003r9\u0000\u00f5"+
+		"\u00f7\u0003H$\u0000\u00f6\u00f4\u0001\u0000\u0000\u0000\u00f6\u00f5\u0001"+
+		"\u0000\u0000\u0000\u00f7\u00f9\u0001\u0000\u0000\u0000\u00f8\u00f3\u0001"+
+		"\u0000\u0000\u0000\u00f8\u00f9\u0001\u0000\u0000\u0000\u00f9\u00fb\u0001"+
+		"\u0000\u0000\u0000\u00fa\u00ea\u0001\u0000\u0000\u0000\u00fa\u00f8\u0001"+
+		"\u0000\u0000\u0000\u00fb\u00fd\u0001\u0000\u0000\u0000\u00fc\u00fe\u0003"+
+		"\u0010\b\u0000\u00fd\u00fc\u0001\u0000\u0000\u0000\u00fd\u00fe\u0001\u0000"+
+		"\u0000\u0000\u00fe\u00ff\u0001\u0000\u0000\u0000\u00ff\u0100\u0005?\u0000"+
+		"\u0000\u0100\u000f\u0001\u0000\u0000\u0000\u0101\u0103\u0005\u0007\u0000"+
+		"\u0000\u0102\u0104\u0005@\u0000\u0000\u0103\u0102\u0001\u0000\u0000\u0000"+
+		"\u0103\u0104\u0001\u0000\u0000\u0000\u0104\u0107\u0001\u0000\u0000\u0000"+
+		"\u0105\u0106\u0005J\u0000\u0000\u0106\u0108\u0005@\u0000\u0000\u0107\u0105"+
+		"\u0001\u0000\u0000\u0000\u0107\u0108\u0001\u0000\u0000\u0000\u0108\u0011"+
+		"\u0001\u0000\u0000\u0000\u0109\u010b\u0005u\u0000\u0000\u010a\u0109\u0001"+
+		"\u0000\u0000\u0000\u010a\u010b\u0001\u0000\u0000\u0000\u010b\u010d\u0001"+
+		"\u0000\u0000\u0000\u010c\u010e\u0005\u0005\u0000\u0000\u010d\u010c\u0001"+
+		"\u0000\u0000\u0000\u010d\u010e\u0001\u0000\u0000\u0000\u010e\u0110\u0001"+
+		"\u0000\u0000\u0000\u010f\u0111\u0005?\u0000\u0000\u0110\u010f\u0001\u0000"+
+		"\u0000\u0000\u0110\u0111\u0001\u0000\u0000\u0000\u0111\u0013\u0001\u0000"+
+		"\u0000\u0000\u0112\u011b\u0003\u0016\u000b\u0000\u0113\u011b\u0003\u0018"+
+		"\f\u0000\u0114\u011b\u0003\u001a\r\u0000\u0115\u011b\u0003\u001c\u000e"+
+		"\u0000\u0116\u011b\u0003 \u0010\u0000\u0117\u011b\u0003\"\u0011\u0000"+
+		"\u0118\u011b\u0003$\u0012\u0000\u0119\u011b\u0003&\u0013\u0000\u011a\u0112"+
+		"\u0001\u0000\u0000\u0000\u011a\u0113\u0001\u0000\u0000\u0000\u011a\u0114"+
+		"\u0001\u0000\u0000\u0000\u011a\u0115\u0001\u0000\u0000\u0000\u011a\u0116"+
+		"\u0001\u0000\u0000\u0000\u011a\u0117\u0001\u0000\u0000\u0000\u011a\u0118"+
+		"\u0001\u0000\u0000\u0000\u011a\u0119\u0001\u0000\u0000\u0000\u011b\u0015"+
+		"\u0001\u0000\u0000\u0000\u011c\u011e\u0005u\u0000\u0000\u011d\u011c\u0001"+
+		"\u0000\u0000\u0000\u011d\u011e\u0001\u0000\u0000\u0000\u011e\u011f\u0001"+
+		"\u0000\u0000\u0000\u011f\u012d\u0005\b\u0000\u0000\u0120\u012a\u0005V"+
+		"\u0000\u0000\u0121\u012b\u0005A\u0000\u0000\u0122\u0127\u0005@\u0000\u0000"+
+		"\u0123\u0124\u0005J\u0000\u0000\u0124\u0126\u0003t:\u0000\u0125\u0123"+
+		"\u0001\u0000\u0000\u0000\u0126\u0129\u0001\u0000\u0000\u0000\u0127\u0125"+
+		"\u0001\u0000\u0000\u0000\u0127\u0128\u0001\u0000\u0000\u0000\u0128\u012b"+
+		"\u0001\u0000\u0000\u0000\u0129\u0127\u0001\u0000\u0000\u0000\u012a\u0121"+
+		"\u0001\u0000\u0000\u0000\u012a\u0122\u0001\u0000\u0000\u0000\u012a\u012b"+
+		"\u0001\u0000\u0000\u0000\u012b\u012c\u0001\u0000\u0000\u0000\u012c\u012e"+
+		"\u0005W\u0000\u0000\u012d\u0120\u0001\u0000\u0000\u0000\u012d\u012e\u0001"+
+		"\u0000\u0000\u0000\u012e\u0130\u0001\u0000\u0000\u0000\u012f\u0131\u0005"+
+		"?\u0000\u0000\u0130\u012f\u0001\u0000\u0000\u0000\u0130\u0131\u0001\u0000"+
+		"\u0000\u0000\u0131\u0017\u0001\u0000\u0000\u0000\u0132\u0133\u0005u\u0000"+
+		"\u0000\u0133\u0134\u0005\t\u0000\u0000\u0134\u0135\u0005V\u0000\u0000"+
+		"\u0135\u0136\u0003@ \u0000\u0136\u0138\u0005W\u0000\u0000\u0137\u0139"+
+		"\u0005?\u0000\u0000\u0138\u0137\u0001\u0000\u0000\u0000\u0138\u0139\u0001"+
+		"\u0000\u0000\u0000\u0139\u0019\u0001\u0000\u0000\u0000\u013a\u013b\u0005"+
+		"u\u0000\u0000\u013b\u013c\u0005\n\u0000\u0000\u013c\u013d\u0005V\u0000"+
+		"\u0000\u013d\u013e\u0003@ \u0000\u013e\u0140\u0005W\u0000\u0000\u013f"+
+		"\u0141\u0005?\u0000\u0000\u0140\u013f\u0001\u0000\u0000\u0000\u0140\u0141"+
+		"\u0001\u0000\u0000\u0000\u0141\u001b\u0001\u0000\u0000\u0000\u0142\u0143"+
+		"\u0005u\u0000\u0000\u0143\u0145\u0005\u000b\u0000\u0000\u0144\u0146\u0005"+
+		"?\u0000\u0000\u0145\u0144\u0001\u0000\u0000\u0000\u0145\u0146\u0001\u0000"+
+		"\u0000\u0000\u0146\u001d\u0001\u0000\u0000\u0000\u0147\u0148\u0005u\u0000"+
+		"\u0000\u0148\u014a\u0005\f\u0000\u0000\u0149\u014b\u0005?\u0000\u0000"+
+		"\u014a\u0149\u0001\u0000\u0000\u0000\u014a\u014b\u0001\u0000\u0000\u0000"+
+		"\u014b\u001f\u0001\u0000\u0000\u0000\u014c\u014d\u0005u\u0000\u0000\u014d"+
+		"\u014f\u0005\r\u0000\u0000\u014e\u0150\u0005?\u0000\u0000\u014f\u014e"+
+		"\u0001\u0000\u0000\u0000\u014f\u0150\u0001\u0000\u0000\u0000\u0150!\u0001"+
+		"\u0000\u0000\u0000\u0151\u0152\u0005u\u0000\u0000\u0152\u0153\u0005\u000e"+
+		"\u0000\u0000\u0153\u0154\u0005V\u0000\u0000\u0154\u0155\u0003@ \u0000"+
+		"\u0155\u0157\u0005W\u0000\u0000\u0156\u0158\u0005?\u0000\u0000\u0157\u0156"+
+		"\u0001\u0000\u0000\u0000\u0157\u0158\u0001\u0000\u0000\u0000\u0158#\u0001"+
+		"\u0000\u0000\u0000\u0159\u015a\u0005u\u0000\u0000\u015a\u015e\u0007\u0001"+
+		"\u0000\u0000\u015b\u015d\u0005?\u0000\u0000\u015c\u015b\u0001\u0000\u0000"+
+		"\u0000\u015d\u0160\u0001\u0000\u0000\u0000\u015e\u015c\u0001\u0000\u0000"+
+		"\u0000\u015e\u015f\u0001\u0000\u0000\u0000\u015f%\u0001\u0000\u0000\u0000"+
+		"\u0160\u015e\u0001\u0000\u0000\u0000\u0161\u0162\u0005u\u0000\u0000\u0162"+
+		"\u0166\u0007\u0002\u0000\u0000\u0163\u0165\u0005?\u0000\u0000\u0164\u0163"+
+		"\u0001\u0000\u0000\u0000\u0165\u0168\u0001\u0000\u0000\u0000\u0166\u0164"+
+		"\u0001\u0000\u0000\u0000\u0166\u0167\u0001\u0000\u0000\u0000\u0167\'\u0001"+
+		"\u0000\u0000\u0000\u0168\u0166\u0001\u0000\u0000\u0000\u0169\u016a\u0005"+
+		"u\u0000\u0000\u016a\u016b\u0005\u0015\u0000\u0000\u016b\u016c\u0005V\u0000"+
+		"\u0000\u016c\u016d\u0003@ \u0000\u016d\u016e\u0005W\u0000\u0000\u016e"+
+		")\u0001\u0000\u0000\u0000\u016f\u0170\u0007\u0003\u0000\u0000\u0170+\u0001"+
+		"\u0000\u0000\u0000\u0171\u0172\u0005\u0016\u0000\u0000\u0172\u0175\u0005"+
+		"@\u0000\u0000\u0173\u0174\u0005K\u0000\u0000\u0174\u0176\u0003*\u0015"+
+		"\u0000\u0175\u0173\u0001\u0000\u0000\u0000\u0175\u0176\u0001\u0000\u0000"+
+		"\u0000\u0176\u0177\u0001\u0000\u0000\u0000\u0177\u017a\u0007\u0004\u0000"+
+		"\u0000\u0178\u017b\u0003r9\u0000\u0179\u017b\u0003H$\u0000\u017a\u0178"+
+		"\u0001\u0000\u0000\u0000\u017a\u0179\u0001\u0000\u0000\u0000\u017b\u017c"+
+		"\u0001\u0000\u0000\u0000\u017c\u017d\u0005?\u0000\u0000\u017d-\u0001\u0000"+
+		"\u0000\u0000\u017e\u017f\u0005\u0017\u0000\u0000\u017f\u0181\u0005@\u0000"+
+		"\u0000\u0180\u0182\u00030\u0018\u0000\u0181\u0180\u0001\u0000\u0000\u0000"+
+		"\u0181\u0182\u0001\u0000\u0000\u0000\u0182\u0183\u0001\u0000\u0000\u0000"+
+		"\u0183\u0184\u0005?\u0000\u0000\u0184/\u0001\u0000\u0000\u0000\u0185\u018e"+
+		"\u0005V\u0000\u0000\u0186\u018b\u0005@\u0000\u0000\u0187\u0188\u0005J"+
+		"\u0000\u0000\u0188\u018a\u0005@\u0000\u0000\u0189\u0187\u0001\u0000\u0000"+
+		"\u0000\u018a\u018d\u0001\u0000\u0000\u0000\u018b\u0189\u0001\u0000\u0000"+
+		"\u0000\u018b\u018c\u0001\u0000\u0000\u0000\u018c\u018f\u0001\u0000\u0000"+
+		"\u0000\u018d\u018b\u0001\u0000\u0000\u0000\u018e\u0186\u0001\u0000\u0000"+
+		"\u0000\u018e\u018f\u0001\u0000\u0000\u0000\u018f\u0190\u0001\u0000\u0000"+
+		"\u0000\u0190\u0191\u0005W\u0000\u0000\u01911\u0001\u0000\u0000\u0000\u0192"+
+		"\u0194\u0005\u0018\u0000\u0000\u0193\u0195\u0005@\u0000\u0000\u0194\u0193"+
+		"\u0001\u0000\u0000\u0000\u0194\u0195\u0001\u0000\u0000\u0000\u0195\u0196"+
+		"\u0001\u0000\u0000\u0000\u0196\u0197\u00034\u001a\u0000\u0197\u0198\u0005"+
+		"?\u0000\u0000\u01983\u0001\u0000\u0000\u0000\u0199\u019a\u0005X\u0000"+
+		"\u0000\u019a\u019d\u0005@\u0000\u0000\u019b\u019c\u0005L\u0000\u0000\u019c"+
+		"\u019e\u0003r9\u0000\u019d\u019b\u0001\u0000\u0000\u0000\u019d\u019e\u0001"+
+		"\u0000\u0000\u0000\u019e\u01a7\u0001\u0000\u0000\u0000\u019f\u01a0\u0005"+
+		"J\u0000\u0000\u01a0\u01a3\u0005@\u0000\u0000\u01a1\u01a2\u0005L\u0000"+
+		"\u0000\u01a2\u01a4\u0003r9\u0000\u01a3\u01a1\u0001\u0000\u0000\u0000\u01a3"+
+		"\u01a4\u0001\u0000\u0000\u0000\u01a4\u01a6\u0001\u0000\u0000\u0000\u01a5"+
+		"\u019f\u0001\u0000\u0000\u0000\u01a6\u01a9\u0001\u0000\u0000\u0000\u01a7"+
+		"\u01a5\u0001\u0000\u0000\u0000\u01a7\u01a8\u0001\u0000\u0000\u0000\u01a8"+
+		"\u01ab\u0001\u0000\u0000\u0000\u01a9\u01a7\u0001\u0000\u0000\u0000\u01aa"+
+		"\u01ac\u0005J\u0000\u0000\u01ab\u01aa\u0001\u0000\u0000\u0000\u01ab\u01ac"+
+		"\u0001\u0000\u0000\u0000\u01ac\u01ad\u0001\u0000\u0000\u0000\u01ad\u01ae"+
+		"\u0005Y\u0000\u0000\u01ae5\u0001\u0000\u0000\u0000\u01af\u01b1\u0003<"+
+		"\u001e\u0000\u01b0\u01af\u0001\u0000\u0000\u0000\u01b0\u01b1\u0001\u0000"+
+		"\u0000\u0000\u01b1\u01b3\u0001\u0000\u0000\u0000\u01b2\u01b4\u0005\u0019"+
+		"\u0000\u0000\u01b3\u01b2\u0001\u0000\u0000\u0000\u01b3\u01b4\u0001\u0000"+
+		"\u0000\u0000\u01b4\u01b5\u0001\u0000\u0000\u0000\u01b5\u01b6\u0005\u001a"+
+		"\u0000\u0000\u01b6\u01b7\u0005@\u0000\u0000\u01b7\u01b9\u0005V\u0000\u0000"+
+		"\u01b8\u01ba\u00038\u001c\u0000\u01b9\u01b8\u0001\u0000\u0000\u0000\u01b9"+
+		"\u01ba\u0001\u0000\u0000\u0000\u01ba\u01bb\u0001\u0000\u0000\u0000\u01bb"+
+		"\u01be\u0005W\u0000\u0000\u01bc\u01bd\u0005Z\u0000\u0000\u01bd\u01bf\u0003"+
+		"*\u0015\u0000\u01be\u01bc\u0001\u0000\u0000\u0000\u01be\u01bf\u0001\u0000"+
+		"\u0000\u0000\u01bf\u01c0\u0001\u0000\u0000\u0000\u01c0\u01c1\u0005K\u0000"+
+		"\u0000\u01c1\u01c2\u0003D\"\u0000\u01c27\u0001\u0000\u0000\u0000\u01c3"+
+		"\u01c8\u0003:\u001d\u0000\u01c4\u01c5\u0005J\u0000\u0000\u01c5\u01c7\u0003"+
+		":\u001d\u0000\u01c6\u01c4\u0001\u0000\u0000\u0000\u01c7\u01ca\u0001\u0000"+
+		"\u0000\u0000\u01c8\u01c6\u0001\u0000\u0000\u0000\u01c8\u01c9\u0001\u0000"+
+		"\u0000\u0000\u01c99\u0001\u0000\u0000\u0000\u01ca\u01c8\u0001\u0000\u0000"+
+		"\u0000\u01cb\u01cd\u0005\u0006\u0000\u0000\u01cc\u01cb\u0001\u0000\u0000"+
+		"\u0000\u01cc\u01cd\u0001\u0000\u0000\u0000\u01cd\u01ce\u0001\u0000\u0000"+
+		"\u0000\u01ce\u01d1\u0005@\u0000\u0000\u01cf\u01d0\u0005K\u0000\u0000\u01d0"+
+		"\u01d2\u0003*\u0015\u0000\u01d1\u01cf\u0001\u0000\u0000\u0000\u01d1\u01d2"+
+		"\u0001\u0000\u0000\u0000\u01d2\u01d5\u0001\u0000\u0000\u0000\u01d3\u01d4"+
+		"\u0005L\u0000\u0000\u01d4\u01d6\u0003r9\u0000\u01d5\u01d3\u0001\u0000"+
+		"\u0000\u0000\u01d5\u01d6\u0001\u0000\u0000\u0000\u01d6;\u0001\u0000\u0000"+
+		"\u0000\u01d7\u01e5\u0005\u001b\u0000\u0000\u01d8\u01e5\u0005\u001c\u0000"+
+		"\u0000\u01d9\u01e5\u0005\u001d\u0000\u0000\u01da\u01e5\u0005\u001e\u0000"+
+		"\u0000\u01db\u01e5\u0005\u001f\u0000\u0000\u01dc\u01e5\u0005 \u0000\u0000"+
+		"\u01dd\u01de\u0005<\u0000\u0000\u01de\u01df\u0005V\u0000\u0000\u01df\u01e0"+
+		"\u0005C\u0000\u0000\u01e0\u01e2\u0005W\u0000\u0000\u01e1\u01e3\u0005?"+
+		"\u0000\u0000\u01e2\u01e1\u0001\u0000\u0000\u0000\u01e2\u01e3\u0001\u0000"+
+		"\u0000\u0000\u01e3\u01e5\u0001\u0000\u0000\u0000\u01e4\u01d7\u0001\u0000"+
+		"\u0000\u0000\u01e4\u01d8\u0001\u0000\u0000\u0000\u01e4\u01d9\u0001\u0000"+
+		"\u0000\u0000\u01e4\u01da\u0001\u0000\u0000\u0000\u01e4\u01db\u0001\u0000"+
+		"\u0000\u0000\u01e4\u01dc\u0001\u0000\u0000\u0000\u01e4\u01dd\u0001\u0000"+
+		"\u0000\u0000\u01e5=\u0001\u0000\u0000\u0000\u01e6\u01e7\u0005\u001a\u0000"+
+		"\u0000\u01e7\u01e8\u0005@\u0000\u0000\u01e8\u01ea\u0005V\u0000\u0000\u01e9"+
+		"\u01eb\u00038\u001c\u0000\u01ea\u01e9\u0001\u0000\u0000\u0000\u01ea\u01eb"+
+		"\u0001\u0000\u0000\u0000\u01eb\u01ec\u0001\u0000\u0000\u0000\u01ec\u01ed"+
+		"\u0005W\u0000\u0000\u01ed\u01ee\u0005I\u0000\u0000\u01ee\u01f0\u0005V"+
+		"\u0000\u0000\u01ef\u01f1\u0003@ \u0000\u01f0\u01ef\u0001\u0000\u0000\u0000"+
+		"\u01f0\u01f1\u0001\u0000\u0000\u0000\u01f1\u01f2\u0001\u0000\u0000\u0000"+
+		"\u01f2\u01f3\u0005W\u0000\u0000\u01f3\u01f4\u0001\u0000\u0000\u0000\u01f4"+
+		"\u01f5\u0005K\u0000\u0000\u01f5\u01f6\u0003D\"\u0000\u01f6?\u0001\u0000"+
+		"\u0000\u0000\u01f7\u01fa\u0003r9\u0000\u01f8\u01fa\u0003H$\u0000\u01f9"+
+		"\u01f7\u0001\u0000\u0000\u0000\u01f9\u01f8\u0001\u0000\u0000\u0000\u01fa"+
+		"\u0202\u0001\u0000\u0000\u0000\u01fb\u01fe\u0005J\u0000\u0000\u01fc\u01ff"+
+		"\u0003r9\u0000\u01fd\u01ff\u0003H$\u0000\u01fe\u01fc\u0001\u0000\u0000"+
+		"\u0000\u01fe\u01fd\u0001\u0000\u0000\u0000\u01ff\u0201\u0001\u0000\u0000"+
+		"\u0000\u0200\u01fb\u0001\u0000\u0000\u0000\u0201\u0204\u0001\u0000\u0000"+
+		"\u0000\u0202\u0200\u0001\u0000\u0000\u0000\u0202\u0203\u0001\u0000\u0000"+
+		"\u0000\u0203\u0206\u0001\u0000\u0000\u0000\u0204\u0202\u0001\u0000\u0000"+
+		"\u0000\u0205\u0207\u0005J\u0000\u0000\u0206\u0205\u0001\u0000\u0000\u0000"+
+		"\u0206\u0207\u0001\u0000\u0000\u0000\u0207A\u0001\u0000\u0000\u0000\u0208"+
+		"\u0209\u0005!\u0000\u0000\u0209\u020b\u0005@\u0000\u0000\u020a\u020c\u0003"+
+		"\b\u0004\u0000\u020b\u020a\u0001\u0000\u0000\u0000\u020b\u020c\u0001\u0000"+
+		"\u0000\u0000\u020c\u020d\u0001\u0000\u0000\u0000\u020d\u020e\u0005K\u0000"+
+		"\u0000\u020e\u020f\u0005?\u0000\u0000\u020f\u0213\u0005\u0001\u0000\u0000"+
+		"\u0210\u0211\u0003\b\u0004\u0000\u0211\u0212\u0005?\u0000\u0000\u0212"+
+		"\u0214\u0001\u0000\u0000\u0000\u0213\u0210\u0001\u0000\u0000\u0000\u0213"+
+		"\u0214\u0001\u0000\u0000\u0000\u0214\u0216\u0001\u0000\u0000\u0000\u0215"+
+		"\u0217\u0003\f\u0006\u0000\u0216\u0215\u0001\u0000\u0000\u0000\u0217\u0218"+
+		"\u0001\u0000\u0000\u0000\u0218\u0216\u0001\u0000\u0000\u0000\u0218\u0219"+
+		"\u0001\u0000\u0000\u0000\u0219\u021a\u0001\u0000\u0000\u0000\u021a\u021b"+
+		"\u0005\u0002\u0000\u0000\u021bC\u0001\u0000\u0000\u0000\u021c\u0223\u0003"+
+		"H$\u0000\u021d\u021e\u0005?\u0000\u0000\u021e\u021f\u0005\u0001\u0000"+
+		"\u0000\u021f\u0220\u0003F#\u0000\u0220\u0221\u0005\u0002\u0000\u0000\u0221"+
+		"\u0223\u0001\u0000\u0000\u0000\u0222\u021c\u0001\u0000\u0000\u0000\u0222"+
+		"\u021d\u0001\u0000\u0000\u0000\u0223E\u0001\u0000\u0000\u0000\u0224\u0226"+
+		"\u0003H$\u0000\u0225\u0224\u0001\u0000\u0000\u0000\u0226\u0227\u0001\u0000"+
+		"\u0000\u0000\u0227\u0225\u0001\u0000\u0000\u0000\u0227\u0228\u0001\u0000"+
+		"\u0000\u0000\u0228G\u0001\u0000\u0000\u0000\u0229\u0246\u0003h4\u0000"+
+		"\u022a\u0246\u0003N\'\u0000\u022b\u0246\u0003R)\u0000\u022c\u0246\u0003"+
+		"P(\u0000\u022d\u0246\u0003T*\u0000\u022e\u0246\u0003d2\u0000\u022f\u0246"+
+		"\u0003f3\u0000\u0230\u0246\u0003p8\u0000\u0231\u0246\u0003j5\u0000\u0232"+
+		"\u0246\u0003l6\u0000\u0233\u0246\u0003n7\u0000\u0234\u0246\u0003L&\u0000"+
+		"\u0235\u0236\u0005\"\u0000\u0000\u0236\u0246\u0003J%\u0000\u0237\u0238"+
+		"\u0005#\u0000\u0000\u0238\u0246\u0003J%\u0000\u0239\u023a\u0005>\u0000"+
+		"\u0000\u023a\u023b\u0005V\u0000\u0000\u023b\u0240\u0005C\u0000\u0000\u023c"+
+		"\u023d\u0005J\u0000\u0000\u023d\u023f\u0005C\u0000\u0000\u023e\u023c\u0001"+
+		"\u0000\u0000\u0000\u023f\u0242\u0001\u0000\u0000\u0000\u0240\u023e\u0001"+
+		"\u0000\u0000\u0000\u0240\u0241\u0001\u0000\u0000\u0000\u0241\u0243\u0001"+
+		"\u0000\u0000\u0000\u0242\u0240\u0001\u0000\u0000\u0000\u0243\u0244\u0005"+
+		"W\u0000\u0000\u0244\u0246\u0003J%\u0000\u0245\u0229\u0001\u0000\u0000"+
+		"\u0000\u0245\u022a\u0001\u0000\u0000\u0000\u0245\u022b\u0001\u0000\u0000"+
+		"\u0000\u0245\u022c\u0001\u0000\u0000\u0000\u0245\u022d\u0001\u0000\u0000"+
+		"\u0000\u0245\u022e\u0001\u0000\u0000\u0000\u0245\u022f\u0001\u0000\u0000"+
+		"\u0000\u0245\u0230\u0001\u0000\u0000\u0000\u0245\u0231\u0001\u0000\u0000"+
+		"\u0000\u0245\u0232\u0001\u0000\u0000\u0000\u0245\u0233\u0001\u0000\u0000"+
+		"\u0000\u0245\u0234\u0001\u0000\u0000\u0000\u0245\u0235\u0001\u0000\u0000"+
+		"\u0000\u0245\u0237\u0001\u0000\u0000\u0000\u0245\u0239\u0001\u0000\u0000"+
+		"\u0000\u0246I\u0001\u0000\u0000\u0000\u0247\u0248\u0007\u0005\u0000\u0000"+
+		"\u0248K\u0001\u0000\u0000\u0000\u0249\u024a\u0005;\u0000\u0000\u024a\u024b"+
+		"\u0003H$\u0000\u024bM\u0001\u0000\u0000\u0000\u024c\u024d\u0005$\u0000"+
+		"\u0000\u024d\u024e\u0003r9\u0000\u024e\u024f\u0005K\u0000\u0000\u024f"+
+		"\u0257\u0003D\"\u0000\u0250\u0251\u0005%\u0000\u0000\u0251\u0252\u0003"+
+		"r9\u0000\u0252\u0253\u0005K\u0000\u0000\u0253\u0254\u0003D\"\u0000\u0254"+
+		"\u0256\u0001\u0000\u0000\u0000\u0255\u0250\u0001\u0000\u0000\u0000\u0256"+
+		"\u0259\u0001\u0000\u0000\u0000\u0257\u0255\u0001\u0000\u0000\u0000\u0257"+
+		"\u0258\u0001\u0000\u0000\u0000\u0258\u025d\u0001\u0000\u0000\u0000\u0259"+
+		"\u0257\u0001\u0000\u0000\u0000\u025a\u025b\u00051\u0000\u0000\u025b\u025c"+
+		"\u0005K\u0000\u0000\u025c\u025e\u0003D\"\u0000\u025d\u025a\u0001\u0000"+
+		"\u0000\u0000\u025d\u025e\u0001\u0000\u0000\u0000\u025e\u0262\u0001\u0000"+
+		"\u0000\u0000\u025f\u0261\u0005?\u0000\u0000\u0260\u025f\u0001\u0000\u0000"+
+		"\u0000\u0261\u0264\u0001\u0000\u0000\u0000\u0262\u0260\u0001\u0000\u0000"+
+		"\u0000\u0262\u0263\u0001\u0000\u0000\u0000\u0263O\u0001\u0000\u0000\u0000"+
+		"\u0264\u0262\u0001\u0000\u0000\u0000\u0265\u0266\u0005&\u0000\u0000\u0266"+
+		"\u0267\u0003r9\u0000\u0267\u0268\u0005K\u0000\u0000\u0268\u0269\u0003"+
+		"D\"\u0000\u0269Q\u0001\u0000\u0000\u0000\u026a\u026b\u0005\'\u0000\u0000"+
+		"\u026b\u026c\u0005@\u0000\u0000\u026c\u026d\u0005(\u0000\u0000\u026d\u026e"+
+		"\u0003r9\u0000\u026e\u026f\u0005K\u0000\u0000\u026f\u0270\u0003D\"\u0000"+
+		"\u0270S\u0001\u0000\u0000\u0000\u0271\u0272\u0005)\u0000\u0000\u0272\u0273"+
+		"\u0003r9\u0000\u0273\u0274\u0005K\u0000\u0000\u0274\u0275\u0005?\u0000"+
+		"\u0000\u0275\u0276\u0005\u0001\u0000\u0000\u0276\u0277\u0003V+\u0000\u0277"+
+		"\u0278\u0005\u0002\u0000\u0000\u0278U\u0001\u0000\u0000\u0000\u0279\u027a"+
+		"\u0003X,\u0000\u027a\u027b\u0005K\u0000\u0000\u027b\u027c\u0003D\"\u0000"+
+		"\u027c\u027e\u0001\u0000\u0000\u0000\u027d\u0279\u0001\u0000\u0000\u0000"+
+		"\u027e\u027f\u0001\u0000\u0000\u0000\u027f\u027d\u0001\u0000\u0000\u0000"+
+		"\u027f\u0280\u0001\u0000\u0000\u0000\u0280W\u0001\u0000\u0000\u0000\u0281"+
+		"\u0286\u0003Z-\u0000\u0282\u0283\u0005J\u0000\u0000\u0283\u0285\u0003"+
+		"Z-\u0000\u0284\u0282\u0001\u0000\u0000\u0000\u0285\u0288\u0001\u0000\u0000"+
+		"\u0000\u0286\u0284\u0001\u0000\u0000\u0000\u0286\u0287\u0001\u0000\u0000"+
+		"\u0000\u0287Y\u0001\u0000\u0000\u0000\u0288\u0286\u0001\u0000\u0000\u0000"+
+		"\u0289\u0292\u0003t:\u0000\u028a\u0292\u0005A\u0000\u0000\u028b\u0292"+
+		"\u0005B\u0000\u0000\u028c\u0292\u0005[\u0000\u0000\u028d\u0292\u0003\\"+
+		".\u0000\u028e\u0292\u0003^/\u0000\u028f\u0292\u0003`0\u0000\u0290\u0292"+
+		"\u0003r9\u0000\u0291\u0289\u0001\u0000\u0000\u0000\u0291\u028a\u0001\u0000"+
+		"\u0000\u0000\u0291\u028b\u0001\u0000\u0000\u0000\u0291\u028c\u0001\u0000"+
+		"\u0000\u0000\u0291\u028d\u0001\u0000\u0000\u0000\u0291\u028e\u0001\u0000"+
+		"\u0000\u0000\u0291\u028f\u0001\u0000\u0000\u0000\u0291\u0290\u0001\u0000"+
+		"\u0000\u0000\u0292[\u0001\u0000\u0000\u0000\u0293\u0294\u0005\u0006\u0000"+
+		"\u0000\u0294\u0295\u0005@\u0000\u0000\u0295]\u0001\u0000\u0000\u0000\u0296"+
+		"\u02a2\u0005\\\u0000\u0000\u0297\u029c\u0003Z-\u0000\u0298\u0299\u0005"+
+		"J\u0000\u0000\u0299\u029b\u0003Z-\u0000\u029a\u0298\u0001\u0000\u0000"+
+		"\u0000\u029b\u029e\u0001\u0000\u0000\u0000\u029c\u029a\u0001\u0000\u0000"+
+		"\u0000\u029c\u029d\u0001\u0000\u0000\u0000\u029d\u02a0\u0001\u0000\u0000"+
+		"\u0000\u029e\u029c\u0001\u0000\u0000\u0000\u029f\u02a1\u0005^\u0000\u0000"+
+		"\u02a0\u029f\u0001\u0000\u0000\u0000\u02a0\u02a1\u0001\u0000\u0000\u0000"+
+		"\u02a1\u02a3\u0001\u0000\u0000\u0000\u02a2\u0297\u0001\u0000\u0000\u0000"+
+		"\u02a2\u02a3\u0001\u0000\u0000\u0000\u02a3\u02a4\u0001\u0000\u0000\u0000"+
+		"\u02a4\u02a5\u0005]\u0000\u0000\u02a5_\u0001\u0000\u0000\u0000\u02a6\u02a8"+
+		"\u0005X\u0000\u0000\u02a7\u02a9\u0003b1\u0000\u02a8\u02a7\u0001\u0000"+
+		"\u0000\u0000\u02a8\u02a9\u0001\u0000\u0000\u0000\u02a9\u02ae\u0001\u0000"+
+		"\u0000\u0000\u02aa\u02ab\u0005J\u0000\u0000\u02ab\u02ad\u0003b1\u0000"+
+		"\u02ac\u02aa\u0001\u0000\u0000\u0000\u02ad\u02b0\u0001\u0000\u0000\u0000"+
+		"\u02ae\u02ac\u0001\u0000\u0000\u0000\u02ae\u02af\u0001\u0000\u0000\u0000"+
+		"\u02af\u02b2\u0001\u0000\u0000\u0000\u02b0\u02ae\u0001\u0000\u0000\u0000"+
+		"\u02b1\u02b3\u0005^\u0000\u0000\u02b2\u02b1\u0001\u0000\u0000\u0000\u02b2"+
+		"\u02b3\u0001\u0000\u0000\u0000\u02b3\u02b4\u0001\u0000\u0000\u0000\u02b4"+
+		"\u02b5\u0005Y\u0000\u0000\u02b5a\u0001\u0000\u0000\u0000\u02b6\u02b9\u0005"+
+		"C\u0000\u0000\u02b7\u02b8\u0005K\u0000\u0000\u02b8\u02ba\u0003Z-\u0000"+
+		"\u02b9\u02b7\u0001\u0000\u0000\u0000\u02b9\u02ba\u0001\u0000\u0000\u0000"+
+		"\u02bac\u0001\u0000\u0000\u0000\u02bb\u02bc\u0005*\u0000\u0000\u02bc\u02c5"+
+		"\u0003J%\u0000\u02bd\u02be\u0005+\u0000\u0000\u02be\u02c5\u0003J%\u0000"+
+		"\u02bf\u02c1\u0005,\u0000\u0000\u02c0\u02c2\u0003r9\u0000\u02c1\u02c0"+
+		"\u0001\u0000\u0000\u0000\u02c1\u02c2\u0001\u0000\u0000\u0000\u02c2\u02c3"+
+		"\u0001\u0000\u0000\u0000\u02c3\u02c5\u0003J%\u0000\u02c4\u02bb\u0001\u0000"+
+		"\u0000\u0000\u02c4\u02bd\u0001\u0000\u0000\u0000\u02c4\u02bf\u0001\u0000"+
+		"\u0000\u0000\u02c5e\u0001\u0000\u0000\u0000\u02c6\u02c7\u0003r9\u0000"+
+		"\u02c7\u02c8\u0007\u0006\u0000\u0000\u02c8\u02c9\u0003r9\u0000\u02c9\u02ca"+
+		"\u0003J%\u0000\u02cag\u0001\u0000\u0000\u0000\u02cb\u02cc\u0005\u0006"+
+		"\u0000\u0000\u02cc\u02cf\u0005@\u0000\u0000\u02cd\u02ce\u0005K\u0000\u0000"+
+		"\u02ce\u02d0\u0003*\u0015\u0000\u02cf\u02cd\u0001\u0000\u0000\u0000\u02cf"+
+		"\u02d0\u0001\u0000\u0000\u0000\u02d0\u02d6\u0001\u0000\u0000\u0000\u02d1"+
+		"\u02d4\u0007\u0004\u0000\u0000\u02d2\u02d5\u0003r9\u0000\u02d3\u02d5\u0003"+
+		"H$\u0000\u02d4\u02d2\u0001\u0000\u0000\u0000\u02d4\u02d3\u0001\u0000\u0000"+
+		"\u0000\u02d5\u02d7\u0001\u0000\u0000\u0000\u02d6\u02d1\u0001\u0000\u0000"+
+		"\u0000\u02d6\u02d7\u0001\u0000\u0000\u0000\u02d7\u02d8\u0001\u0000\u0000"+
+		"\u0000\u02d8\u02d9\u0003J%\u0000\u02d9i\u0001\u0000\u0000\u0000\u02da"+
+		"\u02db\u0005-\u0000\u0000\u02db\u02dc\u0005V\u0000\u0000\u02dc\u02df\u0003"+
+		"r9\u0000\u02dd\u02de\u0005J\u0000\u0000\u02de\u02e0\u0005C\u0000\u0000"+
+		"\u02df\u02dd\u0001\u0000\u0000\u0000\u02df\u02e0\u0001\u0000\u0000\u0000"+
+		"\u02e0\u02e1\u0001\u0000\u0000\u0000\u02e1\u02e2\u0005W\u0000\u0000\u02e2"+
+		"\u02e3\u0003J%\u0000\u02e3k\u0001\u0000\u0000\u0000\u02e4\u02e5\u0005"+
+		".\u0000\u0000\u02e5\u02e6\u0005V\u0000\u0000\u02e6\u02e7\u0003r9\u0000"+
+		"\u02e7\u02e8\u0005J\u0000\u0000\u02e8\u02e9\u0003r9\u0000\u02e9\u02ea"+
+		"\u0001\u0000\u0000\u0000\u02ea\u02eb\u0005W\u0000\u0000\u02eb\u02ec\u0003"+
+		"J%\u0000\u02ecm\u0001\u0000\u0000\u0000\u02ed\u02ee\u0005/\u0000\u0000"+
+		"\u02ee\u02f1\u0005V\u0000\u0000\u02ef\u02f2\u0005B\u0000\u0000\u02f0\u02f2"+
+		"\u0003r9\u0000\u02f1\u02ef\u0001\u0000\u0000\u0000\u02f1\u02f0\u0001\u0000"+
+		"\u0000\u0000\u02f2\u02f3\u0001\u0000\u0000\u0000\u02f3\u02f5\u0005W\u0000"+
+		"\u0000\u02f4\u02f6\u0003r9\u0000\u02f5\u02f4\u0001\u0000\u0000\u0000\u02f5"+
+		"\u02f6\u0001\u0000\u0000\u0000\u02f6\u02f8\u0001\u0000\u0000\u0000\u02f7"+
+		"\u02f9\u0003J%\u0000\u02f8\u02f7\u0001\u0000\u0000\u0000\u02f8\u02f9\u0001"+
+		"\u0000\u0000\u0000\u02f9o\u0001\u0000\u0000\u0000\u02fa\u02fb\u0003r9"+
+		"\u0000\u02fb\u02fc\u0003J%\u0000\u02fcq\u0001\u0000\u0000\u0000\u02fd"+
+		"\u02fe\u00069\uffff\uffff\u0000\u02fe\u034b\u00056\u0000\u0000\u02ff\u034b"+
+		"\u00057\u0000\u0000\u0300\u034b\u00058\u0000\u0000\u0301\u034b\u00059"+
+		"\u0000\u0000\u0302\u034b\u0003t:\u0000\u0303\u030f\u0005\\\u0000\u0000"+
+		"\u0304\u0309\u0003r9\u0000\u0305\u0306\u0005J\u0000\u0000\u0306\u0308"+
+		"\u0003r9\u0000\u0307\u0305\u0001\u0000\u0000\u0000\u0308\u030b\u0001\u0000"+
+		"\u0000\u0000\u0309\u0307\u0001\u0000\u0000\u0000\u0309\u030a\u0001\u0000"+
+		"\u0000\u0000\u030a\u030d\u0001\u0000\u0000\u0000\u030b\u0309\u0001\u0000"+
+		"\u0000\u0000\u030c\u030e\u0005J\u0000\u0000\u030d\u030c\u0001\u0000\u0000"+
+		"\u0000\u030d\u030e\u0001\u0000\u0000\u0000\u030e\u0310\u0001\u0000\u0000"+
+		"\u0000\u030f\u0304\u0001\u0000\u0000\u0000\u030f\u0310\u0001\u0000\u0000"+
+		"\u0000\u0310\u0311\u0001\u0000\u0000\u0000\u0311\u034b\u0005]\u0000\u0000"+
+		"\u0312\u031e\u0005X\u0000\u0000\u0313\u0318\u0003x<\u0000\u0314\u0315"+
+		"\u0005J\u0000\u0000\u0315\u0317\u0003x<\u0000\u0316\u0314\u0001\u0000"+
+		"\u0000\u0000\u0317\u031a\u0001\u0000\u0000\u0000\u0318\u0316\u0001\u0000"+
+		"\u0000\u0000\u0318\u0319\u0001\u0000\u0000\u0000\u0319\u031c\u0001\u0000"+
+		"\u0000\u0000\u031a\u0318\u0001\u0000\u0000\u0000\u031b\u031d\u0005J\u0000"+
+		"\u0000\u031c\u031b\u0001\u0000\u0000\u0000\u031c\u031d\u0001\u0000\u0000"+
+		"\u0000\u031d\u031f\u0001\u0000\u0000\u0000\u031e\u0313\u0001\u0000\u0000"+
+		"\u0000\u031e\u031f\u0001\u0000\u0000\u0000\u031f\u0320\u0001\u0000\u0000"+
+		"\u0000\u0320\u034b\u0005Y\u0000\u0000\u0321\u0322\u0005V\u0000\u0000\u0322"+
+		"\u0323\u0003r9\u0000\u0323\u0324\u0005W\u0000\u0000\u0324\u034b\u0001"+
+		"\u0000\u0000\u0000\u0325\u0326\u0005I\u0000\u0000\u0326\u0327\u0005@\u0000"+
+		"\u0000\u0327\u0329\u0005V\u0000\u0000\u0328\u032a\u0003@ \u0000\u0329"+
+		"\u0328\u0001\u0000\u0000\u0000\u0329\u032a\u0001\u0000\u0000\u0000\u032a"+
+		"\u032b\u0001\u0000\u0000\u0000\u032b\u034b\u0005W\u0000\u0000\u032c\u0336"+
+		"\u0005t\u0000\u0000\u032d\u0337\u0005C\u0000\u0000\u032e\u0333\u0005@"+
+		"\u0000\u0000\u032f\u0330\u0005q\u0000\u0000\u0330\u0332\u0005@\u0000\u0000"+
+		"\u0331\u032f\u0001\u0000\u0000\u0000\u0332\u0335\u0001\u0000\u0000\u0000"+
+		"\u0333\u0331\u0001\u0000\u0000\u0000\u0333\u0334\u0001\u0000\u0000\u0000"+
+		"\u0334\u0337\u0001\u0000\u0000\u0000\u0335\u0333\u0001\u0000\u0000\u0000"+
+		"\u0336\u032d\u0001\u0000\u0000\u0000\u0336\u032e\u0001\u0000\u0000\u0000"+
+		"\u0337\u034b\u0001\u0000\u0000\u0000\u0338\u0342\u0005r\u0000\u0000\u0339"+
+		"\u0343\u0005C\u0000\u0000\u033a\u033f\u0005@\u0000\u0000\u033b\u033c\u0005"+
+		"q\u0000\u0000\u033c\u033e\u0005@\u0000\u0000\u033d\u033b\u0001\u0000\u0000"+
+		"\u0000\u033e\u0341\u0001\u0000\u0000\u0000\u033f\u033d\u0001\u0000\u0000"+
+		"\u0000\u033f\u0340\u0001\u0000\u0000\u0000\u0340\u0343\u0001\u0000\u0000"+
+		"\u0000\u0341\u033f\u0001\u0000\u0000\u0000\u0342\u0339\u0001\u0000\u0000"+
+		"\u0000\u0342\u033a\u0001\u0000\u0000\u0000\u0343\u034b\u0001\u0000\u0000"+
+		"\u0000\u0344\u0345\u0005s\u0000\u0000\u0345\u034b\u0003r9\u0010\u0346"+
+		"\u0347\u0007\u0007\u0000\u0000\u0347\u034b\u0003r9\u000f\u0348\u0349\u0007"+
+		"\b\u0000\u0000\u0349\u034b\u0003r9\u0005\u034a\u02fd\u0001\u0000\u0000"+
+		"\u0000\u034a\u02ff\u0001\u0000\u0000\u0000\u034a\u0300\u0001\u0000\u0000"+
+		"\u0000\u034a\u0301\u0001\u0000\u0000\u0000\u034a\u0302\u0001\u0000\u0000"+
+		"\u0000\u034a\u0303\u0001\u0000\u0000\u0000\u034a\u0312\u0001\u0000\u0000"+
+		"\u0000\u034a\u0321\u0001\u0000\u0000\u0000\u034a\u0325\u0001\u0000\u0000"+
+		"\u0000\u034a\u032c\u0001\u0000\u0000\u0000\u034a\u0338\u0001\u0000\u0000"+
+		"\u0000\u034a\u0344\u0001\u0000\u0000\u0000\u034a\u0346\u0001\u0000\u0000"+
+		"\u0000\u034a\u0348\u0001\u0000\u0000\u0000\u034b\u0389\u0001\u0000\u0000"+
+		"\u0000\u034c\u034d\n\u000e\u0000\u0000\u034d\u034e\u0007\t\u0000\u0000"+
+		"\u034e\u0388\u0003r9\u000f\u034f\u0350\n\r\u0000\u0000\u0350\u0351\u0005"+
+		"n\u0000\u0000\u0351\u0388\u0003r9\u000e\u0352\u0353\n\f\u0000\u0000\u0353"+
+		"\u0354\u0005o\u0000\u0000\u0354\u0388\u0003r9\r\u0355\u0356\n\u000b\u0000"+
+		"\u0000\u0356\u0357\u0007\n\u0000\u0000\u0357\u0388\u0003r9\f\u0358\u0359"+
+		"\n\n\u0000\u0000\u0359\u035a\u0005k\u0000\u0000\u035a\u0388\u0003r9\u000b"+
+		"\u035b\u035c\n\t\u0000\u0000\u035c\u035d\u0005j\u0000\u0000\u035d\u0388"+
+		"\u0003r9\n\u035e\u035f\n\b\u0000\u0000\u035f\u0360\u0005i\u0000\u0000"+
+		"\u0360\u0388\u0003r9\t\u0361\u0362\n\u0007\u0000\u0000\u0362\u0363\u0007"+
+		"\u000b\u0000\u0000\u0363\u0388\u0003r9\b\u0364\u0365\n\u0006\u0000\u0000"+
+		"\u0365\u0366\u0005(\u0000\u0000\u0366\u0388\u0003r9\u0007\u0367\u0368"+
+		"\n\u0004\u0000\u0000\u0368\u0369\u0007\f\u0000\u0000\u0369\u0388\u0003"+
+		"r9\u0005\u036a\u036b\n\u0003\u0000\u0000\u036b\u036c\u0007\r\u0000\u0000"+
+		"\u036c\u0388\u0003r9\u0004\u036d\u036e\n\u0002\u0000\u0000\u036e\u036f"+
+		"\u0005$\u0000\u0000\u036f\u0370\u0003r9\u0000\u0370\u0371\u00051\u0000"+
+		"\u0000\u0371\u0372\u0003r9\u0003\u0372\u0388\u0001\u0000\u0000\u0000\u0373"+
+		"\u0374\n\u0017\u0000\u0000\u0374\u0375\u0005\\\u0000\u0000\u0375\u0376"+
+		"\u0003r9\u0000\u0376\u0377\u0005]\u0000\u0000\u0377\u0388\u0001\u0000"+
+		"\u0000\u0000\u0378\u0379\n\u0016\u0000\u0000\u0379\u037a\u0005I\u0000"+
+		"\u0000\u037a\u0388\u0005@\u0000\u0000\u037b\u037c\n\u0015\u0000\u0000"+
+		"\u037c\u037e\u0005V\u0000\u0000\u037d\u037f\u0003@ \u0000\u037e\u037d"+
+		"\u0001\u0000\u0000\u0000\u037e\u037f\u0001\u0000\u0000\u0000\u037f\u0380"+
+		"\u0001\u0000\u0000\u0000\u0380\u0388\u0005W\u0000\u0000\u0381\u0382\n"+
+		"\u0011\u0000\u0000\u0382\u0383\u00055\u0000\u0000\u0383\u0388\u0007\u0003"+
+		"\u0000\u0000\u0384\u0385\n\u0001\u0000\u0000\u0385\u0386\u00050\u0000"+
+		"\u0000\u0386\u0388\u0003*\u0015\u0000\u0387\u034c\u0001\u0000\u0000\u0000"+
+		"\u0387\u034f\u0001\u0000\u0000\u0000\u0387\u0352\u0001\u0000\u0000\u0000"+
+		"\u0387\u0355\u0001\u0000\u0000\u0000\u0387\u0358\u0001\u0000\u0000\u0000"+
+		"\u0387\u035b\u0001\u0000\u0000\u0000\u0387\u035e\u0001\u0000\u0000\u0000"+
+		"\u0387\u0361\u0001\u0000\u0000\u0000\u0387\u0364\u0001\u0000\u0000\u0000"+
+		"\u0387\u0367\u0001\u0000\u0000\u0000\u0387\u036a\u0001\u0000\u0000\u0000"+
+		"\u0387\u036d\u0001\u0000\u0000\u0000\u0387\u0373\u0001\u0000\u0000\u0000"+
+		"\u0387\u0378\u0001\u0000\u0000\u0000\u0387\u037b\u0001\u0000\u0000\u0000"+
+		"\u0387\u0381\u0001\u0000\u0000\u0000\u0387\u0384\u0001\u0000\u0000\u0000"+
+		"\u0388\u038b\u0001\u0000\u0000\u0000\u0389\u0387\u0001\u0000\u0000\u0000"+
+		"\u0389\u038a\u0001\u0000\u0000\u0000\u038as\u0001\u0000\u0000\u0000\u038b"+
+		"\u0389\u0001\u0000\u0000\u0000\u038c\u038d\u0007\u000e\u0000\u0000\u038d"+
+		"u\u0001\u0000\u0000\u0000\u038e\u038f\u0007\u000f\u0000\u0000\u038fw\u0001"+
+		"\u0000\u0000\u0000\u0390\u0391\u0003r9\u0000\u0391\u0392\u0005K\u0000"+
+		"\u0000\u0392\u0393\u0003r9\u0000\u0393\u0398\u0001\u0000\u0000\u0000\u0394"+
+		"\u0395\u0005@\u0000\u0000\u0395\u0396\u0005L\u0000\u0000\u0396\u0398\u0003"+
+		"r9\u0000\u0397\u0390\u0001\u0000\u0000\u0000\u0397\u0394\u0001\u0000\u0000"+
+		"\u0000\u0398y\u0001\u0000\u0000\u0000u{~\u0083\u0089\u0093\u0096\u009a"+
+		"\u00a1\u00a4\u00ad\u00b2\u00b6\u00b8\u00c0\u00c6\u00cd\u00d2\u00de\u00e1"+
+		"\u00e4\u00ea\u00ef\u00f1\u00f6\u00f8\u00fa\u00fd\u0103\u0107\u010a\u010d"+
+		"\u0110\u011a\u011d\u0127\u012a\u012d\u0130\u0138\u0140\u0145\u014a\u014f"+
+		"\u0157\u015e\u0166\u0175\u017a\u0181\u018b\u018e\u0194\u019d\u01a3\u01a7"+
+		"\u01ab\u01b0\u01b3\u01b9\u01be\u01c8\u01cc\u01d1\u01d5\u01e2\u01e4\u01ea"+
+		"\u01f0\u01f9\u01fe\u0202\u0206\u020b\u0213\u0218\u0222\u0227\u0240\u0245"+
+		"\u0257\u025d\u0262\u027f\u0286\u0291\u029c\u02a0\u02a2\u02a8\u02ae\u02b2"+
+		"\u02b9\u02c1\u02c4\u02cf\u02d4\u02d6\u02df\u02f1\u02f5\u02f8\u0309\u030d"+
+		"\u030f\u0318\u031c\u031e\u0329\u0333\u0336\u033f\u0342\u034a\u037e\u0387"+
+		"\u0389\u0397";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

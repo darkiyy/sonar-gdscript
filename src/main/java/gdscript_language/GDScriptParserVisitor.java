@@ -16,6 +16,24 @@ public interface GDScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProgram(GDScriptParser.ProgramContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#iconToolDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIconToolDecl(GDScriptParser.IconToolDeclContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#iconDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIconDecl(GDScriptParser.IconDeclContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#fileDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFileDeclaration(GDScriptParser.FileDeclarationContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link GDScriptParser#inheritance}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -46,11 +64,77 @@ public interface GDScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSetget(GDScriptParser.SetgetContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#onready}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOnready(GDScriptParser.OnreadyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#exportStmts}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExportStmts(GDScriptParser.ExportStmtsContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link GDScriptParser#export}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitExport(GDScriptParser.ExportContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#export_node_path}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExport_node_path(GDScriptParser.Export_node_pathContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#export_range}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExport_range(GDScriptParser.Export_rangeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#export_multiline}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExport_multiline(GDScriptParser.Export_multilineContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#export_exp_easing}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExport_exp_easing(GDScriptParser.Export_exp_easingContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#export_color_no_alpha}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExport_color_no_alpha(GDScriptParser.Export_color_no_alphaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#export_flags}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExport_flags(GDScriptParser.Export_flagsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#export_flags_2d}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExport_flags_2d(GDScriptParser.Export_flags_2dContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#export_flags_3d}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExport_flags_3d(GDScriptParser.Export_flags_3dContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#export_enum}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExport_enum(GDScriptParser.Export_enumContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link GDScriptParser#typeHint}.
 	 * @param ctx the parse tree
@@ -153,6 +237,12 @@ public interface GDScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStmtEnd(GDScriptParser.StmtEndContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#awaitStmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAwaitStmt(GDScriptParser.AwaitStmtContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link GDScriptParser#ifStmt}.
 	 * @param ctx the parse tree
@@ -269,27 +359,6 @@ public interface GDScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMinus(GDScriptParser.MinusContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code bitShift}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBitShift(GDScriptParser.BitShiftContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code comparison}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitComparison(GDScriptParser.ComparisonContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code in}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIn(GDScriptParser.InContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code bitOr}
 	 * labeled alternative in {@link GDScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -311,20 +380,6 @@ public interface GDScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSign(GDScriptParser.SignContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code arrayDecl}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayDecl(GDScriptParser.ArrayDeclContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code is}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIs(GDScriptParser.IsContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code subscription}
 	 * labeled alternative in {@link GDScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -332,33 +387,12 @@ public interface GDScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSubscription(GDScriptParser.SubscriptionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code plus}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPlus(GDScriptParser.PlusContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code call}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCall(GDScriptParser.CallContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code cast}
 	 * labeled alternative in {@link GDScriptParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitCast(GDScriptParser.CastContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code bitAnd}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBitAnd(GDScriptParser.BitAndContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code logicAnd}
 	 * labeled alternative in {@link GDScriptParser#expression}.
@@ -381,20 +415,6 @@ public interface GDScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDictDecl(GDScriptParser.DictDeclContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code bitXor}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBitXor(GDScriptParser.BitXorContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code getNode}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGetNode(GDScriptParser.GetNodeContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code attribute}
 	 * labeled alternative in {@link GDScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -409,19 +429,96 @@ public interface GDScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFactor(GDScriptParser.FactorContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code bitNot}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBitNot(GDScriptParser.BitNotContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code logicNot}
 	 * labeled alternative in {@link GDScriptParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitLogicNot(GDScriptParser.LogicNotContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code bitShift}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBitShift(GDScriptParser.BitShiftContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code comparison}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComparison(GDScriptParser.ComparisonContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code in}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIn(GDScriptParser.InContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code arrayDecl}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayDecl(GDScriptParser.ArrayDeclContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code is}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIs(GDScriptParser.IsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code plus}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlus(GDScriptParser.PlusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code call}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCall(GDScriptParser.CallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code bitAnd}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBitAnd(GDScriptParser.BitAndContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code bitXor}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBitXor(GDScriptParser.BitXorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code getNode}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGetNode(GDScriptParser.GetNodeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code uniqueNode}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUniqueNode(GDScriptParser.UniqueNodeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code bitNot}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBitNot(GDScriptParser.BitNotContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code primary}
 	 * labeled alternative in {@link GDScriptParser#expression}.
@@ -435,6 +532,12 @@ public interface GDScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLiteral(GDScriptParser.LiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#number}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumber(GDScriptParser.NumberContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link GDScriptParser#keyValue}.
 	 * @param ctx the parse tree
