@@ -30,15 +30,17 @@ public class ANTLR4Viewer {
         toParse = createFileString("/home/gott/Dokumente/test/test.txt");
         GDScriptParser parser = createParser(toParse);
         viewAntlr4Tree(parser);
+        mainPanel.add(antlrPanel);
         createTextField();
-        frame.pack();
+
+        //frame.pack();
         frame.setVisible(true);
     }
 
     private static void createWindow(){
         frame = new JFrame("ANTLR4Viewer");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(new Dimension(400, 200));
+        frame.setSize(new Dimension(1600, 800));
         frame.setLayout(new GridBagLayout());
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
@@ -58,7 +60,9 @@ public class ANTLR4Viewer {
         textArea.setRows(10);
         textArea.setColumns(10);
         splitPane.setTopComponent(textArea);
-        mainPanel.add(splitPane);
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        mainPanel.add(splitPane, c);
 
         a.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
@@ -79,12 +83,14 @@ public class ANTLR4Viewer {
                 )
                 ,tree
         );
-        viewer.setScale(1.2);
+
 
         if(antlrPanel.getComponentCount() == 1)
             antlrPanel.remove(0);
-        antlrPanel.add(viewer);
-        mainPanel.add(antlrPanel);
+
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        antlrPanel.add(viewer, c);
     }
 
     private static void updateANTLR4Tree(){
