@@ -29,6 +29,9 @@ Currently, there are 11 rules implemented:
 <li>void leading or trailing zero in floating-point numbers</li>
 <li>Write constants with CONSTANT_CASE</li>
 <li>Write hexadecimal numbers in lowercase</li>
+<li>ClassNamePascalCase</li>
+<li>FileNameSnakeCase</li>
+<li>MethodSnakeCase</li>
 </ol>
 
 I will add/repair rules if requested.
