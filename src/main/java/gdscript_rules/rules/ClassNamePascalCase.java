@@ -2,8 +2,8 @@ package gdscript_rules.rules;
 import gdscript_language.GDScriptParser;
 import gdscript_language.listener.ClassNameListener;
 import gdscript_rules.FlagLineRule;
+import gdscript_rules.GDScriptParserWalker;
 import gdscript_rules.IssuesContainer;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.rule.RuleKey;
@@ -17,11 +17,10 @@ public class ClassNamePascalCase implements FlagLineRule {
     @Override
     public void execute(SensorContext sensorContext, InputFile file, RuleKey ruleKey) {
 
-        GDScriptParser parser = FileParserCreator.createParser(file);
-        ClassNameListener listener = new ClassNameListener();
-        ParseTreeWalker walker = new ParseTreeWalker();
 
-        walker.walk(listener, parser.program());
+        GDScriptParserWalker walker = GDScriptParserWalker.getInstance();
+        walker.parseFile(file);
+        ClassNameListener listener = (ClassNameListener) walker.getListener(ClassNameListener.class);
         GDScriptParser.ClassNameContext classContext = listener.getClassName();
 
         if(classContext != null)

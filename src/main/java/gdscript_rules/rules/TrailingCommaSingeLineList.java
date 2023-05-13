@@ -3,11 +3,10 @@ package gdscript_rules.rules;
 import gdscript_language.GDScriptParser;
 import gdscript_language.listener.EnumListener;
 import gdscript_rules.FlagLineRule;
+import gdscript_rules.GDScriptParserWalker;
 import gdscript_rules.IssuesContainer;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
-import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
 
@@ -17,13 +16,10 @@ public class TrailingCommaSingeLineList implements FlagLineRule {
 
     @Override
     public void execute(SensorContext sensorContext, InputFile file, RuleKey ruleKey) {
-        GDScriptParser parser = FileParserCreator.createParser(file);
 
-        EnumListener listener = new EnumListener();
-        ParseTreeWalker walker = new ParseTreeWalker();
-        parser.addParseListener(listener);
-
-        walker.walk(listener, parser.program());
+        GDScriptParserWalker walker = GDScriptParserWalker.getInstance();
+        walker.parseFile(file);
+        EnumListener listener = (EnumListener) walker.getListener(EnumListener.class);
 
         for(GDScriptParser.EnumDeclContext enums: listener.getEnumDecl())
         {

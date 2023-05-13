@@ -3,8 +3,8 @@ package gdscript_rules.rules;
 import gdscript_language.GDScriptParser;
 import gdscript_language.listener.LiteralListener;
 import gdscript_rules.FlagLineRule;
+import gdscript_rules.GDScriptParserWalker;
 import gdscript_rules.IssuesContainer;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.rule.RuleKey;
@@ -18,11 +18,10 @@ public class LeadingTrailingFloat implements FlagLineRule {
 
     @Override
     public void execute(SensorContext sensorContext, InputFile file, RuleKey ruleKey) {
-        GDScriptParser parser = FileParserCreator.createParser(file);
-        LiteralListener listener = new LiteralListener();
-        parser.addParseListener(listener);
-        ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk(listener, parser.program());
+
+        GDScriptParserWalker walker = GDScriptParserWalker.getInstance();
+        walker.parseFile(file);
+        LiteralListener listener = (LiteralListener) walker.getListener(LiteralListener.class);
 
         List<GDScriptParser.LiteralContext> numbers = listener.getFloatNumbers();
 

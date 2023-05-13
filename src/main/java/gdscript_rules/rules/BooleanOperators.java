@@ -3,11 +3,10 @@ package gdscript_rules.rules;
 import gdscript_language.GDScriptParser;
 import gdscript_language.listener.LogicListener;
 import gdscript_rules.FlagLineRule;
+import gdscript_rules.GDScriptParserWalker;
 import gdscript_rules.IssuesContainer;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
-import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
 
@@ -21,11 +20,9 @@ public class BooleanOperators implements FlagLineRule {
     @Override
     public void execute(SensorContext sensorContext, InputFile file, RuleKey ruleKey) {
 
-        GDScriptParser parser = FileParserCreator.createParser(file);
-        LogicListener listener = new LogicListener();
-        ParseTreeWalker walker = new ParseTreeWalker();
-
-        walker.walk(listener, parser.program());
+        GDScriptParserWalker walker = GDScriptParserWalker.getInstance();
+        walker.parseFile(file);
+        LogicListener listener = (LogicListener) walker.getListener(LogicListener.class);
 
         for (GDScriptParser.LogicAndContext context: listener.getLogicAndContexts()){
             if(context.LOGIC_AND() != null){

@@ -32,16 +32,7 @@ public class MethodDeclListener extends GDScriptParserBaseListener {
     }
 
     public static int getMethodCount(InputFile file){
-        GDScriptParser parser = FileParserCreator.createParser(file);
-        MethodDeclListener listener = new MethodDeclListener();
-
-        ParseTreeWalker walker = new ParseTreeWalker();
-
-        walker.walk(listener, parser.program());
-
-        int methDeclCount = methDecl.size();
-        methDecl.clear();
-        return methDeclCount;
+        return methDecl.size();
     }
 
 }

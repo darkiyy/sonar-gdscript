@@ -3,11 +3,10 @@ package gdscript_rules.rules;
 import gdscript_language.GDScriptParser;
 import gdscript_language.listener.ConstantListener;
 import gdscript_rules.FlagLineRule;
+import gdscript_rules.GDScriptParserWalker;
 import gdscript_rules.IssuesContainer;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
-import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
 @Rule(key = ConstantUpperCase.RULE_KEY)
@@ -17,12 +16,9 @@ public class ConstantUpperCase implements FlagLineRule {
     @Override
     public void execute(SensorContext sensorContext, InputFile file, RuleKey ruleKey) {
 
-        GDScriptParser parser = FileParserCreator.createParser(file);
-        ConstantListener listener = new ConstantListener();
-
-        ParseTreeWalker walker = new ParseTreeWalker();
-
-        walker.walk(listener, parser.program());
+        GDScriptParserWalker walker = GDScriptParserWalker.getInstance();
+        walker.parseFile(file);
+        ConstantListener listener = (ConstantListener) walker.getListener(ConstantListener.class);
 
         for (GDScriptParser.ConstDeclContext context: listener.getConstDecl()){
             String constantName = context.IDENTIFIER().getText();
