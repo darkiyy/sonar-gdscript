@@ -5,7 +5,7 @@
   <groupId>org.sonarsource.plugins.example</groupId>
   <artifactId>gdscript-sonar</artifactId>
   <packaging>sonar-plugin</packaging>
-  <version>0.10.1</version>
+  <version>0.11.0</version>
 
   <name>GDScript Language Plugin</name>
   <description>Plugin which adds Support for the GDScript language</description>

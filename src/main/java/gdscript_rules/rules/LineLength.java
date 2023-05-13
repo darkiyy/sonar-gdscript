@@ -4,7 +4,6 @@ import gdscript_rules.FlagLineRule;
 import gdscript_rules.IssuesContainer;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
-import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;

@@ -22,16 +22,7 @@ public class NormalStmtListener extends GDScriptParserBaseListener {
     }
 
     public static int getStatementCount(InputFile file){
-        GDScriptParser parser = FileParserCreator.createParser(file);
-        NormalStmtListener listener = new NormalStmtListener();
-
-        ParseTreeWalker walker = new ParseTreeWalker();
-
-        walker.walk(listener, parser.program());
-
-        int x = stmts.size();
-        stmts.clear();
-        return x;
+        return stmts.size();
     }
 
 }

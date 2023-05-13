@@ -1,0 +1,16 @@
+{
+  "title": "Use PascalCase for class_names",
+  "type": "CODE_SMELL",
+  "description": "Use PascalCase for class_names",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+
+  ],
+  "defaultSeverity": "Minor",
+  "sqKey": "ClassNamePascalCase",
+  "scope": "All"
+}

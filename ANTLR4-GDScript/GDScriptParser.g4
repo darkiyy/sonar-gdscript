@@ -6,15 +6,14 @@ options {
 }
 
 program
-	: ((inheritance NEWLINE*) | className)* topLevelDecl* NEWLINE* EOF
+	: (AT 'tool' NEWLINE)? (inheritance NEWLINE)? className? topLevelDecl* NEWLINE* EOF
 	;
 
 inheritance
-	: NEWLINE* EXTENDS NEWLINE* (IDENTIFIER | STRING) ('.' IDENTIFIER)?
+	: 'extends' (IDENTIFIER | STRING) ('.' IDENTIFIER)*
 	;
-
 className
-	: NEWLINE? 'class_name' NEWLINE? IDENTIFIER (',' NEWLINE? STRING)? NEWLINE*
+	: 'class_name' IDENTIFIER (',' STRING)? NEWLINE
 	;
 
 topLevelDecl
@@ -29,16 +28,16 @@ topLevelDecl
 	;
 
 classVarDecl
-	: NEWLINE* ONREADY? export? NEWLINE* VAR NEWLINE* IDENTIFIER NEWLINE* (
-		( NEWLINE* ':' NEWLINE* typeHint)? ( NEWLINE* '=' NEWLINE* expression)?
-		| (':=' NEWLINE* expression | ':' NEWLINE* '=' NEWLINE* expression)
-	) setget? NEWLINE*
+	: AT? 'onready'? export? 'var' IDENTIFIER (
+		( ':' typeHint)? ( '=' expression)?
+		| (':=' expression)?
+	) setget? NEWLINE
 	;
 setget
 	: 'setget' IDENTIFIER? (',' IDENTIFIER)?
 	;
 export
-	: 'export' (
+	: AT? 'export' (
 		'(' (BUILTINTYPE | IDENTIFIER (',' literal)*)? ')'
 	)?
 	;
@@ -48,36 +47,38 @@ typeHint
 	;
 
 constDecl
-	: NEWLINE* 'const' NEWLINE? IDENTIFIER (NEWLINE* ':' NEWLINE* typeHint)?
-        ( NEWLINE* '=' NEWLINE* expression
-		| NEWLINE* ':=' NEWLINE* expression | ':' NEWLINE* '=' NEWLINE* expression)
-
+	: 'const' IDENTIFIER (':' typeHint)? '=' expression NEWLINE
 	;
 
 signalDecl
-	: 'signal' NEWLINE* IDENTIFIER signalParList? NEWLINE*
+	: 'signal' IDENTIFIER signalParList? NEWLINE
 	;
 signalParList
 	: '(' (IDENTIFIER (',' IDENTIFIER)*)? ')'
 	;
 
 enumDecl
-	: NEWLINE* 'enum' NEWLINE? IDENTIFIER? NEWLINE? '{' NEWLINE*(
-		IDENTIFIER ('=' expression)* (
-			',' NEWLINE* IDENTIFIER ( '=' expression)?
-		)* (',' NEWLINE*)*
-	) NEWLINE* '}' NEWLINE*
+	: 'enum' IDENTIFIER? enumList NEWLINE
+	;
+
+enumList
+	:'{' (
+		IDENTIFIER ('=' expression)? (
+			',' IDENTIFIER ( '=' expression)?
+		)* ','?
+	) '}'
 	;
 
 methodDecl
-	: NEWLINE* rpc? 'static'?  NEWLINE* 'func' NEWLINE* IDENTIFIER '(' parList? ')' (
-		NEWLINE* '->' NEWLINE* typeHint)? ':' stmtOrSuite
+	: rpc? 'static'? 'func' IDENTIFIER '(' parList? ')' (
+		'->' typeHint
+	)? ':' stmtOrSuite
 	;
 parList
-	: NEWLINE* parameter (NEWLINE* ',' NEWLINE* parameter)* NEWLINE*
+	: parameter (',' parameter)*
 	;
 parameter
-	: 'var'? NEWLINE* IDENTIFIER NEWLINE* (':' NEWLINE* typeHint)? (NEWLINE* '=' NEWLINE* expression)?
+	: 'var'? IDENTIFIER (':' typeHint)? ('=' expression)?
 	;
 rpc
 	: 'remote'
@@ -89,21 +90,21 @@ rpc
 	;
 
 constructorDecl
-	: NEWLINE? 'func' NEWLINE? IDENTIFIER '(' parList? ')' ('.' '(' argList? ')')? ':' NEWLINE stmtOrSuite PASS?
+	: 'func' IDENTIFIER '(' parList? ')' ('.' '(' argList? ')') ':' stmtOrSuite
 	;
 argList
-	: NEWLINE* expression (NEWLINE* ',' NEWLINE* expression)* NEWLINE*
+	: expression (',' expression)*
 	;
 
 innerClass
-	: NEWLINE* 'class' NEWLINE* IDENTIFIER (NEWLINE* inheritance)? ':' NEWLINE INDENT (
+	: 'class' IDENTIFIER inheritance? ':' NEWLINE INDENT (
 		inheritance NEWLINE
 	)? topLevelDecl+ DEDENT
 	;
 
 stmtOrSuite
-	: NEWLINE* stmt*
-	| NEWLINE* INDENT suite DEDENT
+	: stmt
+	| NEWLINE INDENT suite DEDENT
 	;
 suite
 	: stmt+
@@ -125,32 +126,33 @@ stmt
 	| 'pass' stmtEnd
 	;
 stmtEnd
-	: NEWLINE*
+	: NEWLINE
 	| ';'
 	;
 
 ifStmt
-	: NEWLINE* 'if' NEWLINE* OPEN_PAREN* expression CLOSE_PAREN* NEWLINE* ':' NEWLINE* stmtOrSuite (NEWLINE*
-		'elif' NEWLINE* expression ':' NEWLINE* stmtOrSuite
-	)* (NEWLINE* 'else' NEWLINE* ':' NEWLINE* stmtOrSuite)? NEWLINE*
+	: 'if' expression ':' stmtOrSuite (
+		'elif' expression ':' stmtOrSuite
+	)* ('else' ':' stmtOrSuite)?
 	;
 whileStmt
-	: NEWLINE* 'while' NEWLINE*  expression NEWLINE* ':' NEWLINE* stmtOrSuite
+	: 'while' expression ':' stmtOrSuite
 	;
 forStmt
-	: NEWLINE* 'for' NEWLINE* IDENTIFIER NEWLINE* 'in' NEWLINE* expression NEWLINE* ':' NEWLINE* stmtOrSuite
+	: 'for' IDENTIFIER 'in' expression ':' stmtOrSuite
 	;
 
 matchStmt
-	: NEWLINE* 'match' NEWLINE* expression NEWLINE* ':'  NEWLINE* INDENT matchBlock DEDENT
+	: 'match' expression ':' NEWLINE INDENT matchBlock DEDENT
 	;
 matchBlock
-	: (NEWLINE* pattern ':' NEWLINE* stmtOrSuite)+
+	: (patternList ':' stmtOrSuite)+
 	;
 patternList
-	: pattern (NEWLINE* ',' pattern)* NEWLINE*
+	: pattern (',' pattern)*
 	;
-
+// Note: you can't have a binding in a pattern list, but to not complicate the grammar more it won't
+// be restricted syntactically
 pattern
 	: literal
 	| BUILTINTYPE
@@ -159,28 +161,29 @@ pattern
 	| bindingPattern
 	| arrayPattern
 	| dictPattern
+	| expression
 	;
 bindingPattern
-	: 'var' NEWLINE* IDENTIFIER
+	: 'var' IDENTIFIER
 	;
 arrayPattern
 	: '[' (pattern (',' pattern)* '..'?)? ']'
 	;
 dictPattern
-	: NEWLINE* '{' NEWLINE* keyValuePattern? NEWLINE* (',' NEWLINE* keyValuePattern? NEWLINE*)* '..'? '}'
+	: '{' keyValuePattern? (',' keyValuePattern)* '..'? '}'
 	;
 keyValuePattern
-	: STRING NEWLINE* (':' NEWLINE* pattern)*
+	: STRING (':' pattern)?
 	;
 
 flowStmt
-	: 'continue' NEWLINE* stmtEnd
-	| 'break' NEWLINE* stmtEnd
-	| 'return' NEWLINE* expression? stmtEnd
+	: 'continue' stmtEnd
+	| 'break' stmtEnd
+	| 'return' expression? stmtEnd
 	;
 
 assignmentStmt
-	: expression NEWLINE* (
+	: expression (
 		'='
 		| '+='
 		| '-='
@@ -190,68 +193,59 @@ assignmentStmt
 		| '&='
 		| '|='
 		| '^='
-	) NEWLINE* expression stmtEnd
+	) expression stmtEnd
 	;
-
 varDeclStmt
-	:
-	    NEWLINE* VAR NEWLINE* IDENTIFIER NEWLINE* (
-        ( NEWLINE* ':' NEWLINE* typeHint)? ( NEWLINE* '=' NEWLINE* expression)?
-        | (':=' NEWLINE* expression | ':' NEWLINE* '=' NEWLINE* expression)
-    	) NEWLINE* stmtEnd
+	: 'var' IDENTIFIER (':' typeHint)? (('=' | ':=') (expression | stmt))? stmtEnd
 	;
 
 assertStmt
-	: 'assert' NEWLINE? '(' expression (',' STRING)? ')' stmtEnd
+	: 'assert' '(' expression (',' STRING)? ')' stmtEnd
 	;
 yieldStmt
-	: 'yield' NEWLINE? '(' (expression ',' expression) ')'
+	: 'yield' '(' (expression ',' expression) ')' stmtEnd
 	;
 preloadStmt
-	: 'preload' NEWLINE? '(' (STRING | CONSTANT) ')'
+	: 'preload' '(' (CONSTANT | expression) ')' stmtEnd?
 	;
 
 exprStmt
-	: NEWLINE* expression NEWLINE* stmtEnd
+	: expression stmtEnd
 	;
-
 expression
-	:
-	'true'														# primary
+	: 'true'														# primary
 	| 'false'														# primary
 	| 'null'														# primary
 	| 'self'														# primary
 	| literal														# primary
-	| '[' NEWLINE* (expression ( ',' NEWLINE* expression)* ','?)? NEWLINE* ']'					# arrayDecl
+	| '[' (expression ( ',' expression)* ','?)? ']'					# arrayDecl
 	| '{' (keyValue (',' keyValue)* ','?)? '}'						# dictDecl
 	| '(' expression ')'											# primary
 
 	| expression '[' expression ']'									# subscription
-	| expression NEWLINE* '.' NEWLINE* IDENTIFIER					# attribute
-
-	|  expression NEWLINE* '(' argList? ')'									# call
-	| '.' NEWLINE* IDENTIFIER NEWLINE* '(' argList? ')'				# call
+	| expression '.' IDENTIFIER										# attribute
+	
+	| expression '(' argList? ')'									# call
+	| '.' IDENTIFIER '(' argList? ')'								# call
 	| '$' (STRING | IDENTIFIER ('/' IDENTIFIER)*)					# getNode
 
-	| expression NEWLINE* 'is' NEWLINE* (IDENTIFIER | BUILTINTYPE)					# is
+	| expression 'is' (IDENTIFIER | BUILTINTYPE)					# is
 	| '~' expression												# bitNot
-	| ('-' | '+') NEWLINE* expression								# sign
+	| ('-' | '+') expression										# sign
 	| expression ('*' | '/' | '%') expression						# factor
-	| expression NEWLINE* '+' NEWLINE* expression					# plus
-	| expression NEWLINE* '-' NEWLINE* expression										# minus
+	| expression '+' expression										# plus
+	| expression '-' expression										# minus
 	| expression ('<<' | '>>') expression							# bitShift
 	| expression '&' expression										# bitAnd
 	| expression '^' expression										# bitXor
 	| expression '|' expression										# bitOr
-	| expression NEWLINE? ('<' | '>' | '<=' | '>=' | '==' | '!=') NEWLINE? expression	# comparison
+	| expression ('<' | '>' | '<=' | '>=' | '==' | '!=') expression	# comparison
 	| expression 'in' expression									# in
 	| ('!' | 'not') expression										# logicNot
-	| expression NEWLINE* ('and' | '&&') NEWLINE* expression							# logicAnd
-	| expression NEWLINE* ('or' | '||') NEWLINE* expression							# logicOr
+	| expression ('and' | '&&') expression							# logicAnd
+	| expression ('or' | '||') expression							# logicOr
 	| expression 'if' expression 'else' expression					# ternacyExpr
 	| expression 'as' typeHint										# cast
-	| preloadStmt								                    # call
-	| pattern								                        # primary
 	;
 
 literal
@@ -267,4 +261,3 @@ keyValue
 	: expression ':' expression
 	| IDENTIFIER '=' expression
 	;
-
