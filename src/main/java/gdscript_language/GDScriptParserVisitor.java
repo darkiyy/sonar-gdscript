@@ -322,6 +322,12 @@ public interface GDScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignmentStmt(GDScriptParser.AssignmentStmtContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link GDScriptParser#equalsAssignmentStmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEqualsAssignmentStmt(GDScriptParser.EqualsAssignmentStmtContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link GDScriptParser#varDeclStmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

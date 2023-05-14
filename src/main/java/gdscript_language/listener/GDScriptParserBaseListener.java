@@ -641,6 +641,18 @@ public class GDScriptParserBaseListener implements GDScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterEqualsAssignmentStmt(GDScriptParser.EqualsAssignmentStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEqualsAssignmentStmt(GDScriptParser.EqualsAssignmentStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterVarDeclStmt(GDScriptParser.VarDeclStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}

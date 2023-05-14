@@ -8,7 +8,7 @@ options {
 program
 	: iconToolDecl? fileDeclaration? topLevelDecl* NEWLINE* EOF
 	;
-
+	
 iconToolDecl
 	:
 	(AT 'tool' NEWLINE*)? iconDecl
@@ -46,15 +46,15 @@ topLevelDecl
 
 classVarDecl
 	: onready? exportStmts? 'var' IDENTIFIER (
-		( ':' typeHint)? ( '=' (expression | stmt))?
-		| (':=' (expression | stmt))?
+		( ':' typeHint)? 
+		( equalsAssignmentStmt (expression | stmt))?
 	) setget? NEWLINE
 	;
-
+	
 setget
 	: 'setget' IDENTIFIER? (',' IDENTIFIER)?
-	;
-
+	;	
+	
 onready
 	: AT? 'onready'? NEWLINE?
 	;
@@ -75,10 +75,10 @@ export
 	)? NEWLINE?
 	;
 
-// Each export type needs specific const parameter, but well argList works
+// Each export type needs specific const parameter, but well argList works	
 export_node_path
 	: AT 'export_node_path' '(' argList ')' NEWLINE?
-	;
+	;	
 
 export_range
 	: AT 'export_range' '(' argList ')' NEWLINE?
@@ -93,12 +93,12 @@ export_exp_easing
 	;
 
 export_color_no_alpha
-	: AT 'export_color_no_alpha' NEWLINE? //Note: There should always be a Variable with the type Color, that wont check for that
+	: AT 'export_color_no_alpha' NEWLINE? //Note: There should always be a Variable with the type Color, that wont check for that 
 	;
 export_flags
 	: AT 'export_flags' '(' argList ')' NEWLINE?
 	;
-
+	
 export_flags_2d
 	: AT ('export_flags_2d_physics' | 'export_flags_2d_render' | 'export_flags_2d_navigation') NEWLINE*
 	;
@@ -114,17 +114,18 @@ export_enum
 typeHint
 	: BUILTINTYPE
 	| IDENTIFIER
+	| 'Array' ('[' typeHint ']')?
 	;
 
 constDecl
-	: 'const' IDENTIFIER (':' typeHint)? ('=' | ':=') (expression | stmt) NEWLINE
+	: 'const' IDENTIFIER (':' typeHint)? equalsAssignmentStmt (expression | stmt) NEWLINE
 	;
 
 signalDecl
 	: 'signal' IDENTIFIER signalParList? NEWLINE
 	;
 signalParList
-	: '(' (IDENTIFIER (',' IDENTIFIER)*)? ')'
+	: '(' (','? IDENTIFIER (':' typeHint)?)* ')'
 	;
 
 enumDecl
@@ -148,7 +149,7 @@ parList
 	: parameter (',' parameter)*
 	;
 parameter
-	: 'var'? IDENTIFIER (':' typeHint)? ('=' expression)?
+	: 'var'? IDENTIFIER (':' typeHint)? (equalsAssignmentStmt expression)?
 	;
 rpc
 	: 'remote'
@@ -261,7 +262,7 @@ flowStmt
 
 assignmentStmt
 	: expression (
-		'='
+		equalsAssignmentStmt
 		| '+='
 		| '-='
 		| '*='
@@ -272,8 +273,15 @@ assignmentStmt
 		| '^='
 	) expression stmtEnd
 	;
+
+equalsAssignmentStmt
+	: ASSIGN
+	| COLON_ASSIGN
+	| COLON_ASSIGN_WHITESPACE
+	;
+	
 varDeclStmt
-	: 'var' IDENTIFIER (':' typeHint)? (('=' | ':=') (expression | stmt))? stmtEnd
+	: 'var' IDENTIFIER (':' typeHint)? (equalsAssignmentStmt (expression | stmt | methodDecl))? stmtEnd
 	;
 
 assertStmt
@@ -289,11 +297,13 @@ preloadStmt
 exprStmt
 	: expression stmtEnd
 	;
+	
 expression
 	: 'true'														# primary
 	| 'false'														# primary
 	| 'null'														# primary
 	| 'self'														# primary
+	| 'Array' '(' argList? ')'												# call
 	| literal														# primary
 	| '[' (expression ( ',' expression)* ','?)? ']'					# arrayDecl
 	| '{' (keyValue (',' keyValue)* ','?)? '}'						# dictDecl
@@ -301,12 +311,12 @@ expression
 
 	| expression '[' expression ']'									# subscription
 	| expression '.' IDENTIFIER										# attribute
-
+	
 	| expression '(' argList? ')'									# call
 	| '.' IDENTIFIER '(' argList? ')'								# call
 	| '$' (STRING | IDENTIFIER ('/' IDENTIFIER)*)					# getNode
 	| '%' (STRING | IDENTIFIER ('/' IDENTIFIER)*)					# uniqueNode
-
+	
 	| expression 'is' (IDENTIFIER | BUILTINTYPE)					# is
 	| '~' expression												# bitNot
 	| ('-' | '+') expression										# sign
@@ -342,7 +352,7 @@ number
 	: INTEGER
 	| FLOAT
 	;
-
+	
 keyValue
 	: expression ':' expression
 	| IDENTIFIER '=' expression

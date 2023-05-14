@@ -381,6 +381,13 @@ public class GDScriptParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> im
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitEqualsAssignmentStmt(GDScriptParser.EqualsAssignmentStmtContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitVarDeclStmt(GDScriptParser.VarDeclStmtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

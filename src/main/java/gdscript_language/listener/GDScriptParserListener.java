@@ -528,6 +528,16 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 */
 	void exitAssignmentStmt(GDScriptParser.AssignmentStmtContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#equalsAssignmentStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterEqualsAssignmentStmt(GDScriptParser.EqualsAssignmentStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#equalsAssignmentStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitEqualsAssignmentStmt(GDScriptParser.EqualsAssignmentStmtContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GDScriptParser#varDeclStmt}.
 	 * @param ctx the parse tree
 	 */

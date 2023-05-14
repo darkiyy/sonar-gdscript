@@ -70,6 +70,7 @@ AWAIT: 'await';
 RPC: AT 'rpc';
 ICON: AT 'icon';
 WARNING_IGNORE: AT 'warning_ignore';
+ARRAY: 'Array';
 NEWLINE
 	: (
 		{atStartOfInput()}? SPACE
@@ -123,6 +124,15 @@ CONSTANT // TODO: really?
 	| 'NAN'
 	;
 
+
+MULTI_LINE_STRING
+	  : '"""' MULTI_LINE_STRING_CONTENT? '"""'
+	  ;
+
+fragment MULTI_LINE_STRING_CONTENT
+	  : (~'"' | '""' | '"')*
+	  ;
+
 STRING
 	: '"' (ESC | ~["\\])* '"'
 	| '\'' (ESC | ~['\\])* '\''
@@ -136,13 +146,7 @@ STRINGNAME
 	: '&' STRING
 	;
 
-MULTI_LINE_STRING
-  : '"""' MULTI_LINE_STRING_CONTENT? '"""'
-  ;
 
-fragment MULTI_LINE_STRING_CONTENT
-  : (~'"' | '""' | ~'"' MULTI_LINE_STRING_CONTENT)*
-  ;
 
 NODEPATH
 	: '^' STRING
@@ -153,7 +157,7 @@ INTEGER
 	| DEC+
 	| '0' [bB] [01]+
 	;
-
+	
 fragment DEC
 	: [0-9]
 	;
@@ -170,6 +174,7 @@ COMMA: ',';
 COLON: ':';
 ASSIGN: '=';
 COLON_ASSIGN: ':=';
+COLON_ASSIGN_WHITESPACE: ': =';
 ADD_ASSIGN: '+=';
 MINUS_ASSIGN: '-=';
 MUL_ASSIGN: '*=';
