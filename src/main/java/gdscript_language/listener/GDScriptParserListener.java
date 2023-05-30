@@ -18,6 +18,36 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 */
 	void exitProgram(GDScriptParser.ProgramContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#iconToolDecl}.
+	 * @param ctx the parse tree
+	 */
+	void enterIconToolDecl(GDScriptParser.IconToolDeclContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#iconToolDecl}.
+	 * @param ctx the parse tree
+	 */
+	void exitIconToolDecl(GDScriptParser.IconToolDeclContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#iconDecl}.
+	 * @param ctx the parse tree
+	 */
+	void enterIconDecl(GDScriptParser.IconDeclContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#iconDecl}.
+	 * @param ctx the parse tree
+	 */
+	void exitIconDecl(GDScriptParser.IconDeclContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#fileDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterFileDeclaration(GDScriptParser.FileDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#fileDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitFileDeclaration(GDScriptParser.FileDeclarationContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GDScriptParser#inheritance}.
 	 * @param ctx the parse tree
 	 */
@@ -68,6 +98,26 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 */
 	void exitSetget(GDScriptParser.SetgetContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#onready}.
+	 * @param ctx the parse tree
+	 */
+	void enterOnready(GDScriptParser.OnreadyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#onready}.
+	 * @param ctx the parse tree
+	 */
+	void exitOnready(GDScriptParser.OnreadyContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#exportStmts}.
+	 * @param ctx the parse tree
+	 */
+	void enterExportStmts(GDScriptParser.ExportStmtsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#exportStmts}.
+	 * @param ctx the parse tree
+	 */
+	void exitExportStmts(GDScriptParser.ExportStmtsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GDScriptParser#export}.
 	 * @param ctx the parse tree
 	 */
@@ -77,6 +127,96 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExport(GDScriptParser.ExportContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#export_node_path}.
+	 * @param ctx the parse tree
+	 */
+	void enterExport_node_path(GDScriptParser.Export_node_pathContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#export_node_path}.
+	 * @param ctx the parse tree
+	 */
+	void exitExport_node_path(GDScriptParser.Export_node_pathContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#export_range}.
+	 * @param ctx the parse tree
+	 */
+	void enterExport_range(GDScriptParser.Export_rangeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#export_range}.
+	 * @param ctx the parse tree
+	 */
+	void exitExport_range(GDScriptParser.Export_rangeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#export_multiline}.
+	 * @param ctx the parse tree
+	 */
+	void enterExport_multiline(GDScriptParser.Export_multilineContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#export_multiline}.
+	 * @param ctx the parse tree
+	 */
+	void exitExport_multiline(GDScriptParser.Export_multilineContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#export_exp_easing}.
+	 * @param ctx the parse tree
+	 */
+	void enterExport_exp_easing(GDScriptParser.Export_exp_easingContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#export_exp_easing}.
+	 * @param ctx the parse tree
+	 */
+	void exitExport_exp_easing(GDScriptParser.Export_exp_easingContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#export_color_no_alpha}.
+	 * @param ctx the parse tree
+	 */
+	void enterExport_color_no_alpha(GDScriptParser.Export_color_no_alphaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#export_color_no_alpha}.
+	 * @param ctx the parse tree
+	 */
+	void exitExport_color_no_alpha(GDScriptParser.Export_color_no_alphaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#export_flags}.
+	 * @param ctx the parse tree
+	 */
+	void enterExport_flags(GDScriptParser.Export_flagsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#export_flags}.
+	 * @param ctx the parse tree
+	 */
+	void exitExport_flags(GDScriptParser.Export_flagsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#export_flags_2d}.
+	 * @param ctx the parse tree
+	 */
+	void enterExport_flags_2d(GDScriptParser.Export_flags_2dContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#export_flags_2d}.
+	 * @param ctx the parse tree
+	 */
+	void exitExport_flags_2d(GDScriptParser.Export_flags_2dContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#export_flags_3d}.
+	 * @param ctx the parse tree
+	 */
+	void enterExport_flags_3d(GDScriptParser.Export_flags_3dContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#export_flags_3d}.
+	 * @param ctx the parse tree
+	 */
+	void exitExport_flags_3d(GDScriptParser.Export_flags_3dContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#export_enum}.
+	 * @param ctx the parse tree
+	 */
+	void enterExport_enum(GDScriptParser.Export_enumContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#export_enum}.
+	 * @param ctx the parse tree
+	 */
+	void exitExport_enum(GDScriptParser.Export_enumContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GDScriptParser#typeHint}.
 	 * @param ctx the parse tree
@@ -248,6 +388,16 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 */
 	void exitStmtEnd(GDScriptParser.StmtEndContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#awaitStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterAwaitStmt(GDScriptParser.AwaitStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#awaitStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitAwaitStmt(GDScriptParser.AwaitStmtContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GDScriptParser#ifStmt}.
 	 * @param ctx the parse tree
 	 */
@@ -378,6 +528,16 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 */
 	void exitAssignmentStmt(GDScriptParser.AssignmentStmtContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#equalsAssignmentStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterEqualsAssignmentStmt(GDScriptParser.EqualsAssignmentStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#equalsAssignmentStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitEqualsAssignmentStmt(GDScriptParser.EqualsAssignmentStmtContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GDScriptParser#varDeclStmt}.
 	 * @param ctx the parse tree
 	 */
@@ -440,42 +600,6 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 */
 	void exitMinus(GDScriptParser.MinusContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code bitShift}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterBitShift(GDScriptParser.BitShiftContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code bitShift}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitBitShift(GDScriptParser.BitShiftContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code comparison}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterComparison(GDScriptParser.ComparisonContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code comparison}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitComparison(GDScriptParser.ComparisonContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code in}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterIn(GDScriptParser.InContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code in}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitIn(GDScriptParser.InContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code bitOr}
 	 * labeled alternative in {@link GDScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -512,30 +636,6 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 */
 	void exitSign(GDScriptParser.SignContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code arrayDecl}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterArrayDecl(GDScriptParser.ArrayDeclContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code arrayDecl}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitArrayDecl(GDScriptParser.ArrayDeclContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code is}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterIs(GDScriptParser.IsContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code is}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitIs(GDScriptParser.IsContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code subscription}
 	 * labeled alternative in {@link GDScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -548,30 +648,6 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 */
 	void exitSubscription(GDScriptParser.SubscriptionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code plus}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterPlus(GDScriptParser.PlusContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code plus}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitPlus(GDScriptParser.PlusContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code call}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterCall(GDScriptParser.CallContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code call}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitCall(GDScriptParser.CallContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code cast}
 	 * labeled alternative in {@link GDScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -583,18 +659,6 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCast(GDScriptParser.CastContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code bitAnd}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterBitAnd(GDScriptParser.BitAndContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code bitAnd}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitBitAnd(GDScriptParser.BitAndContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code logicAnd}
 	 * labeled alternative in {@link GDScriptParser#expression}.
@@ -632,30 +696,6 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 */
 	void exitDictDecl(GDScriptParser.DictDeclContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code bitXor}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterBitXor(GDScriptParser.BitXorContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code bitXor}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitBitXor(GDScriptParser.BitXorContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code getNode}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterGetNode(GDScriptParser.GetNodeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code getNode}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitGetNode(GDScriptParser.GetNodeContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code attribute}
 	 * labeled alternative in {@link GDScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -680,18 +720,6 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 */
 	void exitFactor(GDScriptParser.FactorContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code bitNot}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterBitNot(GDScriptParser.BitNotContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code bitNot}
-	 * labeled alternative in {@link GDScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitBitNot(GDScriptParser.BitNotContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code logicNot}
 	 * labeled alternative in {@link GDScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -703,6 +731,150 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLogicNot(GDScriptParser.LogicNotContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code bitShift}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBitShift(GDScriptParser.BitShiftContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code bitShift}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBitShift(GDScriptParser.BitShiftContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code comparison}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterComparison(GDScriptParser.ComparisonContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code comparison}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitComparison(GDScriptParser.ComparisonContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code in}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterIn(GDScriptParser.InContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code in}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitIn(GDScriptParser.InContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code arrayDecl}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayDecl(GDScriptParser.ArrayDeclContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arrayDecl}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayDecl(GDScriptParser.ArrayDeclContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code is}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterIs(GDScriptParser.IsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code is}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitIs(GDScriptParser.IsContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code plus}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPlus(GDScriptParser.PlusContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code plus}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPlus(GDScriptParser.PlusContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code call}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterCall(GDScriptParser.CallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code call}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitCall(GDScriptParser.CallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code bitAnd}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBitAnd(GDScriptParser.BitAndContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code bitAnd}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBitAnd(GDScriptParser.BitAndContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code bitXor}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBitXor(GDScriptParser.BitXorContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code bitXor}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBitXor(GDScriptParser.BitXorContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code getNode}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterGetNode(GDScriptParser.GetNodeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code getNode}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitGetNode(GDScriptParser.GetNodeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code uniqueNode}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterUniqueNode(GDScriptParser.UniqueNodeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code uniqueNode}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitUniqueNode(GDScriptParser.UniqueNodeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code bitNot}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBitNot(GDScriptParser.BitNotContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code bitNot}
+	 * labeled alternative in {@link GDScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBitNot(GDScriptParser.BitNotContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code primary}
 	 * labeled alternative in {@link GDScriptParser#expression}.
@@ -725,6 +897,16 @@ public interface GDScriptParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLiteral(GDScriptParser.LiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GDScriptParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumber(GDScriptParser.NumberContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GDScriptParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumber(GDScriptParser.NumberContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GDScriptParser#keyValue}.
 	 * @param ctx the parse tree

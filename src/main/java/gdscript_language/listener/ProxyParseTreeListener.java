@@ -3,7 +3,7 @@ package gdscript_language.listener;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
+
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;

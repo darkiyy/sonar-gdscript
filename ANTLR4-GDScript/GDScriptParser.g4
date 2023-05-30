@@ -6,14 +6,30 @@ options {
 }
 
 program
-	: (AT 'tool' NEWLINE)? (inheritance NEWLINE)? className? topLevelDecl* NEWLINE* EOF
+	: iconToolDecl? fileDeclaration? topLevelDecl* NEWLINE* EOF
+	;
+	
+iconToolDecl
+	:
+	(AT 'tool' NEWLINE*)? iconDecl
+	| iconDecl? (AT 'tool' NEWLINE*)
 	;
 
+iconDecl
+	:
+	ICON '(' STRING ')' NEWLINE*
+	;
+
+fileDeclaration
+    : className inheritance?
+    | inheritance className?
+    ;
+
 inheritance
-	: 'extends' (IDENTIFIER | STRING) ('.' IDENTIFIER)*
+	: 'extends' (IDENTIFIER | STRING) ('.' IDENTIFIER)* NEWLINE*
 	;
 className
-	: 'class_name' IDENTIFIER (',' STRING)? NEWLINE
+	: 'class_name' IDENTIFIER (',' STRING)? NEWLINE*
 	;
 
 topLevelDecl
@@ -25,36 +41,91 @@ topLevelDecl
 	| constructorDecl
 	| innerClass
 	| 'tool'
+	| stmt
 	;
 
 classVarDecl
-	: AT? 'onready'? export? 'var' IDENTIFIER (
-		( ':' typeHint)? ( '=' expression)?
-		| (':=' expression)?
+	: onready? exportStmts? 'var' IDENTIFIER (
+		( ':' typeHint)? 
+		( equalsAssignmentStmt (expression | stmt))?
 	) setget? NEWLINE
 	;
+	
 setget
 	: 'setget' IDENTIFIER? (',' IDENTIFIER)?
+	;	
+	
+onready
+	: AT? 'onready'? NEWLINE?
+	;
+
+exportStmts
+	: export
+	| export_node_path
+	| export_range
+	| export_multiline
+	| export_color_no_alpha
+	| export_flags
+	| export_flags_2d
+	| export_flags_3d
 	;
 export
 	: AT? 'export' (
 		'(' (BUILTINTYPE | IDENTIFIER (',' literal)*)? ')'
-	)?
+	)? NEWLINE?
 	;
+
+// Each export type needs specific const parameter, but well argList works	
+export_node_path
+	: AT 'export_node_path' '(' argList ')' NEWLINE?
+	;	
+
+export_range
+	: AT 'export_range' '(' argList ')' NEWLINE?
+	;
+
+export_multiline
+	: AT 'export_multiline' NEWLINE?
+	;
+
+export_exp_easing
+	: AT 'export_exp_easing' NEWLINE?
+	;
+
+export_color_no_alpha
+	: AT 'export_color_no_alpha' NEWLINE? //Note: There should always be a Variable with the type Color, that wont check for that 
+	;
+export_flags
+	: AT 'export_flags' '(' argList ')' NEWLINE?
+	;
+	
+export_flags_2d
+	: AT ('export_flags_2d_physics' | 'export_flags_2d_render' | 'export_flags_2d_navigation') NEWLINE*
+	;
+
+export_flags_3d
+	: AT ('export_flags_3d_physics' | 'export_flags_3d_render' | 'export_flags_3d_navigation') NEWLINE*
+	;
+
+export_enum
+	: AT 'export_enum' '(' argList ')'
+	;
+
 typeHint
 	: BUILTINTYPE
 	| IDENTIFIER
+	| 'Array' ('[' typeHint ']')?
 	;
 
 constDecl
-	: 'const' IDENTIFIER (':' typeHint)? '=' expression NEWLINE
+	: 'const' IDENTIFIER (':' typeHint)? equalsAssignmentStmt (expression | stmt) NEWLINE
 	;
 
 signalDecl
 	: 'signal' IDENTIFIER signalParList? NEWLINE
 	;
 signalParList
-	: '(' (IDENTIFIER (',' IDENTIFIER)*)? ')'
+	: '(' (','? IDENTIFIER (':' typeHint)?)* ')'
 	;
 
 enumDecl
@@ -78,7 +149,7 @@ parList
 	: parameter (',' parameter)*
 	;
 parameter
-	: 'var'? IDENTIFIER (':' typeHint)? ('=' expression)?
+	: 'var'? IDENTIFIER (':' typeHint)? (equalsAssignmentStmt expression)?
 	;
 rpc
 	: 'remote'
@@ -87,13 +158,14 @@ rpc
 	| 'remotesync'
 	| 'mastersync'
 	| 'puppetsync'
+	| (RPC '(' STRING ')' NEWLINE?)
 	;
 
 constructorDecl
 	: 'func' IDENTIFIER '(' parList? ')' ('.' '(' argList? ')') ':' stmtOrSuite
 	;
 argList
-	: expression (',' expression)*
+	: (expression | stmt) (',' (expression | stmt))* ','? // There are situations where a additional comma at the ends works, like Input.get_vector()
 	;
 
 innerClass
@@ -122,18 +194,24 @@ stmt
 	| assertStmt
 	| yieldStmt
 	| preloadStmt
+	| awaitStmt
 	| 'breakpoint' stmtEnd
 	| 'pass' stmtEnd
+	| WARNING_IGNORE '(' STRING ( ',' STRING )* ')' stmtEnd
 	;
 stmtEnd
 	: NEWLINE
 	| ';'
 	;
 
+awaitStmt
+	: 'await' stmt
+	;
+
 ifStmt
 	: 'if' expression ':' stmtOrSuite (
 		'elif' expression ':' stmtOrSuite
-	)* ('else' ':' stmtOrSuite)?
+	)* ('else' ':' stmtOrSuite)? NEWLINE*
 	;
 whileStmt
 	: 'while' expression ':' stmtOrSuite
@@ -184,7 +262,7 @@ flowStmt
 
 assignmentStmt
 	: expression (
-		'='
+		equalsAssignmentStmt
 		| '+='
 		| '-='
 		| '*='
@@ -195,8 +273,15 @@ assignmentStmt
 		| '^='
 	) expression stmtEnd
 	;
+
+equalsAssignmentStmt
+	: ASSIGN
+	| COLON_ASSIGN
+	| COLON_ASSIGN_WHITESPACE
+	;
+	
 varDeclStmt
-	: 'var' IDENTIFIER (':' typeHint)? (('=' | ':=') (expression | stmt))? stmtEnd
+	: 'var' IDENTIFIER (':' typeHint)? (equalsAssignmentStmt (expression | stmt | methodDecl))? stmtEnd
 	;
 
 assertStmt
@@ -206,17 +291,19 @@ yieldStmt
 	: 'yield' '(' (expression ',' expression) ')' stmtEnd
 	;
 preloadStmt
-	: 'preload' '(' (CONSTANT | expression) ')' stmtEnd?
+	: 'preload' '(' (CONSTANT | expression) ')' expression? stmtEnd?
 	;
 
 exprStmt
 	: expression stmtEnd
 	;
+	
 expression
 	: 'true'														# primary
 	| 'false'														# primary
 	| 'null'														# primary
 	| 'self'														# primary
+	| 'Array' '(' argList? ')'												# call
 	| literal														# primary
 	| '[' (expression ( ',' expression)* ','?)? ']'					# arrayDecl
 	| '{' (keyValue (',' keyValue)* ','?)? '}'						# dictDecl
@@ -228,7 +315,8 @@ expression
 	| expression '(' argList? ')'									# call
 	| '.' IDENTIFIER '(' argList? ')'								# call
 	| '$' (STRING | IDENTIFIER ('/' IDENTIFIER)*)					# getNode
-
+	| '%' (STRING | IDENTIFIER ('/' IDENTIFIER)*)					# uniqueNode
+	
 	| expression 'is' (IDENTIFIER | BUILTINTYPE)					# is
 	| '~' expression												# bitNot
 	| ('-' | '+') expression										# sign
@@ -250,6 +338,9 @@ expression
 
 literal
 	: STRING
+	| MULTI_LINE_STRING
+	| STRINGNAME
+	| NODEPATH
 	| INTEGER
 	| FLOAT
 	| IDENTIFIER
@@ -257,6 +348,11 @@ literal
 	| CONSTANT
 	;
 
+number
+	: INTEGER
+	| FLOAT
+	;
+	
 keyValue
 	: expression ':' expression
 	| IDENTIFIER '=' expression
