@@ -2,8 +2,8 @@
 GDScript SonarQube Plugin
 ==========
 
-A basic GDScript Plugin for SonarQube 9.x
-Tested with Godot 3.
+A basic GDScript Plugin for SonarQube  10.x (started programming for 9.x)
+Tested with GDScript 4, should be compatible with Godot 3, but I am currently not testing GDScript 3.
 
 The plugin isn't nearly finished. It is terrible in many ways.
 
